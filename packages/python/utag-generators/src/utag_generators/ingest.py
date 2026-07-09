@@ -39,6 +39,8 @@ def ingest_prompt_yaml(text: str, source: str = "<inline>") -> ModuleSpec:
 def ingest_json_record(text: str, type_name: str, source: str = "<inline>") -> ModuleSpec:
     """Infer a TypeSpec from a flat JSON example (KB records)."""
     obj: dict[str, Any] = json.loads(text)
+    if not isinstance(obj, dict):
+        raise ValueError(f"JSON record must be an object, got {type(obj).__name__}")
     fields = []
     for k, v in obj.items():
         kind = (ScalarKind.integer if isinstance(v, bool) is False and isinstance(v, int)
