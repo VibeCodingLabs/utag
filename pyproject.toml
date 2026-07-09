@@ -1,9 +1,9 @@
 [project]
 name = "utag"
-version = "2.0.0"
+version = "2.3.0"
 description = "Universal Typed Artifact Generator — provider-agnostic agent harness"
 requires-python = ">=3.12"
-dependencies = ["utag-core", "utag-generators", "utag-cli"]
+dependencies = ["utag-core", "utag-generators", "utag-cli", "utag-worker"]
 
 [tool.uv.workspace]
 members = ["packages/python/*"]
@@ -12,6 +12,7 @@ members = ["packages/python/*"]
 utag-core = { workspace = true }
 utag-generators = { workspace = true }
 utag-cli = { workspace = true }
+utag-worker = { workspace = true }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

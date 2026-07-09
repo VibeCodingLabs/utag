@@ -7,7 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-07-09
+
+### Added
+- GitHub App adapter: HMAC-SHA256-verified webhook (`POST /v1/integrations/github/webhook`); `/utag generate <target> <path>` comment command; control-plane fetches the source file with an App installation token.
+- PR delivery on job success (async): git data API (blobs -> tree -> commit -> ref -> pull request); PR body embeds every ValidationReport as collapsible review evidence; PR link commented back on the triggering issue; `pr_opened`/`delivery_failed` job events.
+- Job.Metadata field threaded through memory + Postgres stores and the API.
+- E2E against a fake GitHub API server: bad-signature rejection + the full webhook->job->worker->PR->comment loop.
+
+## [2.2.0] - 2026-07-09
+
+### Added
+- control-plane: Go `serve` daemon — job API (`POST /v1/jobs`, claim/complete, artifacts, SSE events), bearer auth, rate limiting, trace-id structured JSON logs, graceful shutdown.
+- stores: memory (dev) + Postgres (`FOR UPDATE SKIP LOCKED` queue); race-tested with concurrent workers.
+- utag-worker: stdlib-HTTP Python worker consuming the job API through existing registries.
+- Stage 0: GitHub Actions CI (pytest + go vet/build + release gate + PG service), goreleaser multi-arch config, committed `uv.lock`, key-gated live-provider smoke test.
+
 ## [2.1.0] - 2026-07-09
+
+### Added
+- go-harness target: cobra+viper single-struct Settings, twelve-factor precedence, go:embed control-plane; go-source validator; real-pinned cobra v1.10.2 / viper v1.21.0 / mapstructure v2.5.0.
 
 ### Security
 - Fixed a path traversal vulnerability in `utag_cli` output path generation.

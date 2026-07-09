@@ -66,3 +66,13 @@ files = emit_generator(spec)   # new generator module + its unit test, both sour
 ```
 
 `GeneratorSpec` is itself a strict Pydantic model — any backend can produce it through the repair loop: the harness mints its own tools.
+
+## GitHub App (autonomous DevOps surface)
+
+Comment on any issue/PR in an installed repo:
+
+```
+/utag generate pydantic-models prompts/service.prompt.yaml
+```
+
+Control-plane verifies the webhook (HMAC-SHA256), fetches the file with an installation token, queues a job; a worker generates + validates; the control-plane opens a PR containing the artifacts under `utag/<target>/` — with every ValidationReport embedded in the PR body — and comments the link back. Config (env): `UTAG_GITHUB_WEBHOOK_SECRET`, `UTAG_GITHUB_APP_ID`, `UTAG_GITHUB_PRIVATE_KEY_FILE`, `UTAG_GITHUB_API_BASE` (GHE-ready). App permissions needed: Contents RW, Pull requests RW, Issues RW; subscribe to Issue comment events.
