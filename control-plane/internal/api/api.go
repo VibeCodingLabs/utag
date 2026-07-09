@@ -3,6 +3,7 @@
 package api
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -10,12 +11,14 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/google/uuid"
 	"golang.org/x/time/rate"
 
 	gh "utag/control-plane/internal/github"
+	slk "utag/control-plane/internal/slack"
 	"utag/control-plane/internal/store"
 )
 
@@ -24,8 +27,10 @@ type Server struct {
 	Token         string // bearer; empty = dev mode (logged loudly)
 	Log           *slog.Logger
 	limiters      *rate.Limiter
-	WebhookSecret string        // GitHub App webhook secret ("" = adapter off)
-	GitHub        *gh.Deliverer // nil = delivery off
+	WebhookSecret      string        // GitHub App webhook secret ("" = adapter off)
+	GitHub             *gh.Deliverer // nil = delivery off
+	SlackSigningSecret string        // "" = slack adapter off
+	InstallationID     int64         // default GitHub App installation (slack-initiated jobs)
 }
 
 type createJobReq struct {
@@ -61,6 +66,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /v1/artifacts/{id}", s.auth(s.getArtifact))
 	mux.HandleFunc("POST /v1/worker/claim", s.auth(s.claim))
 	mux.HandleFunc("POST /v1/integrations/github/webhook", s.githubWebhook) // HMAC-authed, not bearer
+	mux.HandleFunc("POST /v1/integrations/slack/command", s.slackCommand)    // Slack-signature-authed
 	mux.HandleFunc("POST /v1/jobs/{id}/complete", s.auth(s.complete))
 	return s.trace(mux)
 }
@@ -168,11 +174,9 @@ func (s *Server) complete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	_ = s.Store.AppendEvent(r.Context(), &store.Event{JobID: id, Type: string(status), Payload: "{}"})
-	if s.GitHub != nil && status == store.StatusSucceeded {
-		if job, err := s.Store.GetJob(r.Context(), id); err == nil && job.Metadata != "" {
-			arts, _ := s.Store.Artifacts(r.Context(), id)
-			go s.deliverGitHub(job, arts) // async; outcome recorded as job events
-		}
+	if job, err := s.Store.GetJob(r.Context(), id); err == nil && job.Metadata != "" {
+		arts, _ := s.Store.Artifacts(r.Context(), id)
+		go s.deliver(job, arts) // async; outcome recorded as job events
 	}
 	writeJSON(w, http.StatusOK, map[string]string{"status": string(status)})
 }
@@ -251,19 +255,121 @@ func notFoundOr500(w http.ResponseWriter, err error) {
 	httpErr(w, http.StatusInternalServerError, err)
 }
 
-func (s *Server) deliverGitHub(job *store.Job, arts []store.Artifact) {
+func (s *Server) deliver(job *store.Job, arts []store.Artifact) {
 	ctx := context.Background()
-	url, err := s.GitHub.Deliver(job, arts)
+	var meta gh.JobMeta
+	_ = json.Unmarshal([]byte(job.Metadata), &meta)
+	prURL := ""
+	if s.GitHub != nil && meta.Repo != "" && job.Status == store.StatusSucceeded {
+		url, err := s.GitHub.Deliver(job, arts)
+		if err != nil {
+			s.Log.Error("github-deliver", "job", job.ID, "err", err.Error())
+			_ = s.Store.AppendEvent(ctx, &store.Event{JobID: job.ID, Type: "delivery_failed",
+				Payload: fmt.Sprintf("{\"error\":%q}", err.Error())})
+		} else {
+			prURL = url
+			s.Log.Info("github-deliver", "job", job.ID, "pr", url)
+			_ = s.Store.AppendEvent(ctx, &store.Event{JobID: job.ID, Type: "pr_opened",
+				Payload: fmt.Sprintf("{\"url\":%q}", url)})
+		}
+	}
+	if meta.SlackResponseURL != "" {
+		text := fmt.Sprintf("utag job `%s` (%s): *%s*", job.ID, job.Target, job.Status)
+		if job.Error != "" {
+			text += " — " + job.Error
+		}
+		if prURL != "" {
+			text += " — PR: " + prURL
+		}
+		if err := postSlack(meta.SlackResponseURL, text); err != nil {
+			s.Log.Error("slack-notify", "job", job.ID, "err", err.Error())
+		} else {
+			_ = s.Store.AppendEvent(ctx, &store.Event{JobID: job.ID, Type: "slack_notified", Payload: "{}"})
+		}
+	}
+}
+
+func postSlack(responseURL, text string) error {
+	b, _ := json.Marshal(map[string]string{"response_type": "in_channel", "text": text})
+	resp, err := http.Post(responseURL, "application/json", bytes.NewReader(b))
 	if err != nil {
-		s.Log.Error("github-deliver", "job", job.ID, "err", err.Error())
-		_ = s.Store.AppendEvent(ctx, &store.Event{JobID: job.ID, Type: "delivery_failed",
-			Payload: fmt.Sprintf("{\"error\":%q}", err.Error())})
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode >= 300 {
+		return fmt.Errorf("slack response_url: %d", resp.StatusCode)
+	}
+	return nil
+}
+
+// slackCommand: "/utag generate <target> <repo> <path>" or "/utag status <id>".
+func (s *Server) slackCommand(w http.ResponseWriter, r *http.Request) {
+	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 1<<20))
+	if err != nil {
+		httpErr(w, http.StatusBadRequest, err)
 		return
 	}
-	s.Log.Info("github-deliver", "job", job.ID, "pr", url)
-	_ = s.Store.AppendEvent(ctx, &store.Event{JobID: job.ID, Type: "pr_opened",
-		Payload: fmt.Sprintf("{\"url\":%q}", url)})
+	if !slk.VerifySignature(s.SlackSigningSecret, r.Header.Get("X-Slack-Request-Timestamp"),
+		r.Header.Get("X-Slack-Signature"), body, time.Now()) {
+		httpErr(w, http.StatusUnauthorized, errors.New("bad slack signature"))
+		return
+	}
+	form, err := url.ParseQuery(string(body))
+	if err != nil {
+		httpErr(w, http.StatusBadRequest, err)
+		return
+	}
+	cmd, usage := slk.Parse(form.Get("text"))
+	if usage != "" {
+		writeJSON(w, http.StatusOK, map[string]string{"response_type": "ephemeral", "text": usage})
+		return
+	}
+	switch cmd.Action {
+	case "status":
+		j, err := s.Store.GetJob(r.Context(), cmd.JobID)
+		if err != nil {
+			writeJSON(w, http.StatusOK, map[string]string{"response_type": "ephemeral",
+				"text": "job not found: " + cmd.JobID})
+			return
+		}
+		writeJSON(w, http.StatusOK, map[string]string{"response_type": "ephemeral",
+			"text": fmt.Sprintf("job `%s` (%s): *%s* %s", j.ID, j.Target, j.Status, j.Error)})
+	case "generate":
+		if s.GitHub == nil || s.InstallationID == 0 {
+			writeJSON(w, http.StatusOK, map[string]string{"response_type": "ephemeral",
+				"text": "GitHub adapter or UTAG_GITHUB_INSTALLATION_ID not configured"})
+			return
+		}
+		token, err := s.GitHub.Client.InstallationToken(s.InstallationID)
+		if err != nil {
+			httpErr(w, http.StatusBadGateway, err)
+			return
+		}
+		input, err := s.GitHub.Client.FetchFile(token, cmd.Repo, cmd.Path, "main")
+		if err != nil {
+			writeJSON(w, http.StatusOK, map[string]string{"response_type": "ephemeral",
+				"text": "fetch failed: " + err.Error()})
+			return
+		}
+		meta, _ := json.Marshal(gh.JobMeta{Repo: cmd.Repo, InstallationID: s.InstallationID,
+			BaseBranch: "main", SourcePath: cmd.Path,
+			SlackResponseURL: form.Get("response_url")})
+		now := time.Now().UTC()
+		j := &store.Job{ID: uuid.NewString(), Target: cmd.Target, Backend: "worker",
+			InputKind: "prompt-yaml", Input: input, Metadata: string(meta),
+			Status: store.StatusQueued, CreatedAt: now, UpdatedAt: now}
+		if err := s.Store.CreateJob(r.Context(), j); err != nil {
+			httpErr(w, http.StatusInternalServerError, err)
+			return
+		}
+		_ = s.Store.AppendEvent(r.Context(), &store.Event{JobID: j.ID, Type: "queued",
+			Payload: `{"source":"slack"}`})
+		writeJSON(w, http.StatusOK, map[string]string{"response_type": "in_channel",
+			"text": fmt.Sprintf("queued job `%s` — %s from %s/%s; I'll reply here when done.",
+				j.ID, cmd.Target, cmd.Repo, cmd.Path)})
+	}
 }
+
 
 // githubWebhook: HMAC-verified; "/utag generate <target> <path>" comments become jobs.
 func (s *Server) githubWebhook(w http.ResponseWriter, r *http.Request) {

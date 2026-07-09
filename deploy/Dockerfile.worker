@@ -1,0 +1,8 @@
+# syntax=docker/dockerfile:1
+FROM python:3.12-slim
+WORKDIR /app
+COPY packages/python/ packages/python/
+RUN pip install --no-cache-dir \
+    ./packages/python/utag-core ./packages/python/utag-generators ./packages/python/utag-worker
+USER 65532:65532
+ENTRYPOINT ["utag-worker"]

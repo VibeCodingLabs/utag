@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+
+	"utag/control-plane/internal/routines"
 	"os"
 	"strings"
 
@@ -21,6 +23,9 @@ type Settings struct {
 	GithubAppID          string `mapstructure:"github-app-id" json:"github-app-id"`
 	GithubPrivateKeyFile string `mapstructure:"github-private-key-file" json:"github-private-key-file"`
 	GithubAPIBase        string `mapstructure:"github-api-base" json:"github-api-base"`
+	GithubInstallationID int64  `mapstructure:"github-installation-id" json:"github-installation-id"`
+	SlackSigningSecret   string `mapstructure:"slack-signing-secret" json:"-"`
+	Routines             []routines.Routine `mapstructure:"routines" json:"routines"`
 }
 
 var (
@@ -52,6 +57,8 @@ func init() {
 	rootCmd.PersistentFlags().String("github-app-id", "", "GitHub App ID")
 	rootCmd.PersistentFlags().String("github-private-key-file", "", "GitHub App private key PEM path")
 	rootCmd.PersistentFlags().String("github-api-base", "https://api.github.com", "GitHub API base URL")
+	rootCmd.PersistentFlags().Int64("github-installation-id", 0, "default App installation id (slack jobs)")
+	rootCmd.PersistentFlags().String("slack-signing-secret", "", "Slack signing secret")
 	_ = v.BindPFlags(rootCmd.PersistentFlags())
 }
 

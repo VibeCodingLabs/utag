@@ -16,7 +16,7 @@ instructor = { repo = "https://github.com/567-labs/instructor", commit = "cd698b
 pydantic_ai = { repo = "https://github.com/pydantic/pydantic-ai", commit = "8171147522d9fa6b4add57b9e0468b3adb8ca1c9" }
 pi = { repo = "https://github.com/earendil-works/pi", commit = "3f9aa5d10b35223abf6146f960ff5cb5c68053ee" }
 design_md = { repo = "https://github.com/google-labs-code/design.md", commit = "ea4a3240d4c0d06778b9e39efeb553851be27c17" }
-openapi = { repo = "https://github.com/OAI/OpenAPI-Specification", commit = "909d8c31c5710c9988c031b1ba1caa9650f41f0e" }
+openapi = { repo = "https://github.com/OAI/OpenAPI-Specification", commit = "03f7a8b4ad909b8d57f4a30a0100b20726bcf548" }
 cobra = { repo = "https://github.com/spf13/cobra", commit = "ad460ea8f249db69c943a365fb84f3a59042d54e" }
 cobra_cli = { repo = "https://github.com/spf13/cobra-cli", commit = "1d434876c3a75eb70df49df15019b8ba7ef0ffd2" }
 viper = { repo = "https://github.com/spf13/viper", commit = "528f7416c4b56a4948673984b190bf8713f0c3c4" }

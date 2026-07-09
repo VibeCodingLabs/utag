@@ -65,5 +65,6 @@ type JobMeta struct {
 	InstallationID int64  `json:"installation_id"`
 	BaseBranch     string `json:"base_branch"`
 	IssueNumber    int    `json:"issue_number"`
-	SourcePath     string `json:"source_path"`
+	SourcePath       string `json:"source_path"`
+	SlackResponseURL string `json:"slack_response_url,omitempty"`
 }

@@ -76,3 +76,22 @@ Comment on any issue/PR in an installed repo:
 ```
 
 Control-plane verifies the webhook (HMAC-SHA256), fetches the file with an installation token, queues a job; a worker generates + validates; the control-plane opens a PR containing the artifacts under `utag/<target>/` — with every ValidationReport embedded in the PR body — and comments the link back. Config (env): `UTAG_GITHUB_WEBHOOK_SECRET`, `UTAG_GITHUB_APP_ID`, `UTAG_GITHUB_PRIVATE_KEY_FILE`, `UTAG_GITHUB_API_BASE` (GHE-ready). App permissions needed: Contents RW, Pull requests RW, Issues RW; subscribe to Issue comment events.
+
+## Slack
+
+`/utag generate <target> <owner/repo> <path>` (queues; result + PR link posted back to the channel) and `/utag status <job-id>`. Config: `UTAG_SLACK_SIGNING_SECRET`, `UTAG_GITHUB_INSTALLATION_ID`. Requests verified with Slack v0 signing + replay guard.
+
+## Routines
+
+In-binary interval schedules via config file:
+
+```yaml
+routines:
+  - {name: nightly-openapi, every: 12h, target: openapi-3.1, input-file: /config/service.prompt.yaml}
+```
+
+Cron-precision schedules: `deploy/k8s/routine-cronjob.yaml` (plain `POST /v1/jobs`).
+
+## Deploy (autoscaling)
+
+`deploy/`: distroless control-plane image, slim worker image, k8s manifests, and a KEDA `ScaledObject` scaling workers 1→20 on live queue depth (`SELECT count(*) FROM jobs WHERE status='queued'`, ~5 jobs/worker). Twelve-factor throughout: all config via `UTAG_*` env from one Secret.

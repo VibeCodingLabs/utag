@@ -15,6 +15,7 @@ import (
 
 	"utag/control-plane/internal/api"
 	ghpkg "utag/control-plane/internal/github"
+	"utag/control-plane/internal/routines"
 	"utag/control-plane/internal/store"
 )
 
@@ -50,7 +51,18 @@ var serveCmd = &cobra.Command{
 			}
 			server.WebhookSecret = settings.GithubWebhookSecret
 			server.GitHub = &ghpkg.Deliverer{Client: client}
+			server.InstallationID = settings.GithubInstallationID
 			log.Info("github", "adapter", "enabled", "api_base", settings.GithubAPIBase)
+		}
+		if settings.SlackSigningSecret != "" {
+			server.SlackSigningSecret = settings.SlackSigningSecret
+			log.Info("slack", "adapter", "enabled")
+		}
+		if len(settings.Routines) > 0 {
+			if err := routines.Run(cmd.Context(), st, log, settings.Routines); err != nil {
+				return err
+			}
+			log.Info("routines", "count", len(settings.Routines))
 		}
 		srv := &http.Server{
 			Addr:              fmt.Sprintf(":%d", settings.Port),

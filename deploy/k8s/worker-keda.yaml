@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: utag-worker, labels: {app: utag-worker}}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: utag-worker}}
+  template:
+    metadata: {labels: {app: utag-worker}}
+    spec:
+      securityContext: {runAsNonRoot: true}
+      containers:
+        - name: worker
+          image: ghcr.io/OWNER/utag-worker:2.4.0
+          env:
+            - {name: UTAG_CONTROL_PLANE_URL, value: "http://utag-control-plane"}
+            - name: UTAG_API_TOKEN
+              valueFrom: {secretKeyRef: {name: utag-secrets, key: UTAG_API_TOKEN}}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: "1", memory: 512Mi}
+---
+# KEDA: scale workers on REAL queue depth (SELECT count of queued jobs).
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata: {name: utag-worker-scaler}
+spec:
+  scaleTargetRef: {name: utag-worker}
+  minReplicaCount: 1
+  maxReplicaCount: 20
+  cooldownPeriod: 60
+  triggers:
+    - type: postgresql
+      metadata:
+        query: "SELECT count(*) FROM jobs WHERE status = 'queued'"
+        targetQueryValue: "5"          # ~5 queued jobs per worker
+        connectionFromEnv: UTAG_DATABASE_URL

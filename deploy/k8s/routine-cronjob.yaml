@@ -1,0 +1,28 @@
+# Cron-precision routines (in-binary routines are interval-based by design).
+apiVersion: batch/v1
+kind: CronJob
+metadata: {name: utag-routine-nightly}
+spec:
+  schedule: "0 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: enqueue
+              image: curlimages/curl:8.10.1
+              args:
+                - -sf
+                - -X, POST
+                - -H, "Authorization: Bearer $(UTAG_API_TOKEN)"
+                - -H, "Content-Type: application/json"
+                - --data-binary, "@/config/job.json"
+                - http://utag-control-plane/v1/jobs
+              env:
+                - name: UTAG_API_TOKEN
+                  valueFrom: {secretKeyRef: {name: utag-secrets, key: UTAG_API_TOKEN}}
+              volumeMounts: [{name: job, mountPath: /config}]
+          volumes:
+            - name: job
+              configMap: {name: utag-nightly-job}   # {"target":"...","input_kind":"prompt-yaml","input":"..."}
