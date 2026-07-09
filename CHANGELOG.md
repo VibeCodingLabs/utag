@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-07-09
+
 ### Security
 - Fixed a path traversal vulnerability in `utag_cli` output path generation.
 - Fixed a code injection vulnerability in `utag_generators` TypeScript/Zod regex serialization.
