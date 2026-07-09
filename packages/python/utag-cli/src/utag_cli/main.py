@@ -25,19 +25,27 @@ def _load_module(src: Path) -> ModuleSpec:
         return ingest_prompt_yaml(text, str(src))
     if src.suffix == ".json":
         try:
-            return ModuleSpec.model_validate_json(text)  # already-normalized IR
-        except Exception:
+            parsed = json.loads(text)
+            if isinstance(parsed, dict) and "types" in parsed:
+                return ModuleSpec.model_validate(parsed)
             return ingest_json_record(text, src.stem.capitalize(), str(src))
+        except Exception as e:
+            raise SystemExit(f"invalid json in {src}: {e}")
     raise SystemExit(f"unsupported input: {src}")
 
 
 def cmd_generate(a: argparse.Namespace) -> int:
     module = _load_module(Path(a.input))
     gen = get_generator(a.target)
-    out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
     rc = 0
     for rel, content in sorted(gen.generate(module).items()):
-        p = out / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(content)
+        p = out / rel
+        if not p.resolve().is_relative_to(out.resolve()):
+            raise SystemExit(f"error: path traversal detected for {rel!r}")
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
         vkind = TARGET_VALIDATOR.get(a.target)
         if vkind and not a.no_validate:
             report = get_validator(vkind)(str(p), content)

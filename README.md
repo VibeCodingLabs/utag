@@ -1,4 +1,4 @@
-# Universal Typed Artifact Generator
+# utag — Universal Typed Artifact Generator
 
 Provider-agnostic agent harness + typed artifact generator. Any knowledge in (prompt YAMLs, NL, KB records, transcripts) → normalized Pydantic IR → validated typed artifacts out (Pydantic models, Zod v4, Agent Skills, OpenAPI 3.1, DESIGN.md, prompt YAML) — including **generators that generate generators**.
 
