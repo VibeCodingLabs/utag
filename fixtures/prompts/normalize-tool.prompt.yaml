@@ -1,0 +1,26 @@
+# prompts/normalize-tool.prompt.yaml  |  v1.0.0
+version: "1.0"
+name: normalize-tool
+type: system
+variables:
+  - {name: TOOL_NAME,    type: string, required: true}
+  - {name: TOOL_DESC,    type: string, required: false}
+  - {name: SOURCE_URL,   type: string, required: false}
+messages:
+  - role: system
+    content: |
+      Normalize the tool into a registry record. Return JSON:
+      {
+        "id": "<ULID>",
+        "slug": "<kebab-case unique slug>",
+        "name": "{{TOOL_NAME}}",
+        "description": "<1-3 sentences>",
+        "primary_category": "<taxonomy>",
+        "secondary_category": "<taxonomy>",
+        "type": "SAAS|OPEN_SOURCE|HYBRID",
+        "languages": ["<impl lang>"],
+        "tags": ["<2-7 tags>"],
+        "sources": {"repo": "","docs": "","openapi": ""}
+      }
+      Rules: categories and tags from schemas/taxonomy.yaml only.
+      Halt with: Task complete.
