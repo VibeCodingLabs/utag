@@ -175,7 +175,7 @@
   <text x="50" y="35" font-family="monospace" font-size="10" fill="#64748b" font-weight="bold">SRC_x00</text>
   <text x="750" y="275" font-family="monospace" font-size="10" fill="#64748b" font-weight="bold" text-anchor="end">DEST_x80</text>
 
-  <text x="400" y="285" font-family="monospace" font-size="10.5" fill="#475569" text-anchor="middle" letter-spacing="1.5px">
+  <text x="400" y="295" font-family="monospace" font-size="10.5" fill="#475569" text-anchor="middle" letter-spacing="1.5px">
     GEN-01 // PYDANTIC // ZOD // OPENAPI // AGENT SKILLS
   </text>
 </svg>
