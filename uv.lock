@@ -459,7 +459,7 @@ wheels = [
 
 [[package]]
 name = "utag"
-version = "2.2.0"
+version = "2.4.0"
 source = { virtual = "." }
 dependencies = [
     { name = "utag-cli" },
@@ -478,7 +478,7 @@ requires-dist = [
 
 [[package]]
 name = "utag-cli"
-version = "2.2.0"
+version = "2.4.0"
 source = { editable = "packages/python/utag-cli" }
 dependencies = [
     { name = "utag-core" },
@@ -493,7 +493,7 @@ requires-dist = [
 
 [[package]]
 name = "utag-core"
-version = "2.2.0"
+version = "2.4.0"
 source = { editable = "packages/python/utag-core" }
 dependencies = [
     { name = "pydantic" },
@@ -510,7 +510,7 @@ requires-dist = [
 
 [[package]]
 name = "utag-generators"
-version = "2.2.0"
+version = "2.4.0"
 source = { editable = "packages/python/utag-generators" }
 dependencies = [
     { name = "jsonschema" },
@@ -527,7 +527,7 @@ requires-dist = [
 
 [[package]]
 name = "utag-worker"
-version = "2.2.0"
+version = "2.4.0"
 source = { editable = "packages/python/utag-worker" }
 dependencies = [
     { name = "utag-core" },

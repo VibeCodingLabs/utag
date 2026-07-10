@@ -1,4 +1,6 @@
-# utag — Universal Typed Artifact Generator
+![Banner](./banner.svg)
+
+#  Universal Typed Artifact Generator (UTAG)
 
 Provider-agnostic agent harness + typed artifact generator. Any knowledge in (prompt YAMLs, NL, KB records, transcripts) → normalized Pydantic IR → validated typed artifacts out (Pydantic models, Zod v4, Agent Skills, OpenAPI 3.1, DESIGN.md, prompt YAML) — including **generators that generate generators**.
 
@@ -19,7 +21,7 @@ python scripts/sources.py                                           # pin upstre
 python scripts/release.py                                           # tests + determinism gate
 ```
 
-## Architecture (moats)
+## Architecture 
 
 | Layer | What | Why it's a moat |
 |---|---|---|
