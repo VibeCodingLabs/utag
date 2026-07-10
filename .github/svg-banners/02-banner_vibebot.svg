@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="100%" height="100%" role="img" aria-label="VibeBot - VibeCoding Assistant">
+  <defs>
+    <!-- Cyber gradient background -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020813" />
+      <stop offset="50%" stop-color="#041221" />
+      <stop offset="100%" stop-color="#010609" />
+    </linearGradient>
+
+    <!-- Neon Glows -->
+    <filter id="neon-blue">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="neon-green">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .wave { animation: none !important; opacity: 0.8 !important; }
+        .glitch { animation: none !important; transform: none !important; }
+      }
+
+      .title {
+        font-family: system-ui, -apple-system, sans-serif;
+        font-weight: 900;
+        font-size: 64px;
+        fill: #ffffff;
+        font-style: italic;
+        letter-spacing: -2px;
+      }
+
+      .subtitle {
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-size: 16px;
+        fill: #10b981; /* Green */
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+
+      /* Audio Waveform Animation */
+      .wave {
+        fill: none;
+        stroke-width: 4;
+        stroke-linecap: round;
+        animation: eq 1.5s ease-in-out infinite alternate;
+        transform-origin: bottom;
+      }
+
+      @keyframes eq {
+        0% { transform: scaleY(0.2); opacity: 0.5; }
+        100% { transform: scaleY(1); opacity: 1; }
+      }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+
+  <!-- Audio Visualizer Background (Blue/Green alternating) -->
+  <g transform="translate(0, 160)" opacity="0.3">
+    <!-- Left side -->
+    <line x1="100" y1="0" x2="100" y2="-60" stroke="#3b82f6" class="wave" style="animation-delay: 0.1s;" filter="url(#neon-blue)"/>
+    <line x1="130" y1="0" x2="130" y2="-100" stroke="#10b981" class="wave" style="animation-delay: 0.3s;" filter="url(#neon-green)"/>
+    <line x1="160" y1="0" x2="160" y2="-40" stroke="#3b82f6" class="wave" style="animation-delay: 0.5s;" filter="url(#neon-blue)"/>
+    <line x1="190" y1="0" x2="190" y2="-120" stroke="#10b981" class="wave" style="animation-delay: 0.2s;" filter="url(#neon-green)"/>
+    <line x1="220" y1="0" x2="220" y2="-80" stroke="#3b82f6" class="wave" style="animation-delay: 0.7s;" filter="url(#neon-blue)"/>
+
+    <!-- Right side -->
+    <line x1="580" y1="0" x2="580" y2="-80" stroke="#3b82f6" class="wave" style="animation-delay: 0.4s;" filter="url(#neon-blue)"/>
+    <line x1="610" y1="0" x2="610" y2="-120" stroke="#10b981" class="wave" style="animation-delay: 0.6s;" filter="url(#neon-green)"/>
+    <line x1="640" y1="0" x2="640" y2="-40" stroke="#3b82f6" class="wave" style="animation-delay: 0.1s;" filter="url(#neon-blue)"/>
+    <line x1="670" y1="0" x2="670" y2="-100" stroke="#10b981" class="wave" style="animation-delay: 0.8s;" filter="url(#neon-green)"/>
+    <line x1="700" y1="0" x2="700" y2="-60" stroke="#3b82f6" class="wave" style="animation-delay: 0.3s;" filter="url(#neon-blue)"/>
+
+    <!-- Mirrored bottom -->
+    <g transform="scale(1, -1)">
+      <line x1="100" y1="0" x2="100" y2="-60" stroke="#3b82f6" class="wave" style="animation-delay: 0.1s;" filter="url(#neon-blue)"/>
+      <line x1="130" y1="0" x2="130" y2="-100" stroke="#10b981" class="wave" style="animation-delay: 0.3s;" filter="url(#neon-green)"/>
+      <line x1="160" y1="0" x2="160" y2="-40" stroke="#3b82f6" class="wave" style="animation-delay: 0.5s;" filter="url(#neon-blue)"/>
+      <line x1="190" y1="0" x2="190" y2="-120" stroke="#10b981" class="wave" style="animation-delay: 0.2s;" filter="url(#neon-green)"/>
+      <line x1="220" y1="0" x2="220" y2="-80" stroke="#3b82f6" class="wave" style="animation-delay: 0.7s;" filter="url(#neon-blue)"/>
+
+      <line x1="580" y1="0" x2="580" y2="-80" stroke="#3b82f6" class="wave" style="animation-delay: 0.4s;" filter="url(#neon-blue)"/>
+      <line x1="610" y1="0" x2="610" y2="-120" stroke="#10b981" class="wave" style="animation-delay: 0.6s;" filter="url(#neon-green)"/>
+      <line x1="640" y1="0" x2="640" y2="-40" stroke="#3b82f6" class="wave" style="animation-delay: 0.1s;" filter="url(#neon-blue)"/>
+      <line x1="670" y1="0" x2="670" y2="-100" stroke="#10b981" class="wave" style="animation-delay: 0.8s;" filter="url(#neon-green)"/>
+      <line x1="700" y1="0" x2="700" y2="-60" stroke="#3b82f6" class="wave" style="animation-delay: 0.3s;" filter="url(#neon-blue)"/>
+    </g>
+  </g>
+
+  <!-- Accent Lines -->
+  <path d="M 0 20 L 800 20" stroke="#3b82f6" stroke-width="2" filter="url(#neon-blue)" opacity="0.5"/>
+  <path d="M 0 300 L 800 300" stroke="#10b981" stroke-width="2" filter="url(#neon-green)" opacity="0.5"/>
+
+  <text x="400" y="150" text-anchor="middle" dominant-baseline="middle" class="title">VibeBot</text>
+  <text x="400" y="210" text-anchor="middle" dominant-baseline="middle" class="subtitle" filter="url(#neon-green)">VibeCoding Assistant</text>
+</svg>

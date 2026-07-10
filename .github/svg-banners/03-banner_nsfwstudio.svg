@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="100%" height="100%" role="img" aria-label="NSFWStudio - CakeVoid Productions">
+  <defs>
+    <!-- Deep contrast background -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111111" />
+      <stop offset="100%" stop-color="#000000" />
+    </linearGradient>
+
+    <!-- Pink abstract shape gradient -->
+    <linearGradient id="pink-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff2a7a" />
+      <stop offset="100%" stop-color="#ff7eb3" />
+    </linearGradient>
+
+    <!-- Cream abstract shape gradient -->
+    <linearGradient id="cream-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fdfbf7" />
+      <stop offset="100%" stop-color="#f3e6e8" />
+    </linearGradient>
+
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+
+    <filter id="pink-glow">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .float, .float-reverse, .pulse-text { animation: none !important; transform: none !important; }
+      }
+
+      .title {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 200; /* Extremely thin/elegant */
+        font-size: 68px;
+        fill: #ffffff;
+        letter-spacing: -1px;
+      }
+
+      .title-bold {
+        font-weight: 800; /* Heavy contrast */
+      }
+
+      .subtitle {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        fill: #ff7eb3;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      /* Smooth fluid floating animation */
+      .float {
+        animation: floatShape 20s ease-in-out infinite alternate;
+      }
+      .float-reverse {
+        animation: floatShapeRev 25s ease-in-out infinite alternate;
+      }
+
+      @keyframes floatShape {
+        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        50% { transform: translate(30px, -20px) rotate(5deg) scale(1.05); }
+        100% { transform: translate(-20px, 30px) rotate(-5deg) scale(0.95); }
+      }
+      @keyframes floatShapeRev {
+        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        50% { transform: translate(-40px, 20px) rotate(-10deg) scale(0.9); }
+        100% { transform: translate(20px, -40px) rotate(10deg) scale(1.1); }
+      }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+
+  <!-- Abstract Background Shapes -->
+  <g filter="url(#soft-shadow)">
+    <!-- Large Cream Blob -->
+    <path class="float" fill="url(#cream-grad)" opacity="0.15"
+          d="M 600,100 C 700,50 850,150 750,300 C 650,450 450,350 500,200 C 550,50 500,150 600,100 Z" />
+
+    <!-- Large Pink Blob -->
+    <path class="float-reverse" fill="url(#pink-grad)" opacity="0.2"
+          d="M 150,250 C 50,300 -50,150 50,50 C 150,-50 350,50 300,200 C 250,350 250,200 150,250 Z" />
+  </g>
+
+  <!-- Accent Geometry -->
+  <circle cx="120" cy="80" r="40" fill="none" stroke="url(#pink-grad)" stroke-width="1.5" class="float" opacity="0.6"/>
+  <rect x="650" y="200" width="60" height="60" fill="none" stroke="url(#cream-grad)" stroke-width="1.5" class="float-reverse" opacity="0.4" transform="rotate(45 680 230)"/>
+
+  <text x="400" y="150" text-anchor="middle" dominant-baseline="middle" class="title">
+    NSFW<tspan class="title-bold">Studio</tspan>
+  </text>
+  <text x="400" y="210" text-anchor="middle" dominant-baseline="middle" class="subtitle" filter="url(#pink-glow)">CakeVoid Productions</text>
+</svg>

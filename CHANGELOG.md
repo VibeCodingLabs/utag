@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+### Added
+- Added three new SVG banner designs to `.github/svg-banners/` featuring distinct palettes, typography, and motion accessibility for Moonclaw, VibeBot, and NSFWStudio.
 - Added an animated SVG banner to README.md to improve the UI/UX with accessibility considerations (reduced motion via CSS and slow animation default). Maximized SVG height aspect ratio (800x320) and significantly scaled up the primary title text to fill the horizontal bounds and match the target reference design.
 - Added .Jules/palette.md to document critical UI/UX and accessibility learnings regarding Markdown SVG renders.
 

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="100%" height="100%" role="img" aria-label="Moonclaw - Agent Harness">
+  <defs>
+    <!-- Dark, moody space gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#2a2a2a" />
+      <stop offset="100%" stop-color="#050505" />
+    </radialGradient>
+
+    <filter id="moon-glow">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .orbit, .star { animation: none !important; transform: none !important; opacity: 0.8 !important; }
+      }
+
+      .title {
+        font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        font-weight: bold;
+        font-size: 52px;
+        fill: #ffffff;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+      }
+      .subtitle {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 16px;
+        fill: #a3a3a3;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+      }
+      .footer {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 12px;
+        fill: #737373;
+        font-style: italic;
+      }
+
+      .orbit {
+        transform-origin: center;
+        animation: spin 30s linear infinite;
+      }
+      .orbit-reverse {
+        transform-origin: center;
+        animation: spin-reverse 40s linear infinite;
+      }
+
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+
+      .star {
+        animation: twinkle 4s ease-in-out infinite alternate;
+      }
+      @keyframes twinkle {
+        0% { opacity: 0.2; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1.2); }
+      }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+
+  <!-- Starfield -->
+  <g fill="#ffffff">
+    <circle cx="100" cy="50" r="1.5" class="star" style="animation-delay: 0s;"/>
+    <circle cx="700" cy="80" r="2" class="star" style="animation-delay: 1s;"/>
+    <circle cx="150" cy="250" r="1" class="star" style="animation-delay: 2s;"/>
+    <circle cx="650" cy="280" r="1.5" class="star" style="animation-delay: 1.5s;"/>
+    <circle cx="50" cy="180" r="1" class="star" style="animation-delay: 0.5s;"/>
+    <circle cx="750" cy="150" r="1" class="star" style="animation-delay: 2.5s;"/>
+  </g>
+
+  <!-- Orbital Rings -->
+  <g stroke="#3a3a3a" stroke-width="1" fill="none">
+    <circle cx="400" cy="160" r="120" />
+    <circle cx="400" cy="160" r="140" stroke-dasharray="4 8" class="orbit" />
+    <circle cx="400" cy="160" r="160" stroke-dasharray="1 12" class="orbit-reverse" stroke-width="2"/>
+  </g>
+
+  <!-- Central "Moon" Graphic behind text -->
+  <circle cx="400" cy="140" r="70" fill="#1a1a1a" stroke="#555555" stroke-width="2" filter="url(#moon-glow)"/>
+
+  <text x="400" y="145" text-anchor="middle" dominant-baseline="middle" class="title">Moonclaw</text>
+  <text x="400" y="200" text-anchor="middle" dominant-baseline="middle" class="subtitle">Agent Harness</text>
+  <text x="400" y="280" text-anchor="middle" dominant-baseline="middle" class="footer">shoot for the moon!</text>
+</svg>
