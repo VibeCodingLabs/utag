@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added an animated SVG banner to README.md to improve the UI/UX with accessibility considerations (reduced motion via CSS and slow animation default). Maximized SVG height aspect ratio (800x320) to ensure a large, impressive footprint in the README while keeping the inner font scale minimal for perfect visual hierarchy.
+- Added an animated SVG banner to README.md to improve the UI/UX with accessibility considerations (reduced motion via CSS and slow animation default). Maximized SVG height aspect ratio (800x320) and significantly scaled up the primary title text to fill the horizontal bounds and match the target reference design.
 - Added .Jules/palette.md to document critical UI/UX and accessibility learnings regarding Markdown SVG renders.
 
 ## [2.4.0] - 2026-07-09
