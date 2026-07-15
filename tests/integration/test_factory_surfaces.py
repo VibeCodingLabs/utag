@@ -103,7 +103,8 @@ def test_typer_doctor(runtime, monkeypatch):
 
 
 def test_mcp_server_builds_with_tools(runtime, monkeypatch):
-    from utag_factory import mcp_server, runtime as rtmod
-    monkeypatch.setattr(rtmod, "connect", lambda **kw: runtime)
+    from utag_factory import mcp_server
+    # mcp_server binds `connect` at import time — patch it there, not on runtime
+    monkeypatch.setattr(mcp_server, "connect", lambda **kw: runtime)
     server = mcp_server.build_server()
     assert server is not None  # tools registered without error
