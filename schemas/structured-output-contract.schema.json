@@ -1,0 +1,43 @@
+{
+  "$id": "https://utag.dev/schemas/structured-output-contract.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "max_repair_attempts": {
+      "maximum": 10,
+      "minimum": 0,
+      "title": "Max Repair Attempts",
+      "type": "integer"
+    },
+    "schema_kind": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Schema Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "schema_kind",
+    "max_repair_attempts"
+  ],
+  "title": "StructuredOutputContract",
+  "type": "object"
+}

@@ -1,0 +1,49 @@
+{
+  "$id": "https://utag.dev/schemas/artifact-provenance.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "generator_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Generator Id",
+      "type": "string"
+    },
+    "inputs_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Inputs Sha256",
+      "type": "string"
+    },
+    "source_paths": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Paths",
+      "type": "array"
+    },
+    "utag_version": {
+      "title": "Utag Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "generator_id",
+    "utag_version",
+    "source_paths",
+    "inputs_sha256"
+  ],
+  "title": "ArtifactProvenance",
+  "type": "object"
+}

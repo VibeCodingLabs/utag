@@ -1,0 +1,8 @@
+{
+  "generator_id": "pydantic-models",
+  "inputs_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "source_paths": [
+    "fixtures/demo.yaml"
+  ],
+  "utag_version": "2.11.0"
+}

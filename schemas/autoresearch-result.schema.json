@@ -1,0 +1,114 @@
+{
+  "$defs": {
+    "AutoresearchEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "kind": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "ref": {
+          "minLength": 1,
+          "title": "Ref",
+          "type": "string"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        },
+        "step_id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Step Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step_id",
+        "kind",
+        "ref"
+      ],
+      "title": "AutoresearchEvidence",
+      "type": "object"
+    },
+    "EvidenceKind": {
+      "enum": [
+        "command",
+        "file",
+        "metric",
+        "log"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    },
+    "TaskStatus": {
+      "enum": [
+        "completed",
+        "failed",
+        "partial"
+      ],
+      "title": "TaskStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/autoresearch-result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "evidence": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/AutoresearchEvidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "status": {
+      "$ref": "#/$defs/TaskStatus"
+    },
+    "task_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Task Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_id",
+    "status"
+  ],
+  "title": "AutoresearchResult",
+  "type": "object"
+}

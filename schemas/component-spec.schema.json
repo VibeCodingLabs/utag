@@ -1,0 +1,94 @@
+{
+  "$defs": {
+    "VariantSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "props": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Props",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "VariantSpec",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/component-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "props": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Props",
+      "type": "object"
+    },
+    "states": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "States",
+      "type": "array"
+    },
+    "type": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Type",
+      "type": "string"
+    },
+    "variants": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/VariantSpec"
+      },
+      "title": "Variants",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "type"
+  ],
+  "title": "ComponentSpec",
+  "type": "object"
+}

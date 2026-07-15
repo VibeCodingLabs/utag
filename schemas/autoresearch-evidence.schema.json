@@ -1,0 +1,65 @@
+{
+  "$defs": {
+    "EvidenceKind": {
+      "enum": [
+        "command",
+        "file",
+        "metric",
+        "log"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/autoresearch-evidence.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "kind": {
+      "$ref": "#/$defs/EvidenceKind"
+    },
+    "ref": {
+      "minLength": 1,
+      "title": "Ref",
+      "type": "string"
+    },
+    "sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sha256"
+    },
+    "step_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Step Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "step_id",
+    "kind",
+    "ref"
+  ],
+  "title": "AutoresearchEvidence",
+  "type": "object"
+}

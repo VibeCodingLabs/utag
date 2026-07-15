@@ -1,0 +1,7 @@
+{
+  "__unknown_property__": true,
+  "category": "codegen",
+  "description": "Emit typed SDKs",
+  "id": "sdk-generation",
+  "name": "SDK generation"
+}

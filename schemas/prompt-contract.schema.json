@@ -1,0 +1,48 @@
+{
+  "$id": "https://utag.dev/schemas/prompt-contract.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "input_schema": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Input Schema",
+      "type": "string"
+    },
+    "output_schema": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Output Schema",
+      "type": "string"
+    },
+    "template_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Template Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "input_schema",
+    "output_schema",
+    "template_sha256"
+  ],
+  "title": "PromptContract",
+  "type": "object"
+}

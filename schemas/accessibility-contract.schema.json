@@ -1,0 +1,43 @@
+{
+  "$defs": {
+    "ContrastLevel": {
+      "enum": [
+        "AA",
+        "AAA"
+      ],
+      "title": "ContrastLevel",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/accessibility-contract.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "keyboardRequired": {
+      "title": "Keyboardrequired",
+      "type": "boolean"
+    },
+    "minContrast": {
+      "$ref": "#/$defs/ContrastLevel"
+    }
+  },
+  "required": [
+    "minContrast",
+    "keyboardRequired"
+  ],
+  "title": "AccessibilityContract",
+  "type": "object"
+}

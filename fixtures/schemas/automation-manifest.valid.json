@@ -1,0 +1,6 @@
+{
+  "id": "schema-drift",
+  "kind": "automation",
+  "name": "Schema drift check",
+  "version": "1.0.0"
+}

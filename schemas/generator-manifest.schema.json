@@ -1,0 +1,165 @@
+{
+  "$defs": {
+    "ManifestStatus": {
+      "enum": [
+        "implemented",
+        "experimental",
+        "planned",
+        "deprecated"
+      ],
+      "title": "ManifestStatus",
+      "type": "string"
+    },
+    "RiskLevel": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/generator-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "deterministic": {
+      "default": true,
+      "title": "Deterministic",
+      "type": "boolean"
+    },
+    "entrypoints": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Entrypoints",
+      "type": "array"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "input_schema": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Input Schema"
+    },
+    "kind": {
+      "const": "generator",
+      "default": "generator",
+      "title": "Kind",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "optional_capabilities": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Optional Capabilities",
+      "type": "array"
+    },
+    "output_files": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Output Files",
+      "type": "array"
+    },
+    "output_schema": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Output Schema"
+    },
+    "owner": {
+      "default": "utag",
+      "title": "Owner",
+      "type": "string"
+    },
+    "required_capabilities": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "risk_level": {
+      "$ref": "#/$defs/RiskLevel",
+      "default": "low"
+    },
+    "side_effects": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Side Effects",
+      "type": "array"
+    },
+    "status": {
+      "$ref": "#/$defs/ManifestStatus",
+      "default": "implemented"
+    },
+    "test_files": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Test Files",
+      "type": "array"
+    },
+    "validation_gates": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Validation Gates",
+      "type": "array"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "version"
+  ],
+  "title": "GeneratorManifest",
+  "type": "object"
+}

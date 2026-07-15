@@ -1,0 +1,5 @@
+{
+  "code": "optional-check-skipped",
+  "message": "tsc unavailable; typescript validation skipped",
+  "severity": "warn"
+}

@@ -1,0 +1,6 @@
+{
+  "id": "python-source",
+  "kind": "validator",
+  "name": "Python source validator",
+  "version": "1.0.0"
+}

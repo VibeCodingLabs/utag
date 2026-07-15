@@ -1,0 +1,15 @@
+{
+  "__unknown_property__": true,
+  "run_id": "run-001",
+  "spans": [
+    {
+      "attributes": {
+        "target": "pydantic-models"
+      },
+      "end_ms": 120.5,
+      "name": "utag.run",
+      "span_id": "sp-1",
+      "start_ms": 0
+    }
+  ]
+}

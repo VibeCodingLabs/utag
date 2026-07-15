@@ -1,0 +1,6 @@
+{
+  "id": "fastapi-importer",
+  "kind": "importer",
+  "name": "FastAPI importer",
+  "version": "1.0.0"
+}

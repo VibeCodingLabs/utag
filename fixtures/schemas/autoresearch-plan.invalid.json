@@ -1,0 +1,12 @@
+{
+  "__unknown_property__": true,
+  "steps": [
+    {
+      "description": "emit schemas",
+      "id": "s1",
+      "kind": "schema",
+      "status": "pending"
+    }
+  ],
+  "task_id": "ar-ui-observability-dashboard"
+}

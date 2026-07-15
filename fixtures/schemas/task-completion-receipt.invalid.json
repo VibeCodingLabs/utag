@@ -1,0 +1,17 @@
+{
+  "__unknown_property__": true,
+  "commands_run": [
+    "uv run pytest -q"
+  ],
+  "files_changed": [
+    "design.yaml"
+  ],
+  "gates": [
+    {
+      "name": "schema",
+      "passed": true
+    }
+  ],
+  "next_tasks": [],
+  "task_id": "ar-ui-observability-dashboard"
+}

@@ -1,0 +1,6 @@
+{
+  "allow_fallback": false,
+  "max_cost_usd": 0.05,
+  "require_structured_output": true,
+  "task_kind": "generate-openapi"
+}

@@ -1,0 +1,36 @@
+{
+  "$id": "https://utag.dev/schemas/variant-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "props": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Props",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "title": "VariantSpec",
+  "type": "object"
+}

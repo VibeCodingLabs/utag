@@ -1,0 +1,10 @@
+{
+  "__unknown_property__": true,
+  "contract_id": "generate-openapi",
+  "input_tokens": 900,
+  "model": "claude-sonnet-4-6",
+  "output_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "output_tokens": 210,
+  "prompt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "provider": "anthropic"
+}

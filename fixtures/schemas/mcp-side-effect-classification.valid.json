@@ -1,0 +1,5 @@
+{
+  "classification": "write",
+  "rationale": "writes artifact files to the output directory",
+  "tool": "generate-artifact"
+}

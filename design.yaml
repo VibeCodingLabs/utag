@@ -1,0 +1,71 @@
+id: utag-console
+version: 1.0.0
+brand:
+  name: UTAG
+  voice: verification-first
+tokens:
+  color:
+    bg: "#0b0d10"
+    fg: "#e6e8ea"
+    accent: "#4f8cff"
+    danger: "#ff5d5d"
+    success: "#3ecf8e"
+  spacing:
+    "1": 4px
+    "2": 8px
+    "3": 16px
+    "4": 24px
+  radius:
+    sm: 4px
+    md: 8px
+  typography:
+    sans: "Inter, system-ui, sans-serif"
+    mono: "JetBrains Mono, monospace"
+  shadow:
+    card: "0 1px 3px rgba(0,0,0,.4)"
+  motion:
+    fast: 120ms
+themes:
+  light:
+    bg: "#ffffff"
+    fg: "#111418"
+  dark:
+    bg: "#0b0d10"
+    fg: "#e6e8ea"
+components:
+  - id: run-status-card
+    type: card
+    props:
+      title: Run status
+    states: [idle, loading, error]
+  - id: run-table
+    type: table
+    props:
+      resource: runs
+  - id: run-inspector
+    type: panel
+    props:
+      resource: runs
+  - id: validation-report-panel
+    type: panel
+    props:
+      resource: validation-reports
+layouts:
+  - id: console-shell
+    regions: [sidebar, header, main, inspector]
+routes:
+  - path: /runs
+    layout: console-shell
+    components: [run-table, run-inspector]
+  - path: /validation
+    layout: console-shell
+    components: [validation-report-panel]
+interactions:
+  - id: select-run
+    source: run-table
+    target: run-inspector
+data:
+  resources: [runs, validation-reports]
+accessibility:
+  minContrast: AA
+  keyboardRequired: true

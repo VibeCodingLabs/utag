@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Phase 1 of v2.14.0 (strict schema contract layer): `utag_core.schemas` — 54 strict Pydantic contracts across core artifacts, autoresearch, design/UDC, observability, AI integration, and MCP; deterministic JSON Schema 2020-12 emission (`$id`, `additionalProperties: false`, explicit `extensions` escape hatch) to `schemas/`; valid+invalid fixture per kind in `fixtures/schemas/`; `utag schema list|emit|validate|validate-all|doctor` CLI; `scripts/generate_json_schemas.py`, `scripts/validate_schemas.py`, `scripts/check_schema_fixtures.py`, `scripts/check_no_unknown_schema_extensions.py`; canonical `design.yaml` (utag-console) validating against the `DesignYaml` contract; `utag generate` now writes a validated `artifact.manifest.json` (sha256 per file + provenance) with every artifact.
 - Phase 0 of v2.14.0 (reconcile reality): `Specs/`, `TODO/`, `Progress/` tracking files for the next-phase plan; repo-root `autoresearch.sh` with `--strict` (fails on any pytest failure) and `--compare` (metrics-only) modes; `scripts/check_entrypoints.py` (asserts all 79 generators, 9 validators, 8 importers are CLI-reachable or documented); `scripts/run_quality_gate.py` (pytest + entrypoints required, ruff optional with explicit skip/warn); tests for the harness and entrypoint audit.
 ### Fixed
 - `multi_language_sdk.py` missing `import json` — root cause of 16 test failures previously hidden by the metric harness discarding pytest's exit code. Suite is now 374 passed / 17 env-gated skips / 0 failed.

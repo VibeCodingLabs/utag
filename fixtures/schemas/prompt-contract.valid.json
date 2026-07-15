@@ -1,0 +1,6 @@
+{
+  "id": "generate-openapi",
+  "input_schema": "module-spec",
+  "output_schema": "artifact-manifest",
+  "template_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+}

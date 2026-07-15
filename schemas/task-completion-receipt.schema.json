@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "GateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "name": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "passed"
+      ],
+      "title": "GateResult",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/task-completion-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "commands_run": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Commands Run",
+      "type": "array"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "files_changed": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Files Changed",
+      "type": "array"
+    },
+    "gates": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/GateResult"
+      },
+      "title": "Gates",
+      "type": "array"
+    },
+    "next_tasks": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Next Tasks",
+      "type": "array"
+    },
+    "task_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Task Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_id"
+  ],
+  "title": "TaskCompletionReceipt",
+  "type": "object"
+}

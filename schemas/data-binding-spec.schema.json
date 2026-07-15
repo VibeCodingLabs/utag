@@ -1,0 +1,42 @@
+{
+  "$id": "https://utag.dev/schemas/data-binding-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "component": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Component",
+      "type": "string"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "resource": {
+      "minLength": 1,
+      "title": "Resource",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "resource",
+    "component"
+  ],
+  "title": "DataBindingSpec",
+  "type": "object"
+}

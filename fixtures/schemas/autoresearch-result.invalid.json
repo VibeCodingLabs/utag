@@ -1,0 +1,12 @@
+{
+  "__unknown_property__": true,
+  "evidence": [
+    {
+      "kind": "metric",
+      "ref": "passed_tests=380",
+      "step_id": "s1"
+    }
+  ],
+  "status": "completed",
+  "task_id": "ar-ui-observability-dashboard"
+}

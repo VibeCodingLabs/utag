@@ -34,12 +34,21 @@ def _load_module(src: Path) -> ModuleSpec:
 
 
 def cmd_generate(a: argparse.Namespace) -> int:
-    module = _load_module(Path(a.input))
+    import hashlib
+    from importlib.metadata import version as pkg_version
+
+    from utag_core.schemas.core import ArtifactManifest, ArtifactProvenance, FileDigest
+
+    src = Path(a.input)
+    module = _load_module(src)
     gen = get_generator(a.target)
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     rc = 0
+    digests: list[FileDigest] = []
     for rel, content in sorted(gen.generate(module).items()):
         p = out / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(content)
+        digests.append(FileDigest(path=rel, sha256=hashlib.sha256(content.encode()).hexdigest(),
+                                  bytes=len(content.encode())))
         vkind = TARGET_VALIDATOR.get(a.target)
         if vkind and not a.no_validate:
             report = get_validator(vkind)(str(p), content)
@@ -47,6 +56,17 @@ def cmd_generate(a: argparse.Namespace) -> int:
             if not report.valid:
                 rc = 1
         print(f"wrote {p}", file=sys.stderr)
+    manifest = ArtifactManifest(
+        id=f"{a.target}-{src.stem}".lower().replace("_", "-"),
+        target=a.target,
+        files=digests,
+        provenance=ArtifactProvenance(
+            generator_id=a.target, utag_version=pkg_version("utag-core"),
+            source_paths=[str(src)],
+            inputs_sha256=hashlib.sha256(src.read_bytes()).hexdigest()),
+    )
+    (out / "artifact.manifest.json").write_text(manifest.model_dump_json(indent=2, exclude_none=True) + "\n")
+    print(f"wrote {out / 'artifact.manifest.json'}", file=sys.stderr)
     return rc
 
 
@@ -125,6 +145,42 @@ def cmd_intel(a: argparse.Namespace) -> int:
         return 1
     return 0
 
+def cmd_schema(a: argparse.Namespace) -> int:
+    from utag_core.schemas import SCHEMAS
+    from utag_core.schemas import tools as st
+
+    root = Path(getattr(a, "root", ".") or ".")
+    if a.schema_cmd == "list":
+        for kind in sorted(SCHEMAS):
+            print(kind)
+        return 0
+    if a.schema_cmd == "emit":
+        written = st.emit_all(Path(a.out))
+        print(f"emitted {len(written)} schemas to {a.out}")
+        return 0
+    if a.schema_cmd == "validate":
+        errs = st.validate_file(a.kind, Path(a.path))
+        for e in errs:
+            print(e, file=sys.stderr)
+        print(json.dumps({"kind": a.kind, "path": a.path, "valid": not errs}))
+        return 1 if errs else 0
+    if a.schema_cmd == "validate-all":
+        problems = st.validate_all(root)
+        for p in problems:
+            print(f"FAIL {p}", file=sys.stderr)
+        print(f"validate-all: {len(SCHEMAS)} kinds, {len(problems)} problem(s)")
+        return 1 if problems else 0
+    if a.schema_cmd == "doctor":
+        report = st.doctor_report(root)
+        outp = Path(a.out)
+        outp.parent.mkdir(parents=True, exist_ok=True)
+        outp.write_text(report)
+        print(report, end="")
+        return 1 if "FAIL" in report else 0
+    print("unknown schema command", file=sys.stderr)
+    return 1
+
+
 def cmd_openapi(a: argparse.Namespace) -> int:
     if a.openapi_cmd == "normalize":
         print("normalized")
@@ -184,6 +240,20 @@ def main(argv: list[str] | None = None) -> int:
     
     i.set_defaults(fn=cmd_intel)
     
+    s = sub.add_parser("schema", help="strict schema contract layer (list/emit/validate/doctor)")
+    ssub = s.add_subparsers(dest="schema_cmd", required=True)
+    ssub.add_parser("list")
+    s_emit = ssub.add_parser("emit")
+    s_emit.add_argument("--out", default="schemas/")
+    s_val = ssub.add_parser("validate")
+    s_val.add_argument("--kind", required=True); s_val.add_argument("--path", required=True)
+    s_all = ssub.add_parser("validate-all")
+    s_all.add_argument("--root", default=".")
+    s_doc = ssub.add_parser("doctor")
+    s_doc.add_argument("--root", default=".")
+    s_doc.add_argument("--out", default="reports/schema-validation/doctor.md")
+    s.set_defaults(fn=cmd_schema)
+
     o = sub.add_parser("openapi", help="OpenAPI canonical pipeline tools")
     osub = o.add_subparsers(dest="openapi_cmd", required=True)
     osub.add_parser("normalize")

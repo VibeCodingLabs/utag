@@ -1,0 +1,6 @@
+{
+  "category": "codegen",
+  "description": "Emit typed SDKs",
+  "id": "sdk-generation",
+  "name": "SDK generation"
+}

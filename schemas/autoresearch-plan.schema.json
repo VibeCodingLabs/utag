@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "AutoresearchStep": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/StepKind"
+        },
+        "status": {
+          "$ref": "#/$defs/StepStatus",
+          "default": "pending"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "description"
+      ],
+      "title": "AutoresearchStep",
+      "type": "object"
+    },
+    "StepKind": {
+      "enum": [
+        "research",
+        "plan",
+        "schema",
+        "tests",
+        "implementation",
+        "validation",
+        "docs",
+        "receipt"
+      ],
+      "title": "StepKind",
+      "type": "string"
+    },
+    "StepStatus": {
+      "enum": [
+        "pending",
+        "running",
+        "done",
+        "failed"
+      ],
+      "title": "StepStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/autoresearch-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/AutoresearchStep"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "task_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Task Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_id",
+    "steps"
+  ],
+  "title": "AutoresearchPlan",
+  "type": "object"
+}
