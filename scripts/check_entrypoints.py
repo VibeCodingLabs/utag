@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-REQUIRED_CLI_COMMANDS = ("generate", "validate", "targets", "intel", "openapi", "schema", "registry", "design")
+REQUIRED_CLI_COMMANDS = ("generate", "validate", "targets", "intel", "openapi", "schema", "registry", "design", "observe")
 
 
 def cli_help_text() -> str:

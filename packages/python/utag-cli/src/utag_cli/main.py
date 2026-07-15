@@ -37,36 +37,59 @@ def cmd_generate(a: argparse.Namespace) -> int:
     import hashlib
     from importlib.metadata import version as pkg_version
 
-    from utag_core.schemas.core import ArtifactManifest, ArtifactProvenance, FileDigest
+    from utag_core.observe import Recorder
+    from utag_core.schemas.core import (
+        ArtifactManifest, ArtifactProvenance, FileDigest, Severity,
+        ValidationFinding, ValidationReport,
+    )
 
     src = Path(a.input)
-    module = _load_module(src)
-    gen = get_generator(a.target)
-    out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    rec = Recorder()
+    artifact_id = f"{a.target}-{src.stem}".lower().replace("_", "-")
     rc = 0
     digests: list[FileDigest] = []
-    for rel, content in sorted(gen.generate(module).items()):
-        p = out / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(content)
-        digests.append(FileDigest(path=rel, sha256=hashlib.sha256(content.encode()).hexdigest(),
-                                  bytes=len(content.encode())))
-        vkind = TARGET_VALIDATOR.get(a.target)
-        if vkind and not a.no_validate:
-            report = get_validator(vkind)(str(p), content)
-            print(report.to_json())
-            if not report.valid:
-                rc = 1
-        print(f"wrote {p}", file=sys.stderr)
+    findings: list[ValidationFinding] = []
+    out = Path(a.out)
+    with rec.span("utag.run", target=a.target, input=str(src)):
+        module = _load_module(src)
+        gen = get_generator(a.target)
+        out.mkdir(parents=True, exist_ok=True)
+        with rec.span("utag.generate", target=a.target):
+            files = gen.generate(module)
+        with rec.span("utag.validate", target=a.target) as validate_span:
+            for rel, content in sorted(files.items()):
+                p = out / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(content)
+                digests.append(FileDigest(path=rel, sha256=hashlib.sha256(content.encode()).hexdigest(),
+                                          bytes=len(content.encode())))
+                vkind = TARGET_VALIDATOR.get(a.target)
+                if vkind and not a.no_validate:
+                    report = get_validator(vkind)(str(p), content)
+                    print(report.to_json())
+                    sev = {"warning": "warn"}  # runtime report says "warning"; contract says "warn"
+                    findings += [ValidationFinding(severity=Severity(sev.get(f.severity.value, f.severity.value)),
+                                                   code=vkind, message=f.message, path=rel or None)
+                                 for f in report.findings]
+                    if not report.valid:
+                        rc = 1
+                        rec.metric("utag_validation_failures_total", 1, target=a.target)
+                print(f"wrote {p}", file=sys.stderr)
+    rec.metric("utag_runs_total", 1, target=a.target)
+    rec.metric("utag_artifacts_generated_total", len(digests), target=a.target)
+    rec.metric("utag_run_duration_ms", rec.spans[-1].end_ms if rec.spans else 0, target=a.target)
     manifest = ArtifactManifest(
-        id=f"{a.target}-{src.stem}".lower().replace("_", "-"),
-        target=a.target,
-        files=digests,
+        id=artifact_id, target=a.target, files=digests,
         provenance=ArtifactProvenance(
             generator_id=a.target, utag_version=pkg_version("utag-core"),
             source_paths=[str(src)],
             inputs_sha256=hashlib.sha256(src.read_bytes()).hexdigest()),
     )
     (out / "artifact.manifest.json").write_text(manifest.model_dump_json(indent=2, exclude_none=True) + "\n")
+    contract_report = ValidationReport(artifact_id=artifact_id, valid=rc == 0, findings=findings,
+                                       run_id=rec.run_id, span_id=validate_span)
+    (out / "validation.report.json").write_text(contract_report.model_dump_json(indent=2, exclude_none=True) + "\n")
+    evidence = rec.flush()
     print(f"wrote {out / 'artifact.manifest.json'}", file=sys.stderr)
+    print(f"run evidence: {evidence}", file=sys.stderr)
     return rc
 
 
@@ -227,6 +250,48 @@ def cmd_design(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_observe(a: argparse.Namespace) -> int:
+    from utag_core import observe
+
+    if a.observe_cmd == "run":
+        runs = observe.load_runs()
+        if a.run_id not in runs:
+            print(f"no run {a.run_id!r}; known: {sorted(runs)}", file=sys.stderr)
+            return 1
+        print(runs[a.run_id], end="")
+        return 0
+    if a.observe_cmd == "export":
+        runs = observe.load_runs()
+        text = "".join(runs.values())
+        problems = observe.validate_jsonl(text)
+        if problems:
+            for p in problems:
+                print(f"FAIL {p}", file=sys.stderr)
+            return 1
+        outp = Path(a.out)
+        outp.parent.mkdir(parents=True, exist_ok=True)
+        outp.write_text(text)
+        print(f"exported {len(runs)} run(s) to {outp}")
+        return 0
+    if a.observe_cmd == "summary":
+        report = observe.summarize()
+        outp = Path(a.out)
+        outp.parent.mkdir(parents=True, exist_ok=True)
+        outp.write_text(report)
+        print(report, end="")
+        return 0
+    if a.observe_cmd == "doctor":
+        runs = observe.load_runs()
+        problems = [f"{rid}: {p}" for rid, text in runs.items()
+                    for p in observe.validate_jsonl(text)]
+        for p in problems:
+            print(f"FAIL {p}", file=sys.stderr)
+        print(f"observe doctor: {len(runs)} run(s), {len(problems)} problem(s)")
+        return 1 if problems else 0
+    print("unknown observe command", file=sys.stderr)
+    return 1
+
+
 def cmd_registry(a: argparse.Namespace) -> int:
     from utag_core.registry import MANIFESTS, coverage_report, registry_problems
 
@@ -341,6 +406,18 @@ def main(argv: list[str] | None = None) -> int:
         if default_out:
             dp.add_argument("--out", default=default_out)
     d.set_defaults(fn=cmd_design)
+
+    ob = sub.add_parser("observe", help="run evidence: traces/events/metrics (JSONL store)")
+    obsub = ob.add_subparsers(dest="observe_cmd", required=True)
+    ob_run = obsub.add_parser("run")
+    ob_run.add_argument("--run-id", required=True)
+    ob_exp = obsub.add_parser("export")
+    ob_exp.add_argument("--format", choices=["jsonl"], default="jsonl")
+    ob_exp.add_argument("--out", default="reports/observability/events.jsonl")
+    ob_sum = obsub.add_parser("summary")
+    ob_sum.add_argument("--out", default="reports/observability/summary.md")
+    obsub.add_parser("doctor")
+    ob.set_defaults(fn=cmd_observe)
 
     r = sub.add_parser("registry", help="registered generators/validators/importers + manifests")
     rsub = r.add_subparsers(dest="registry_cmd", required=True)
