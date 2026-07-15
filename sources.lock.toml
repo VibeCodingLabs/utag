@@ -13,8 +13,8 @@ pytest = { version = "9.1.1", license = "MIT" }
 [upstream]
 pydantic = { repo = "https://github.com/pydantic/pydantic", commit = "652a61ce4f9d7d76eaada31535807a485ece0e21" }
 instructor = { repo = "https://github.com/567-labs/instructor", commit = "cd698be4e79b1b3aa64da31d9e551c4e8f60be11" }
-pydantic_ai = { repo = "https://github.com/pydantic/pydantic-ai", commit = "8171147522d9fa6b4add57b9e0468b3adb8ca1c9" }
-pi = { repo = "https://github.com/earendil-works/pi", commit = "3f9aa5d10b35223abf6146f960ff5cb5c68053ee" }
+pydantic_ai = { repo = "https://github.com/pydantic/pydantic-ai", commit = "16d56beacbd2b531e410f495bab6698dc894634a" }
+pi = { repo = "https://github.com/earendil-works/pi", commit = "34582ef34beec868b0df4fb969385b8af5960c45" }
 design_md = { repo = "https://github.com/google-labs-code/design.md", commit = "ea4a3240d4c0d06778b9e39efeb553851be27c17" }
 openapi = { repo = "https://github.com/OAI/OpenAPI-Specification", commit = "03f7a8b4ad909b8d57f4a30a0100b20726bcf548" }
 cobra = { repo = "https://github.com/spf13/cobra", commit = "ad460ea8f249db69c943a365fb84f3a59042d54e" }

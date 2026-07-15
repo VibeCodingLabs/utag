@@ -1,0 +1,30 @@
+Button:
+  version: 1.0.0
+  metadata:
+    status: stable
+    owner: design-system
+    tags: [ui]
+  spec:
+    props:
+      variant:
+        enum: [primary, secondary, outline]
+      size:
+        enum: [sm, md, lg]
+    states: [idle, hover, active, disabled]
+  references:
+    - design://tokens/color/primary
+    - design://tokens/radius/default
+Avatar:
+  version: 1.0.0
+  metadata:
+    status: stable
+  spec:
+    props:
+      size:
+        enum: [sm, md, lg]
+LegacyButton:
+  version: 0.9.0
+  metadata:
+    status: deprecated
+    supersededBy: design://components/Button
+  spec: {}

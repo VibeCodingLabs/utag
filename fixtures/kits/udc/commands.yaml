@@ -1,0 +1,6 @@
+build-ui:
+  version: 1.0.0
+  spec:
+    input:
+      - design://components/Button
+    output: react

@@ -62,6 +62,29 @@ func (p *Postgres) GetJob(ctx context.Context, id string) (*Job, error) {
 	return &j, err
 }
 
+func (p *Postgres) ListJobs(ctx context.Context, limit int) ([]Job, error) {
+	if limit <= 0 || limit > 500 {
+		limit = 100
+	}
+	rows, err := p.pool.Query(ctx,
+		`SELECT id,target,backend,input_kind,input,metadata,status,error,created_at,updated_at
+		 FROM jobs ORDER BY created_at DESC LIMIT $1`, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []Job
+	for rows.Next() {
+		var j Job
+		if err := rows.Scan(&j.ID, &j.Target, &j.Backend, &j.InputKind, &j.Input, &j.Metadata,
+			&j.Status, &j.Error, &j.CreatedAt, &j.UpdatedAt); err != nil {
+			return nil, err
+		}
+		out = append(out, j)
+	}
+	return out, rows.Err()
+}
+
 func (p *Postgres) ClaimNext(ctx context.Context) (*Job, error) {
 	tx, err := p.pool.Begin(ctx)
 	if err != nil {

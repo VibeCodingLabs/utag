@@ -1,0 +1,13 @@
+[project]
+name = "utag-adapters"
+version = "2.11.0"
+description = "agent-harness adapters: forge-jobs + audit-kit as pydantic-ai tools"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.13,<3", "PyYAML>=6,<7", "pydantic-ai-slim>=2.7,<3", "utag-veriforge"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_harness"]

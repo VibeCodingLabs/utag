@@ -1,7 +1,7 @@
 """utag-generators: model backends + artifact target generators + validators + meta."""
 from utag_generators import validators  # noqa: F401  (registers validators)
 from utag_generators.targets import (  # noqa: F401  (registers generators)
-    agent_skill, design_md, go_harness, openapi_doc, prompt_yaml, pydantic_models, zod,
+    agent_skill, design_md, go_harness, openapi_doc, prompt_yaml, pydantic_models, taxonomy_skill, udc, zod,
     competitive_matrix, typescript_ecosystem, multi_language_sdk, mcp_ecosystem, docs_ecosystem,
     arazzo_ecosystem, testing_ecosystem, gateway_ecosystem, editor_ecosystem, monitoring_ecosystem,
 )

@@ -1,0 +1,37 @@
+name: Refactors
+version: 1.0.0
+kind: audit-template
+output: {report: refactors.md, format: markdown}
+purpose: Identify refactor opportunities with cited evidence in the target repository.
+scope:
+  include: ["**/*.py", "**/*.md"]
+  exclude: ["**/.git/**"]
+inputs: [repository tree]
+required-evidence:
+  types: [file-line]
+  items: [every finding cites file and line]
+schema-validation: [report is markdown]
+chain-of-verification:
+  - list python files in scope
+  - read each candidate file
+  - record findings with file:line evidence
+do-not-do:
+  - do not modify files
+  - do not fabricate line numbers
+  - do not omit empty sections
+  - do not exceed scope
+  - do not claim without evidence
+  - do not summarize files you did not read
+required-output:
+  report-sections: [Summary, Findings, Not Verified]
+definition-of-done:
+  - all required sections present
+  - empty sections say NONE FOUND with method
+  - every finding has severity
+  - every finding has evidence or NOT VERIFIED reason
+  - chain fully executed
+quality-bar:
+  - severity P0-P2 assigned
+  - evidence is file:line
+  - recommendations actionable
+dependencies: {run-after: [], feeds-into: [summary]}

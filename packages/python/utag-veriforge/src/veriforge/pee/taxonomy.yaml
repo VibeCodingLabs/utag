@@ -1,0 +1,62 @@
+# Prompt-technique registry. SOURCE: The Prompt Report (arXiv 2406.06608) — 58 text-based
+# techniques across 6 categories. INTEGRITY: 49 entries seeded (confidently attributable);
+# loader WARNS until count == 58. Reconcile remaining 9 against the paper §2.2 before GA.
+# Fields: phase = composition slot; trigger = TaskProfile facet conditions; cost = token multiplier.
+expected_count: 58
+categories: [in_context_learning, zero_shot, thought_generation, decomposition, ensembling, self_criticism]
+techniques:
+  # --- In-Context Learning (phase: context) ---
+  - {id: few_shot,                     category: in_context_learning, phase: context,   trigger: {has_exemplars: true},            cost: 1.5}
+  - {id: knn_exemplar_selection,       category: in_context_learning, phase: context,   trigger: {has_exemplar_pool: true},        cost: 1.5}
+  - {id: vote_k,                       category: in_context_learning, phase: context,   trigger: {has_exemplar_pool: true},        cost: 1.6}
+  - {id: sg_icl,                       category: in_context_learning, phase: context,   trigger: {has_exemplars: false},           cost: 1.8}
+  - {id: prompt_mining,                category: in_context_learning, phase: context,   trigger: {corpus_available: true},         cost: 1.2}
+  # --- Zero-Shot (phase: framing) ---
+  - {id: role_prompting,               category: zero_shot,           phase: framing,   trigger: {always: true},                   cost: 1.0}
+  - {id: style_prompting,              category: zero_shot,           phase: framing,   trigger: {artifact_type: [docs, marketing]}, cost: 1.0}
+  - {id: emotion_prompting,            category: zero_shot,           phase: framing,   trigger: {},                               cost: 1.0}
+  - {id: system2_attention,            category: zero_shot,           phase: framing,   trigger: {noisy_context: true},            cost: 1.3}
+  - {id: simtom,                       category: zero_shot,           phase: framing,   trigger: {perspective_task: true},         cost: 1.3}
+  - {id: rephrase_and_respond,         category: zero_shot,           phase: framing,   trigger: {complexity: [standard, complex]}, cost: 1.2}
+  - {id: re_reading,                   category: zero_shot,           phase: framing,   trigger: {complexity: [complex]},          cost: 1.1}
+  - {id: self_ask,                     category: zero_shot,           phase: reasoning, trigger: {multi_hop: true},                cost: 1.3}
+  # --- Thought Generation (phase: reasoning) ---
+  - {id: chain_of_thought,             category: thought_generation,  phase: reasoning, trigger: {complexity: [standard, complex]}, cost: 1.4}
+  - {id: zero_shot_cot,                category: thought_generation,  phase: reasoning, trigger: {has_exemplars: false},           cost: 1.2}
+  - {id: step_back,                    category: thought_generation,  phase: reasoning, trigger: {domain: [science, architecture]}, cost: 1.3}
+  - {id: analogical_prompting,         category: thought_generation,  phase: reasoning, trigger: {novel_problem: true},            cost: 1.4}
+  - {id: thread_of_thought,            category: thought_generation,  phase: reasoning, trigger: {long_context: true},             cost: 1.3}
+  - {id: tab_cot,                      category: thought_generation,  phase: reasoning, trigger: {artifact_type: [data, tabular]}, cost: 1.3}
+  - {id: active_prompting,             category: thought_generation,  phase: reasoning, trigger: {has_exemplar_pool: true},        cost: 1.7}
+  - {id: auto_cot,                     category: thought_generation,  phase: reasoning, trigger: {has_exemplar_pool: true},        cost: 1.6}
+  - {id: complexity_based_prompting,   category: thought_generation,  phase: reasoning, trigger: {complexity: [complex]},          cost: 1.8}
+  - {id: contrastive_cot,              category: thought_generation,  phase: reasoning, trigger: {error_prone_domain: true},       cost: 1.5}
+  - {id: memory_of_thought,            category: thought_generation,  phase: reasoning, trigger: {episodic_memory: true},          cost: 1.6}
+  - {id: uncertainty_routed_cot,       category: thought_generation,  phase: reasoning, trigger: {complexity: [complex]},          cost: 2.0}
+  # --- Decomposition (phase: decomposition) ---
+  - {id: least_to_most,                category: decomposition,       phase: decomposition, trigger: {complexity: [complex]},      cost: 1.8}
+  - {id: decomp,                       category: decomposition,       phase: decomposition, trigger: {complexity: [complex]},      cost: 1.8}
+  - {id: plan_and_solve,               category: decomposition,       phase: decomposition, trigger: {complexity: [standard, complex]}, cost: 1.5}
+  - {id: tree_of_thought,              category: decomposition,       phase: decomposition, trigger: {search_problem: true},       cost: 3.0}
+  - {id: recursion_of_thought,         category: decomposition,       phase: decomposition, trigger: {long_context: true},         cost: 2.5}
+  - {id: program_of_thoughts,          category: decomposition,       phase: decomposition, trigger: {artifact_type: [code, math]}, cost: 1.6}
+  - {id: faithful_cot,                 category: decomposition,       phase: decomposition, trigger: {artifact_type: [code, math]}, cost: 1.7}
+  - {id: skeleton_of_thought,          category: decomposition,       phase: decomposition, trigger: {latency_sensitive: true},    cost: 1.4}
+  # --- Ensembling (phase: ensembling) ---
+  - {id: self_consistency,             category: ensembling,          phase: ensembling, trigger: {determinism: false},            cost: 5.0}
+  - {id: universal_self_consistency,   category: ensembling,          phase: ensembling, trigger: {free_form_output: true},        cost: 5.0}
+  - {id: dense,                        category: ensembling,          phase: ensembling, trigger: {has_exemplar_pool: true},       cost: 4.0}
+  - {id: mixture_of_reasoning_experts, category: ensembling,          phase: ensembling, trigger: {heterogeneous_task: true},      cost: 4.0}
+  - {id: max_mutual_information,       category: ensembling,          phase: ensembling, trigger: {prompt_pool: true},             cost: 3.0}
+  - {id: meta_cot,                     category: ensembling,          phase: ensembling, trigger: {complexity: [complex]},         cost: 4.0}
+  - {id: diverse,                      category: ensembling,          phase: ensembling, trigger: {prompt_pool: true},             cost: 5.0}
+  - {id: cosp,                         category: ensembling,          phase: ensembling, trigger: {has_exemplars: false},          cost: 3.0}
+  - {id: usp,                          category: ensembling,          phase: ensembling, trigger: {has_exemplars: false},          cost: 3.0}
+  - {id: prompt_paraphrasing,          category: ensembling,          phase: ensembling, trigger: {prompt_pool: true},             cost: 2.5}
+  # --- Self-Criticism (phase: self_criticism; CoVe composes LAST, always) ---
+  - {id: self_calibration,             category: self_criticism,      phase: self_criticism, trigger: {confidence_needed: true},   cost: 1.5}
+  - {id: self_refine,                  category: self_criticism,      phase: self_criticism, trigger: {iterative_ok: true},        cost: 2.0}
+  - {id: reversing_cot,                category: self_criticism,      phase: self_criticism, trigger: {artifact_type: [math]},     cost: 1.8}
+  - {id: self_verification,            category: self_criticism,      phase: self_criticism, trigger: {artifact_type: [math, code]}, cost: 2.0}
+  - {id: chain_of_verification,        category: self_criticism,      phase: self_criticism, trigger: {always: true},              cost: 2.2}
+  - {id: cumulative_reasoning,         category: self_criticism,      phase: self_criticism, trigger: {complexity: [complex]},     cost: 2.5}

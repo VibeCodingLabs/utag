@@ -1,0 +1,19 @@
+[project]
+name = "utag-veriforge"
+version = "2.11.0"
+description = "VeriForge merged into utag: 5-role verifiable pipeline, PEE, CoVe, ambiguity gate, error routing"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.7", "pyyaml>=6"]
+
+[project.optional-dependencies]
+instructor = ["instructor>=1.5"]   # native binding path; pydantic-ai bridge in utag-adapters needs neither
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/veriforge"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/veriforge/pee/taxonomy.yaml" = "veriforge/pee/taxonomy.yaml"

@@ -1,0 +1,4 @@
+generateCode:
+  spec: { enabled: true }
+modifyTokens:
+  spec: { enabled: false }

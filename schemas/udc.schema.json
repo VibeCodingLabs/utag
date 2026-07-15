@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://udc.example.com/schemas/1.0.0/udc.schema.json",
+  "title": "Universal Design Contract (UDC) v1.0.0",
+  "description": "Schema for the UDC canonical contract graph. design.yaml (assembled from design/*.yaml fragments) is the single source of truth; design.json and DESIGN.md are deterministic, verified derivations.",
+  "type": "object",
+  "required": ["udc", "info", "domains"],
+  "properties": {
+    "udc": {
+      "$ref": "#/$defs/semver",
+      "description": "UDC specification version this document conforms to."
+    },
+    "info": { "$ref": "#/$defs/info" },
+    "domains": { "$ref": "#/$defs/domains" }
+  },
+  "patternProperties": {
+    "^x-": true
+  },
+  "additionalProperties": false,
+
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+
+    "designUri": {
+      "type": "string",
+      "description": "Canonical addressable identifier. Grammar: design://<domain>/<segment>(/<segment>)* — domain is lower-kebab, segments allow PascalCase/camelCase/kebab/snake. URIs are workspace-relative; no authority component in v1.",
+      "pattern": "^design://[a-z][a-z0-9-]*(/[A-Za-z][A-Za-z0-9_-]*)+$"
+    },
+
+    "domainName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+
+    "info": {
+      "type": "object",
+      "required": ["title", "version"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "version": { "$ref": "#/$defs/semver" },
+        "description": { "type": "string" },
+        "owner": { "type": "string" },
+        "license": { "type": "string" },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "url": { "type": "string", "format": "uri" },
+            "email": { "type": "string", "format": "email" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": { "^x-": true },
+      "additionalProperties": false
+    },
+
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "$ref": "#/$defs/semver" },
+        "owner": { "type": "string" },
+        "status": {
+          "enum": ["draft", "experimental", "stable", "deprecated", "removed"]
+        },
+        "supersededBy": { "$ref": "#/$defs/designUri" },
+        "description": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      },
+      "patternProperties": { "^x-": true },
+      "additionalProperties": false,
+      "if": { "properties": { "status": { "const": "deprecated" } }, "required": ["status"] },
+      "then": {
+        "description": "Deprecated entries should declare their successor when one exists."
+      }
+    },
+
+    "references": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/designUri" },
+      "uniqueItems": true
+    },
+
+    "entry": {
+      "type": "object",
+      "description": "Universal domain-entry envelope. Domain-specific payload lives in `spec`.",
+      "properties": {
+        "version": { "$ref": "#/$defs/semver" },
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "spec": { "type": "object" },
+        "references": { "$ref": "#/$defs/references" }
+      },
+      "patternProperties": { "^x-": true },
+      "additionalProperties": false
+    },
+
+    "tokenLeaf": {
+      "type": "object",
+      "required": ["value", "type"],
+      "properties": {
+        "value": { "type": ["string", "number", "array", "object"] },
+        "type": {
+          "enum": [
+            "color", "dimension", "fontFamily", "fontWeight", "duration",
+            "cubicBezier", "number", "shadow", "border", "typography",
+            "gradient", "transition", "strokeStyle", "zIndex", "breakpoint"
+          ]
+        },
+        "description": { "type": "string" },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "patternProperties": { "^x-": true },
+      "additionalProperties": false
+    },
+
+    "tokenNode": {
+      "description": "Token trees nest groups until a leaf carrying value+type.",
+      "anyOf": [
+        { "$ref": "#/$defs/tokenLeaf" },
+        {
+          "type": "object",
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_-]*$": { "$ref": "#/$defs/tokenNode" },
+            "^x-": true
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+
+    "tokenRef": {
+      "type": "object",
+      "required": ["token"],
+      "properties": {
+        "token": { "$ref": "#/$defs/designUri" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+
+    "adapterEntry": {
+      "type": "object",
+      "required": ["consumes", "outputs"],
+      "properties": {
+        "version": { "$ref": "#/$defs/semver" },
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "consumes": { "$ref": "#/$defs/references" },
+        "outputs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "mapping": {
+          "type": "object",
+          "description": "Deterministic transform contract: how consumed contract objects map onto target-platform constructs (e.g. token type -> Tailwind v4 @theme variable naming, OKLCH passthrough vs fallback)."
+        },
+        "spec": { "type": "object" },
+        "references": { "$ref": "#/$defs/references" }
+      },
+      "patternProperties": { "^x-": true },
+      "additionalProperties": false
+    },
+
+    "domains": {
+      "type": "object",
+      "properties": {
+        "tokens": {
+          "type": "object",
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_-]*$": { "$ref": "#/$defs/tokenNode" },
+            "^x-": true
+          },
+          "additionalProperties": false
+        },
+        "styles": {
+          "type": "object",
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_-]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[A-Za-z][A-Za-z0-9_-]*$": { "$ref": "#/$defs/tokenRef" },
+                "^x-": true
+              },
+              "additionalProperties": false
+            },
+            "^x-": true
+          },
+          "additionalProperties": false
+        },
+        "palettes": {
+          "type": "object",
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_-]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[A-Za-z][A-Za-z0-9_-]*$": { "$ref": "#/$defs/tokenRef" },
+                "^x-": true
+              },
+              "additionalProperties": false
+            },
+            "^x-": true
+          },
+          "additionalProperties": false
+        },
+        "adapters": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z][a-z0-9-]*$": { "$ref": "#/$defs/adapterEntry" },
+            "^x-": true
+          },
+          "additionalProperties": false
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "All other domains — components, widgets, prompts, agents, commands, capabilities, web-ui, and any future domain — follow the universal entry envelope.",
+        "patternProperties": {
+          "^[A-Za-z][A-Za-z0-9_-]*$": { "$ref": "#/$defs/entry" },
+          "^x-": true
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

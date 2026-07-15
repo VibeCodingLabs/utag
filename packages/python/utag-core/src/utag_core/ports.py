@@ -4,7 +4,6 @@ from __future__ import annotations
 from typing import Protocol, TypeVar, runtime_checkable
 
 from pydantic import BaseModel
-import re
 
 from utag_core.repair import repair_loop
 
@@ -59,7 +58,8 @@ class TextPortStructuredAdapter:
 
 def _strip_fences(raw: str) -> str:
     s = raw.strip()
-    m = re.search(r"```[a-zA-Z]*\n(.*?)```", s, flags=re.DOTALL)
-    if m:
-        return m.group(1).strip()
-    return s
+    if s.startswith("```"):
+        s = s.split("\n", 1)[1] if "\n" in s else s
+        if s.rstrip().endswith("```"):
+            s = s.rstrip()[: -3]
+    return s.strip()

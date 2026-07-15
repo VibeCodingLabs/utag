@@ -1,0 +1,42 @@
+........................................................................ [ 24%]
+........................................................................ [ 48%]
+..........................................ssssss.ss..............sssss.. [ 72%]
+.................F...................................................... [ 97%]
+........                                                                 [100%]
+=================================== FAILURES ===================================
+________________________ test_docs_ecosystem_generators ________________________
+
+    def test_docs_ecosystem_generators():
+        targets = [
+            "docs-portal-static",
+            "redoc-compatible-reference",
+            "scalar-compatible-reference",
+            "zudoku-compatible-site",
+            "mintlify-compatible-content",
+            "api-guides",
+            "api-changelog",
+            "sitemap",
+            "search-index",
+            "agent-score-report",
+        ]
+        module = ModuleSpec(name="docsmod")
+        for t in targets:
+>           gen = get_generator(t)
+                  ^^^^^^^^^^^^^^^^
+
+tests/unit/test_docs_ecosystem.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = 'search-index'
+
+    def get_generator(target: str) -> Generator:
+        try:
+            return GENERATORS[target]
+        except KeyError:
+>           raise KeyError(f"no generator registered for target {target!r}; known: {sorted(GENERATORS)}") from None
+E           KeyError: "no generator registered for target 'search-index'; known: ['agent-score-report', 'agent-skill', 'agentify-bundle', 'agents-md', 'api-changelog', 'api-fiddle-workspace', 'api-guides', 'apisix-gateway-config', 'arazzo-agent-workflows', 'arazzo-ui-model', 'arazzo-workflows', 'axios-client', 'barbacane-policy', 'behavior-verification-manifest', 'bump-sh-manifest', 'competitive-matrix', 'contract-test-suite', 'csharp-sdk', 'design-md', 'docs-portal-static', 'fastmcp-server', 'fetch-client', 'generator', 'go-harness', 'go-sdk', 'hurl-tests', 'java-sdk', 'kong-gateway-config', 'kotlin-sdk', 'llms-txt', 'mcp-app-ui-manifest', 'mcp-gateway-config', 'mcp-tool-manifest', 'membrane-policy', 'mintlify-compatible-content', 'mock-server', 'msw-handlers', 'nock-tests', 'oauth2-proxy-config', 'opa-policy', 'openapi-3.1', 'orpc-router', 'overlay-diff', 'overlay-patch', 'php-sdk', 'postman-collection', 'prism-config', 'prompt-yaml', 'pydantic-models', 'python-sdk', 'rate-limit-policy', 'redoc-compatible-reference', 'redocly-respect-config', 'ruby-sdk', 'rust-sdk', 'scalar-compatible-reference', 'schemathesis-suite', 'sitemap', 'skill-md', 'specway-monitor', 'stoplight-studio-project', 'supertest-tests', 'swaggerhub-sync-manifest', 'swift-sdk', 'swr-hooks', 'tanstack-query-hooks', 'typescript-mcp-server', 'typescript-sdk', 'typescript-types', 'wiremock-stubs', 'workflow-test-suite', 'zod-schemas', 'zudoku-compatible-site', 'zuplo-gateway-config', 'zustand-client']"
+
+packages/python/utag-core/src/utag_core/registry.py:79: KeyError
+=========================== short test summary info ============================
+FAILED tests/unit/test_docs_ecosystem.py::test_docs_ecosystem_generators - KeyError: "no generator registered for target 'search-index'; known: ['agent-score-report', 'agent-skill', 'agentify-bundle', 'agents-md', 'api-changelog', 'api-fiddle-workspace', 'api-guides', 'apisix-gateway-config', 'arazzo-agent-workflows', 'arazzo-ui-model', 'arazzo-workflows', 'axios-client', 'barbacane-policy', 'behavior-verification-manifest', 'bump-sh-manifest', 'competitive-matrix', 'contract-test-suite', 'csharp-sdk', 'design-md', 'docs-portal-static', 'fastmcp-server', 'fetch-client', 'generator', 'go-harness', 'go-sdk', 'hurl-tests', 'java-sdk', 'kong-gateway-config', 'kotlin-sdk', 'llms-txt', 'mcp-app-ui-manifest', 'mcp-gateway-config', 'mcp-tool-manifest', 'membrane-policy', 'mintlify-compatible-content', 'mock-server', 'msw-handlers', 'nock-tests', 'oauth2-proxy-config', 'opa-policy', 'openapi-3.1', 'orpc-router', 'overlay-diff', 'overlay-patch', 'php-sdk', 'postman-collection', 'prism-config', 'prompt-yaml', 'pydantic-models', 'python-sdk', 'rate-limit-policy', 'redoc-compatible-reference', 'redocly-respect-config', 'ruby-sdk', 'rust-sdk', 'scalar-compatible-reference', 'schemathesis-suite', 'sitemap', 'skill-md', 'specway-monitor', 'stoplight-studio-project', 'supertest-tests', 'swaggerhub-sync-manifest', 'swift-sdk', 'swr-hooks', 'tanstack-query-hooks', 'typescript-mcp-server', 'typescript-sdk', 'typescript-types', 'wiremock-stubs', 'workflow-test-suite', 'zod-schemas', 'zudoku-compatible-site', 'zuplo-gateway-config', 'zustand-client']"
+1 failed, 282 passed, 13 skipped in 5.39s
