@@ -67,6 +67,9 @@ class DataBindingSpec(StrictSchema):
 class DataSection(StrictSchema):
     resources: list[str] = []
     bindings: list[DataBindingSpec] = []
+    #: resource name -> schema kind (e.g. runs: run-trace); typed data props,
+    #: TS contract emission, and fixture generation all key off this
+    contracts: dict[str, str] = {}
 
 
 class ThemeSpec(StrictSchema):
@@ -126,7 +129,7 @@ EXAMPLES = {
         "layouts": [{"id": "console-shell", "regions": ["sidebar", "header", "main", "inspector"]}],
         "routes": [{"path": "/runs", "layout": "console-shell", "components": ["run-status-card"]}],
         "interactions": [{"id": "select-run", "source": "run-status-card", "target": "run-status-card"}],
-        "data": {"resources": ["runs"]},
+        "data": {"resources": ["runs"], "contracts": {"runs": "run-trace"}},
         "accessibility": {"minContrast": "AA", "keyboardRequired": True},
     },
     "DesignTokenDocument": {"version": "1.0.0", "tokens": {"color": {"bg": "#0b0d10"}}},

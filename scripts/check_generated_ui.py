@@ -12,9 +12,12 @@ import utag_generators  # noqa: F401
 
 ROOT = Path(__file__).resolve().parent.parent
 UI_SRC = ROOT / "packages/ui/src"
-DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "react-component-library")
+DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "typescript-contract-types",
+                  "design-fixtures", "react-component-library")
 TOKEN_FILES = {"styles/tokens.css", "styles/theme.css", "styles/dark.css",
                "styles/tokens.json", "styles/css-variables.manifest.json"}
+# fixtures are data, not styling — hex values there are record content
+HEX_EXEMPT_PREFIX = "generated/fixtures/"
 HEX_COLOR = re.compile(r"#[0-9a-fA-F]{3,8}\b")
 
 if __name__ == "__main__":
@@ -23,7 +26,8 @@ if __name__ == "__main__":
     problems = []
     for target in DESIGN_TARGETS:
         for rel, content in sorted(get_generator(target).generate(module).items()):
-            if rel not in TOKEN_FILES and HEX_COLOR.search(content):
+            if rel not in TOKEN_FILES and not rel.startswith(HEX_EXEMPT_PREFIX) \
+                    and HEX_COLOR.search(content):
                 problems.append(f"{rel}: hardcoded color outside token files")
             on_disk = UI_SRC / rel
             if on_disk.is_file() and on_disk.read_text() != content:

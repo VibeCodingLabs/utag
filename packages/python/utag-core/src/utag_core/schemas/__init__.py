@@ -42,15 +42,16 @@ def emit_json_schema(model: type[BaseModel]) -> str:
     return json.dumps(schema, indent=2, sort_keys=True) + "\n"
 
 
-from utag_core.schemas import ai, autoresearch, core, design, mcp, observability  # noqa: E402
+from utag_core.schemas import ai, autoresearch, core, design, mcp, observability, openapi  # noqa: E402
 from utag_core.schemas.ai import *  # noqa: F403,E402
 from utag_core.schemas.autoresearch import *  # noqa: F403,E402
 from utag_core.schemas.core import *  # noqa: F403,E402
 from utag_core.schemas.design import *  # noqa: F403,E402
 from utag_core.schemas.mcp import *  # noqa: F403,E402
 from utag_core.schemas.observability import *  # noqa: F403,E402
+from utag_core.schemas.openapi import *  # noqa: F403,E402
 
-_MODULES = (core, autoresearch, design, observability, ai, mcp)
+_MODULES = (core, autoresearch, design, observability, ai, mcp, openapi)
 
 #: kind -> top-level schema model (only models listed in a module's TOP_LEVEL)
 SCHEMAS: dict[str, type[StrictSchema]] = {

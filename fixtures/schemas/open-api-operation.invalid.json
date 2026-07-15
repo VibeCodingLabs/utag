@@ -1,0 +1,11 @@
+{
+  "__unknown_property__": true,
+  "has_response_schema": true,
+  "method": "get",
+  "operation_id": "listRuns",
+  "path": "/runs",
+  "summary": "List generation runs",
+  "tags": [
+    "runs"
+  ]
+}

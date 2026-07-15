@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "OpenApiDiffEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "kind": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Kind",
+          "type": "string"
+        },
+        "pointer": {
+          "minLength": 1,
+          "title": "Pointer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "pointer"
+      ],
+      "title": "OpenApiDiffEntry",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/open-api-diff-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "entries": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/OpenApiDiffEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "new": {
+      "minLength": 1,
+      "title": "New",
+      "type": "string"
+    },
+    "old": {
+      "minLength": 1,
+      "title": "Old",
+      "type": "string"
+    }
+  },
+  "required": [
+    "old",
+    "new"
+  ],
+  "title": "OpenApiDiffReport",
+  "type": "object"
+}

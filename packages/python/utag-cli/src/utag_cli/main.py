@@ -204,7 +204,8 @@ def cmd_schema(a: argparse.Namespace) -> int:
     return 1
 
 
-DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "react-component-library")
+DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "typescript-contract-types",
+                  "design-fixtures", "react-component-library")
 
 
 def cmd_design(a: argparse.Namespace) -> int:
@@ -226,7 +227,7 @@ def cmd_design(a: argparse.Namespace) -> int:
     module = ModuleSpec(name="design", description="design.yaml",
                         provenance={"design_yaml": design_path.read_text()})
     targets = {"tokens": DESIGN_TARGETS[:2], "components": DESIGN_TARGETS[2:],
-               "app": DESIGN_TARGETS, "snapshot": DESIGN_TARGETS}[a.design_cmd]
+               "app": DESIGN_TARGETS, "snapshot": DESIGN_TARGETS}[a.design_cmd]  # tokens=css+tailwind; components=types+fixtures+tsx
     files: dict[str, str] = {}
     for target in targets:
         files.update(get_generator(target).generate(module))

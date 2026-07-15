@@ -1,0 +1,12 @@
+{
+  "__unknown_property__": true,
+  "entries": [
+    {
+      "detail": "new path",
+      "kind": "added",
+      "pointer": "/paths/~1runs"
+    }
+  ],
+  "new": "petstore-v2.yaml",
+  "old": "petstore-v1.yaml"
+}

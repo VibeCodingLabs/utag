@@ -179,6 +179,14 @@
           "title": "Bindings",
           "type": "array"
         },
+        "contracts": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Contracts",
+          "type": "object"
+        },
         "extensions": {
           "anyOf": [
             {
@@ -449,6 +457,7 @@
       "$ref": "#/$defs/DataSection",
       "default": {
         "bindings": [],
+        "contracts": {},
         "extensions": null,
         "resources": []
       }
