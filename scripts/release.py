@@ -24,12 +24,18 @@ def golden_hash() -> str:
     tax_mod = ModuleSpec(name="tax", provenance={
         "taxonomy_md": Path("fixtures/kits/taxonomies/master_mapped_taxonomy.md").read_text(),
         "tools": "job_repo_audit"})
+    design_mod = ModuleSpec(name="utag_console", description="design.yaml-derived",
+                            provenance={"design_yaml": Path("design.yaml").read_text()})
+    design_targets = {"design-tokens-css", "tailwind-v4-theme", "react-component-library"}
     for fx in sorted(Path("fixtures/prompts").glob("*.yaml")):
         m = ingest_prompt_yaml(fx.read_text(), str(fx))
         for t in sorted(GENERATORS):
             if t == "generator":
                 continue
-            mod = tax_mod if t == "taxonomy-skill" else (udc_mod if t.startswith("udc-") else m)
+            mod = (tax_mod if t == "taxonomy-skill"
+                   else udc_mod if t.startswith("udc-")
+                   else design_mod if t in design_targets
+                   else m)
             for rel, content in sorted(get_generator(t).generate(mod).items()):
                 h.update(rel.encode()); h.update(content.encode())
     return h.hexdigest()

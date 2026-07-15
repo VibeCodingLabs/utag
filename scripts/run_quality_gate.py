@@ -18,6 +18,16 @@ ROOT = Path(__file__).resolve().parent.parent
 GATES: list[tuple[str, list[str], bool]] = [
     ("pytest", ["uv", "run", "--with", "pytest", "pytest"], True),
     ("entrypoints", ["uv", "run", "python", "scripts/check_entrypoints.py"], True),
+    ("schemas", ["uv", "run", "python", "scripts/validate_schemas.py"], True),
+    ("schema-fixtures", ["uv", "run", "python", "scripts/check_schema_fixtures.py"], True),
+    ("schema-extensions", ["uv", "run", "python", "scripts/check_no_unknown_schema_extensions.py"], True),
+    ("design", ["uv", "run", "python", "scripts/validate_design.py", "design.yaml"], True),
+    ("generated-ui", ["uv", "run", "python", "scripts/check_generated_ui.py"], True),
+    ("accessibility", ["uv", "run", "python", "scripts/check_accessibility_contracts.py"], True),
+    ("registry-doctor", ["uv", "run", "utag", "registry", "doctor"], True),
+    ("automation-doctor", ["uv", "run", "utag", "automation", "doctor"], True),
+    ("observability", ["uv", "run", "python", "scripts/check_observability_schema.py"], True),
+    ("ai-doctor", ["uv", "run", "utag", "ai", "doctor"], True),
     ("ruff", ["uv", "run", "--with", "ruff", "ruff", "check", "."], False),
 ]
 

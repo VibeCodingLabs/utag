@@ -50,22 +50,124 @@ components:
     type: panel
     props:
       resource: validation-reports
+  - id: run-timeline
+    type: panel
+    props:
+      resource: runs
+    states: [idle, loading]
+  - id: artifact-manifest-panel
+    type: panel
+    props:
+      resource: artifacts
+  - id: artifact-diff-viewer
+    type: panel
+    props:
+      resource: artifacts
+  - id: generator-coverage-matrix
+    type: table
+    props:
+      resource: registry
+  - id: provider-capability-matrix
+    type: table
+    props:
+      resource: ai-providers
+  - id: mcp-tool-browser
+    type: table
+    props:
+      resource: mcp-tools
+  - id: arazzo-workflow-graph
+    type: panel
+    props:
+      resource: workflows
+  - id: openapi-operation-explorer
+    type: table
+    props:
+      resource: openapi-operations
+  - id: design-token-explorer
+    type: table
+    props:
+      resource: design-tokens
+  - id: autoresearch-task-board
+    type: panel
+    props:
+      resource: autoresearch-tasks
+  - id: cost-latency-chart
+    type: panel
+    props:
+      resource: model-calls
+  - id: model-call-trace-panel
+    type: panel
+    props:
+      resource: model-calls
+  - id: schema-validation-inspector
+    type: panel
+    props:
+      resource: schema-reports
+  - id: queue-dlq-panel
+    type: panel
+    props:
+      resource: jobs
+  - id: policy-settings-panel
+    type: panel
+    props:
+      resource: policies
 layouts:
   - id: console-shell
     regions: [sidebar, header, main, inspector]
 routes:
+  - path: /
+    layout: console-shell
+    components: [run-status-card, run-timeline, cost-latency-chart]
   - path: /runs
     layout: console-shell
-    components: [run-table, run-inspector]
+    components: [run-table, run-inspector, run-timeline]
   - path: /validation
     layout: console-shell
-    components: [validation-report-panel]
+    components: [validation-report-panel, schema-validation-inspector]
+  - path: /artifacts
+    layout: console-shell
+    components: [artifact-manifest-panel, artifact-diff-viewer]
+  - path: /registry
+    layout: console-shell
+    components: [generator-coverage-matrix]
+  - path: /openapi
+    layout: console-shell
+    components: [openapi-operation-explorer]
+  - path: /mcp
+    layout: console-shell
+    components: [mcp-tool-browser]
+  - path: /workflows
+    layout: console-shell
+    components: [arazzo-workflow-graph]
+  - path: /tokens
+    layout: console-shell
+    components: [design-token-explorer]
+  - path: /autoresearch
+    layout: console-shell
+    components: [autoresearch-task-board]
+  - path: /ai
+    layout: console-shell
+    components: [provider-capability-matrix, model-call-trace-panel]
+  - path: /queue
+    layout: console-shell
+    components: [queue-dlq-panel]
+  - path: /settings
+    layout: console-shell
+    components: [policy-settings-panel]
 interactions:
   - id: select-run
     source: run-table
     target: run-inspector
+  - id: select-validation-finding
+    source: validation-report-panel
+    target: schema-validation-inspector
+  - id: select-artifact
+    source: artifact-manifest-panel
+    target: artifact-diff-viewer
 data:
-  resources: [runs, validation-reports]
+  resources: [runs, validation-reports, artifacts, registry, ai-providers,
+              mcp-tools, workflows, openapi-operations, design-tokens,
+              autoresearch-tasks, model-calls, schema-reports, jobs, policies]
 accessibility:
   minContrast: AA
   keyboardRequired: true

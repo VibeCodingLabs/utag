@@ -3,6 +3,7 @@ import React from "react";
 import { ConsoleShell } from "../layouts/ConsoleShell";
 import { RunInspector } from "../components/RunInspector";
 import { RunTable } from "../components/RunTable";
+import { RunTimeline } from "../components/RunTimeline";
 
 export function RunsPage() {
   return (
@@ -11,6 +12,7 @@ export function RunsPage() {
         <>
         <RunTable />
         <RunInspector />
+        <RunTimeline />
         </>
       }
     />
