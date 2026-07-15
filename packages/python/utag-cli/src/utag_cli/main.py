@@ -181,6 +181,52 @@ def cmd_schema(a: argparse.Namespace) -> int:
     return 1
 
 
+DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "react-component-library")
+
+
+def cmd_design(a: argparse.Namespace) -> int:
+    import hashlib
+
+    from utag_core.ir import ModuleSpec
+    from utag_core.schemas import tools as st
+
+    design_path = Path(a.input)
+    errs = st.validate_file("design-yaml", design_path)
+    if errs:
+        for e in errs:
+            print(e, file=sys.stderr)
+        return 1
+    if a.design_cmd == "validate":
+        print(json.dumps({"path": str(design_path), "valid": True}))
+        return 0
+
+    module = ModuleSpec(name="design", description="design.yaml",
+                        provenance={"design_yaml": design_path.read_text()})
+    targets = {"tokens": DESIGN_TARGETS[:2], "components": DESIGN_TARGETS[2:],
+               "app": DESIGN_TARGETS, "snapshot": DESIGN_TARGETS}[a.design_cmd]
+    files: dict[str, str] = {}
+    for target in targets:
+        files.update(get_generator(target).generate(module))
+
+    if a.design_cmd == "snapshot":
+        lines = ["# UI snapshot", ""]
+        lines += [f"- `{rel}` sha256 `{hashlib.sha256(content.encode()).hexdigest()}`"
+                  for rel, content in sorted(files.items())]
+        out = Path(a.out) / "snapshot.md"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text("\n".join(lines) + "\n")
+        print(f"wrote {out} ({len(files)} files)")
+        return 0
+
+    out = Path(a.out)
+    for rel, content in sorted(files.items()):
+        p = out / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content)
+    print(f"wrote {len(files)} files to {out}")
+    return 0
+
+
 def cmd_registry(a: argparse.Namespace) -> int:
     from utag_core.registry import MANIFESTS, coverage_report, registry_problems
 
@@ -284,6 +330,17 @@ def main(argv: list[str] | None = None) -> int:
     s_doc.add_argument("--root", default=".")
     s_doc.add_argument("--out", default="reports/schema-validation/doctor.md")
     s.set_defaults(fn=cmd_schema)
+
+    d = sub.add_parser("design", help="design.yaml -> tokens/components/app/snapshot (UDC pipeline)")
+    dsub = d.add_subparsers(dest="design_cmd", required=True)
+    for name, default_out in (("validate", ""), ("tokens", "packages/ui/src/"),
+                              ("components", "packages/ui/src/"), ("app", "packages/ui/src/"),
+                              ("snapshot", "reports/ui-snapshots/")):
+        dp = dsub.add_parser(name)
+        dp.add_argument("--input", default="design.yaml")
+        if default_out:
+            dp.add_argument("--out", default=default_out)
+    d.set_defaults(fn=cmd_design)
 
     r = sub.add_parser("registry", help="registered generators/validators/importers + manifests")
     rsub = r.add_subparsers(dest="registry_cmd", required=True)

@@ -1,0 +1,66 @@
+{
+  "file": "styles/tokens.css",
+  "variables": [
+    {
+      "name": "--utag-color-accent",
+      "value": "#4f8cff"
+    },
+    {
+      "name": "--utag-color-bg",
+      "value": "#0b0d10"
+    },
+    {
+      "name": "--utag-color-danger",
+      "value": "#ff5d5d"
+    },
+    {
+      "name": "--utag-color-fg",
+      "value": "#e6e8ea"
+    },
+    {
+      "name": "--utag-color-success",
+      "value": "#3ecf8e"
+    },
+    {
+      "name": "--utag-motion-fast",
+      "value": "120ms"
+    },
+    {
+      "name": "--utag-radius-md",
+      "value": "8px"
+    },
+    {
+      "name": "--utag-radius-sm",
+      "value": "4px"
+    },
+    {
+      "name": "--utag-shadow-card",
+      "value": "0 1px 3px rgba(0,0,0,.4)"
+    },
+    {
+      "name": "--utag-space-1",
+      "value": "4px"
+    },
+    {
+      "name": "--utag-space-2",
+      "value": "8px"
+    },
+    {
+      "name": "--utag-space-3",
+      "value": "16px"
+    },
+    {
+      "name": "--utag-space-4",
+      "value": "24px"
+    },
+    {
+      "name": "--utag-font-mono",
+      "value": "JetBrains Mono, monospace"
+    },
+    {
+      "name": "--utag-font-sans",
+      "value": "Inter, system-ui, sans-serif"
+    }
+  ],
+  "source_design": "utag-console"
+}

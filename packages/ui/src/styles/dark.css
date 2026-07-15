@@ -1,0 +1,10 @@
+:root[data-theme="dark"] {
+  --utag-color-bg: #0b0d10;
+  --utag-color-fg: #e6e8ea;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --utag-color-bg: #0b0d10;
+    --utag-color-fg: #e6e8ea;
+  }
+}

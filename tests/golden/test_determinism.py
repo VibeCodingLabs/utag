@@ -21,6 +21,11 @@ def _module(target: str):
         from utag_core.ir import ModuleSpec
         tax = (Path(__file__).parents[2] / "fixtures/kits/taxonomies/master_mapped_taxonomy.md").read_text()
         return ModuleSpec(name="tax", provenance={"taxonomy_md": tax, "tools": "job_repo_audit"})
+    if target in ("design-tokens-css", "tailwind-v4-theme", "react-component-library"):
+        from utag_core.ir import ModuleSpec
+        design = (Path(__file__).parents[2] / "design.yaml").read_text()
+        return ModuleSpec(name="utag_console", description="design.yaml-derived",
+                          provenance={"design_yaml": design})
     if target.startswith("udc-"):
         import json
         from utag_core.ir import ModuleSpec
