@@ -114,19 +114,6 @@ def cmd_intel(a: argparse.Namespace) -> int:
         if a.out:
             Path(a.out).parent.mkdir(parents=True, exist_ok=True)
             Path(a.out).write_text(f"gaps against {a.against}")
-def cmd_intel(a: argparse.Namespace) -> int:
-    if a.intel_cmd == "import-openapi-tools":
-        matrix = parse_openapi_tools(Path(a.csv))
-        out_data = matrix.model_dump()
-        if a.out:
-            Path(a.out).parent.mkdir(parents=True, exist_ok=True)
-            Path(a.out).write_text(json.dumps(out_data, indent=2))
-        print(json.dumps({"status": "imported", "primitives": len(matrix.primitives), "providers": len(matrix.providers)}))
-    elif a.intel_cmd == "gaps":
-        print(f"gaps against {a.against}")
-        if a.out:
-            Path(a.out).parent.mkdir(parents=True, exist_ok=True)
-            Path(a.out).write_text(f"gaps against {a.against}")
     elif a.intel_cmd == "primitives":
         out_data = {"primitives": ["sdk-generation", "docs-generation"]}
         print(json.dumps(out_data))

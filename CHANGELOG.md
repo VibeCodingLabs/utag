@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- Phase 0 of v2.14.0 (reconcile reality): `Specs/`, `TODO/`, `Progress/` tracking files for the next-phase plan; repo-root `autoresearch.sh` with `--strict` (fails on any pytest failure) and `--compare` (metrics-only) modes; `scripts/check_entrypoints.py` (asserts all 79 generators, 9 validators, 8 importers are CLI-reachable or documented); `scripts/run_quality_gate.py` (pytest + entrypoints required, ruff optional with explicit skip/warn); tests for the harness and entrypoint audit.
+### Fixed
+- `multi_language_sdk.py` missing `import json` — root cause of 16 test failures previously hidden by the metric harness discarding pytest's exit code. Suite is now 374 passed / 17 env-gated skips / 0 failed.
+- Removed dead duplicate `cmd_intel` definition in `utag_cli/main.py`.
+### Changed
+- README and AGENTS.md now state the real test count (391) and full command surface; importers documented as public API (`utag_core.registry.get_importer`).
+
 ## 2.11.0
 - VeriForge merged (`packages/python/utag-veriforge`, canonical module `veriforge`, vendored verbatim + upstream smoke tests ported): typed 5-role pipeline contracts (TaskSpec -> ClarifiedTask -> Plan -> Patch/TestSuite -> Verdict), ambiguity gate (6-dim weakest-link scoring, AskUserQuestions loop), PEE (49/58 Prompt Report technique taxonomy with honest completeness WARN, phase-slot selection, CoVe composed last, budget-capped), structural CoVe anti-fabrication gate + LLM-backed factored CoVe, error-taxonomy router (deterministic classify, flaky->quarantine, security->always-human), Docker/Local sandbox protocol, Clover consistency edges, hot-swappable ModelBinding registry. Instructor stays optional (`utag-veriforge[instructor]`).
 - Bridge (`agent_harness.veriforge_bridge`): `PydanticAIClient` satisfies veriforge's LLMClient protocol -> all five roles run on utag's provider stack (catalog models, credentials, TestModel/FunctionModel offline); `build_agents(model, per_role_models=...)` for critic decorrelation; `HeuristicScorer` (deterministic, documented, structure-based) + `LLMScorer` (model-backed); `enhance()` pure PEE path.

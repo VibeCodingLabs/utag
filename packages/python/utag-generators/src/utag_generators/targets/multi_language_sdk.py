@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+import json
+
 from utag_core.ir import ModuleSpec
 from utag_core.registry import register_generator
 

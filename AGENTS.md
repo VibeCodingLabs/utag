@@ -47,7 +47,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Dependency Install**: `uv sync`
 - **Generate Artifacts**: `uv run utag generate --input <path> --target <target> --out <dir>`
 - **Validate Artifact**: `uv run utag validate --kind <kind> --path <path>`
-- **Test Suite**: `pytest`
+- **List Targets**: `uv run utag targets` (79 registered generators)
+- **Competitive Intel**: `uv run utag intel import-openapi-tools|gaps|primitives`
+- **OpenAPI Pipeline**: `uv run utag openapi …` (subcommands are currently stubs — see TODO/v2.14.0-next-phase.md)
+- **Test Suite**: `pytest` — 391 tests (374 pass, 17 environment-gated skips). `./autoresearch.sh --strict` fails on any test failure; `--compare` collects metrics only.
+- **Entrypoint Audit**: `python scripts/check_entrypoints.py` (every registered generator/validator/importer must be reachable or documented)
+- **Quality Gate**: `python scripts/run_quality_gate.py --release <ver>` (pytest + entrypoints required; ruff optional)
 - **Release Verification**: `python scripts/release.py` (Runs full test suite and checks artifact determinism).
 
 ## Code Conventions & Common Patterns

@@ -37,7 +37,11 @@ python scripts/release.py                                           # tests + de
 - Strict: every IR/contract model is `extra="forbid"`.
 - Bounded: repairable failures retry ≤ N (hard cap 10); terminal failures (`TerminalGenerationError`) never retry.
 - Capability-gated: `tsc` validation runs when Node/npx exists, degrades to info-level skip otherwise.
-- Tested: 64 tests — unit / integration / conformance (your 4 prompt fixtures × every target × its validator) / golden.
+- Tested: 391 tests (374 pass, 17 environment-gated skips) — unit / integration / conformance (your 4 prompt fixtures × every target × its validator) / golden. `./autoresearch.sh --strict` runs the suite and fails on any test failure.
+
+## Importers (public API)
+
+Existing API specs and route schemas import into the IR via `utag_core.registry.get_importer(fmt).ingest(content)`. Registered formats: `fastapi-importer`, `springdoc-importer`, `express-nest-importer`, `aspnet-importer`, `django-drf-importer`, `fastify-importer`, `laravel-importer`, `rails-importer`. `python scripts/check_entrypoints.py` asserts every registered generator/validator/importer stays reachable or documented.
 
 ## Backends
 
