@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "ArtifactProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "generator_id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Generator Id",
+          "type": "string"
+        },
+        "inputs_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Inputs Sha256",
+          "type": "string"
+        },
+        "source_paths": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Paths",
+          "type": "array"
+        },
+        "utag_version": {
+          "title": "Utag Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "generator_id",
+        "utag_version",
+        "source_paths",
+        "inputs_sha256"
+      ],
+      "title": "ArtifactProvenance",
+      "type": "object"
+    },
+    "FileDigest": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "minimum": 0,
+          "title": "Bytes",
+          "type": "integer"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "path": {
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "title": "FileDigest",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/artifact-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "deterministic": {
+      "default": true,
+      "title": "Deterministic",
+      "type": "boolean"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/FileDigest"
+      },
+      "title": "Files",
+      "type": "array"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ArtifactProvenance"
+    },
+    "target": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Target",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "target",
+    "files",
+    "provenance"
+  ],
+  "title": "ArtifactManifest",
+  "type": "object"
+}

@@ -12,6 +12,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -60,6 +61,7 @@ func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /healthz", s.health)
 	mux.HandleFunc("POST /v1/jobs", s.auth(s.createJob))
+	mux.HandleFunc("GET /v1/jobs", s.auth(s.listJobs))
 	mux.HandleFunc("GET /v1/jobs/{id}", s.auth(s.getJob))
 	mux.HandleFunc("GET /v1/jobs/{id}/events", s.auth(s.streamEvents))
 	mux.HandleFunc("GET /v1/jobs/{id}/artifacts", s.auth(s.listArtifacts))
@@ -125,6 +127,27 @@ func (s *Server) createJob(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = s.Store.AppendEvent(r.Context(), &store.Event{JobID: j.ID, Type: "queued", Payload: "{}"})
 	writeJSON(w, http.StatusCreated, j)
+}
+
+func (s *Server) listJobs(w http.ResponseWriter, r *http.Request) {
+	limit := 100
+	if q := r.URL.Query().Get("limit"); q != "" {
+		if n, err := strconv.Atoi(q); err == nil && n > 0 && n <= 500 {
+			limit = n
+		}
+	}
+	jobs, err := s.Store.ListJobs(r.Context(), limit)
+	if err != nil {
+		httpErr(w, http.StatusInternalServerError, err)
+		return
+	}
+	if jobs == nil {
+		jobs = []store.Job{}
+	}
+	for i := range jobs {
+		jobs[i].Input = "" // list view: strip payloads (size + least-privilege)
+	}
+	writeJSON(w, http.StatusOK, jobs)
 }
 
 func (s *Server) getJob(w http.ResponseWriter, r *http.Request) {

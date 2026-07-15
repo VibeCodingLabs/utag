@@ -1,0 +1,10 @@
+{
+  "id": "default",
+  "rules": [
+    {
+      "max_side_effect": "write",
+      "status": "allowed",
+      "tool": "generate-artifact"
+    }
+  ]
+}

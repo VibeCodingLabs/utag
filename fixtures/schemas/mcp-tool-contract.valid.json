@@ -1,0 +1,15 @@
+{
+  "auth_scopes": [
+    "artifacts:write"
+  ],
+  "description": "Generate a typed artifact from IR",
+  "input_schema": {
+    "type": "object"
+  },
+  "name": "generate-artifact",
+  "output_schema": {
+    "type": "object"
+  },
+  "policy_status": "allowed",
+  "side_effect": "write"
+}

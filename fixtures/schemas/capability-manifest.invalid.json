@@ -1,0 +1,11 @@
+{
+  "__unknown_property__": true,
+  "id": "node",
+  "name": "Node.js runtime",
+  "provided_by": [
+    "environment"
+  ],
+  "required_tools": [
+    "npx"
+  ]
+}

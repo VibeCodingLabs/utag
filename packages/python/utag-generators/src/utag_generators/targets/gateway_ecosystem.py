@@ -94,7 +94,15 @@ class ApisixGatewayConfigGenerator:
 @register_generator("barbacane-policy")
 class BarbacanePolicyGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name}-barbacane.yaml": "# barbacane policy stub\n"}
+        import yaml
+        config = {
+            "policy": "barbacane",
+            "version": "1.0.0",
+            "rules": [
+                {"action": "allow", "scope": f"utag:{module.name}:*"}
+            ]
+        }
+        return {f"{module.name}-barbacane.yaml": yaml.safe_dump(config, sort_keys=False)}
 
 @register_generator("opa-policy")
 class OpaPolicyGenerator:

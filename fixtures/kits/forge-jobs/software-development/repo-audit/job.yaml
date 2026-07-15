@@ -1,0 +1,11 @@
+id: repo-audit
+title: Repository audit
+description: Fixture job proving the lib.sh report contract end-to-end.
+category: software-development
+tags: [fixture]
+schedule: {on_calendar: "daily", enabled: true}
+run: {command: scripts/run.sh, timeout_seconds: 60}
+concurrency: forbid
+env: {required: [], optional: [FORGE_JOBS_STATE]}
+requires: {commands: [git]}
+outputs: [report.md]

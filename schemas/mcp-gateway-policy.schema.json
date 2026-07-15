@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "GatewayRule": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "max_side_effect": {
+          "$ref": "#/$defs/SideEffect",
+          "default": "read"
+        },
+        "status": {
+          "$ref": "#/$defs/PolicyStatus"
+        },
+        "tool": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Tool",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tool",
+        "status"
+      ],
+      "title": "GatewayRule",
+      "type": "object"
+    },
+    "PolicyStatus": {
+      "enum": [
+        "allowed",
+        "denied",
+        "review"
+      ],
+      "title": "PolicyStatus",
+      "type": "string"
+    },
+    "SideEffect": {
+      "enum": [
+        "none",
+        "read",
+        "write",
+        "destructive",
+        "network"
+      ],
+      "title": "SideEffect",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/mcp-gateway-policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "rules": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/GatewayRule"
+      },
+      "title": "Rules",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "title": "MCPGatewayPolicy",
+  "type": "object"
+}

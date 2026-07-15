@@ -1,0 +1,19 @@
+name: ui-snapshot
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+jobs:
+  ui-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-packages --group dev || uv sync --all-packages
+      - run: uv run utag automation run ui-snapshot
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-snapshot-reports
+          path: reports/
+          if-no-files-found: ignore

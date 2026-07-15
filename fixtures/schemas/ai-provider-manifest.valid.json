@@ -1,0 +1,17 @@
+{
+  "env_credentials": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "id": "anthropic",
+  "models": [
+    {
+      "context_tokens": 200000,
+      "id": "claude-sonnet-4-6",
+      "output_tokens": 64000,
+      "reasoning": true,
+      "structured_output": true,
+      "tool_call": true
+    }
+  ],
+  "name": "Anthropic"
+}

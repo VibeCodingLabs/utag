@@ -1,0 +1,7 @@
+{
+  "end_ms": 90,
+  "name": "utag.generate",
+  "parent_span_id": "sp-1",
+  "span_id": "sp-2",
+  "start_ms": 1
+}

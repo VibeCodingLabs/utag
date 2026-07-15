@@ -22,6 +22,7 @@ TARGET_VALIDATOR = {
     "pydantic-models": "python-source", "zod-schemas": "typescript",
     "agent-skill": "skill-md", "prompt-yaml": "yaml", "openapi-3.1": "openapi-3.1",
     "design-md": "design-md", "generator": "python-source", "go-harness": "go-source",
+    "udc-design-md": "design-md", "taxonomy-skill": "skill-md", "udc-component": "typescript",
 }
 
 

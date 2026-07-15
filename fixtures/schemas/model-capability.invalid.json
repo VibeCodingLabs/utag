@@ -1,0 +1,8 @@
+{
+  "__unknown_property__": true,
+  "context_tokens": 200000,
+  "id": "claude-sonnet-4-6",
+  "output_tokens": 64000,
+  "structured_output": true,
+  "tool_call": true
+}

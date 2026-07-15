@@ -1,0 +1,7 @@
+{
+  "findings": [],
+  "has_auth_hints": true,
+  "has_output_schema": true,
+  "score": 0.9,
+  "tool": "generate-artifact"
+}

@@ -1,0 +1,13 @@
+{
+  "__unknown_property__": true,
+  "artifact_id": "pydantic-models-demo",
+  "findings": [
+    {
+      "code": "syntax",
+      "message": "bad indent",
+      "path": "models.py",
+      "severity": "error"
+    }
+  ],
+  "valid": false
+}

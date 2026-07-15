@@ -1,56 +1,88 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## [Unreleased]
-
-## [2.4.0] - 2026-07-09
-
 ### Added
-- Slack adapter: v0-signature-verified slash command (`/utag generate <target> <repo> <path>`, `/utag status <id>`); 5-minute replay guard; async result (status + PR link) posted to `response_url`.
-- Routines: in-binary interval scheduler from viper config (`routines:` list) — enqueues jobs with zero external trigger.
+- Phases 8–9 of v2.14.0: all 13 console screens (runs, validation, artifacts, registry, openapi, mcp, workflows, tokens, autoresearch, ai, queue, settings, overview) declared in `design.yaml` and generated as typed accessible components/routes (40 files under `packages/ui/src/`); `scripts/run_quality_gate.py` now runs 12 required gates (pytest, entrypoints, schemas ×3, design, generated-ui, accessibility, registry/automation/ai doctors, observability) + optional ruff; determinism double-hash gate green (`scripts/release.py`, extended to feed the design generators); final verification report at `reports/v2.14.0/verification.md` separating implemented / experimental / planned.
+- Phase 7 of v2.14.0 (automation layer): seven schema-validated `AutomationManifest`s in `.utag/automations/` mapped 1:1 to `.github/workflows/` (schema-drift, design-build, ui-snapshot, observability-export, autoresearch-weekly, release-gate, plus a manifest for the pre-existing ci workflow); `utag automation list|validate|run|doctor` — runs record Phase 4 evidence per step, doctor enforces the bijection, rejects plaintext secret-shaped values and unparseable workflows; CI workflows upload `reports/` artifacts.
+- Phase 6 of v2.14.0 (autoresearch task execution): `utag_core.autoresearch` — YAML tasks validated against the strict `AutoresearchTask` contract; lifecycle plans (research→plan→schema→tests→implementation→validation→docs→receipt); gates run as real subprocesses; a task is `completed` only when every gate passes and every required output exists; failed runs auto-write a validated follow-up task spec under `TODO/autoresearch/`; `utag autoresearch init|plan|execute|validate|report|receipt` (execute supports `--mode dry-run`, which never executes); `scripts/autoresearch_task.py`, `scripts/autoresearch_receipt.py`, `scripts/autoresearch_score.py`.
+- Phase 5 of v2.14.0 (governed AI layer): `utag_core.ai.ModelRouter` — routes by checked-in policy (`policies/ai-router.yaml`) over checked-in provider manifests (`policies/ai-providers.yaml`, schema-validated); enforces `require_structured_output`/`local_only`/`no_network`; fallback only when the policy explicitly allows it; every decision logged as `utag.ai.route` run evidence; deterministic offline `FakeProviderAdapter` + eval harness (`evals/openapi-generation.yaml`); `utag ai providers|models|route|eval|doctor` — all tests run with credentials scrubbed.
+- Phase 4 of v2.14.0 (observability & run evidence): `utag_core.observe.Recorder` — nested spans (`utag.run`/`utag.generate`/`utag.validate`), events, metrics, all validating against the strict observability schemas; JSONL evidence store (`$UTAG_OBSERVE_DIR`, default `reports/observability/runs/`); `utag generate` now emits linked run evidence plus a schema-contract `validation.report.json` carrying `run_id`/`span_id` (closing the Phase 1 deferral); `utag observe run|export|summary|doctor` CLI; `scripts/export_observability.py`, `scripts/check_observability_schema.py`, `scripts/summarize_run_evidence.py`.
+- Phase 3 of v2.14.0 (UDC design.yaml UI pipeline): three registered, golden-gated generators — `design-tokens-css` (tokens/theme/dark/motion CSS + tokens.json + validated `CssVariableManifest`), `tailwind-v4-theme` (CSS-first `@theme` mapping onto `--utag-*` variables), `react-component-library` (typed, accessible TSX components/layouts/routes; colors only via CSS variables); `utag design validate|tokens|components|app|snapshot` CLI; `scripts/validate_design.py`, `scripts/generate_ui.py`, `scripts/check_generated_ui.py` (regeneration byte-identical + no hardcoded colors), `scripts/check_accessibility_contracts.py`; generated UI materialized under `packages/ui/src/`; capability-gated tsc typecheck test.
+- Phase 2 of v2.14.0 (registry manifest enforcement): every registered generator/validator/importer now carries a `RegistryManifest` (explicit via `register_*(id, manifest=...)` or derived, citing the golden/conformance suites that parametrize over all registered ids); `utag registry list|doctor|manifest|coverage` CLI; `registry doctor` fails on any manifest missing entrypoints or test files; deterministic coverage report.
+- Phase 1 of v2.14.0 (strict schema contract layer): `utag_core.schemas` — 54 strict Pydantic contracts across core artifacts, autoresearch, design/UDC, observability, AI integration, and MCP; deterministic JSON Schema 2020-12 emission (`$id`, `additionalProperties: false`, explicit `extensions` escape hatch) to `schemas/`; valid+invalid fixture per kind in `fixtures/schemas/`; `utag schema list|emit|validate|validate-all|doctor` CLI; `scripts/generate_json_schemas.py`, `scripts/validate_schemas.py`, `scripts/check_schema_fixtures.py`, `scripts/check_no_unknown_schema_extensions.py`; canonical `design.yaml` (utag-console) validating against the `DesignYaml` contract; `utag generate` now writes a validated `artifact.manifest.json` (sha256 per file + provenance) with every artifact.
+- Phase 0 of v2.14.0 (reconcile reality): `Specs/`, `TODO/`, `Progress/` tracking files for the next-phase plan; repo-root `autoresearch.sh` with `--strict` (fails on any pytest failure) and `--compare` (metrics-only) modes; `scripts/check_entrypoints.py` (asserts all 79 generators, 9 validators, 8 importers are CLI-reachable or documented); `scripts/run_quality_gate.py` (pytest + entrypoints required, ruff optional with explicit skip/warn); tests for the harness and entrypoint audit.
+### Fixed
+- `multi_language_sdk.py` missing `import json` — root cause of 16 test failures previously hidden by the metric harness discarding pytest's exit code. Suite is now 374 passed / 17 env-gated skips / 0 failed.
+- Removed dead duplicate `cmd_intel` definition in `utag_cli/main.py`.
+### Changed
+- README and AGENTS.md now state the real test count (391) and full command surface; importers documented as public API (`utag_core.registry.get_importer`).
+
+## 2.11.0
+- VeriForge merged (`packages/python/utag-veriforge`, canonical module `veriforge`, vendored verbatim + upstream smoke tests ported): typed 5-role pipeline contracts (TaskSpec -> ClarifiedTask -> Plan -> Patch/TestSuite -> Verdict), ambiguity gate (6-dim weakest-link scoring, AskUserQuestions loop), PEE (49/58 Prompt Report technique taxonomy with honest completeness WARN, phase-slot selection, CoVe composed last, budget-capped), structural CoVe anti-fabrication gate + LLM-backed factored CoVe, error-taxonomy router (deterministic classify, flaky->quarantine, security->always-human), Docker/Local sandbox protocol, Clover consistency edges, hot-swappable ModelBinding registry. Instructor stays optional (`utag-veriforge[instructor]`).
+- Bridge (`agent_harness.veriforge_bridge`): `PydanticAIClient` satisfies veriforge's LLMClient protocol -> all five roles run on utag's provider stack (catalog models, credentials, TestModel/FunctionModel offline); `build_agents(model, per_role_models=...)` for critic decorrelation; `HeuristicScorer` (deterministic, documented, structure-based) + `LLMScorer` (model-backed); `enhance()` pure PEE path.
+- Session: `/clarify <goal>` (6-dim scores + tap-able clarifying questions) and `/enhance <goal>` (technique-composed prompt + CoVe verdict) built-ins; `clarify_task` + `enhance_prompt` tools always mounted, `run_pipeline` (full orchestrated run, LocalSandbox) mounted when the session has a model — async tool executing the sync pipeline in a thread with structured error returns (a sync tool calling run_sync inside the session loop can never work; the TUI test caught it).
+- TUI: `ClarifyScreen` AskUserQuestions modal (<=3 questions/round, 2-4 tap-able options + free-text escape, Esc skips -> assumptions) + `tui_clarify` async mirror of veriforge's clarify_loop (same constants/semantics; sync<->async parity pinned by test); session screen binds `c` over the prompt-bar text.
+- e2e proof, offline: full Orchestrator run on scripted pydantic-ai FunctionModels + LocalSandbox — clarify -> PEE (CoVe present) -> plan -> patch -> sandboxed pytest -> critic PASS; failing-suite path exhausts bounded retries with logic-routing and the unpassed patch never propagates.
+
+## 2.10.0
+- Session generation tools (`agent_harness.session_tools`): `list_targets` / `generate_artifact` (local, instant, per-artifact validator verdicts in the structured `GenerateResult`) and — when `control_plane_url` is configured — `submit_job` / `job_status` / `list_jobs`; `session_toolset()` mounts everything from ~/.utag/config.yaml, including optional forge-jobs/audit-kit `harness_tools`. Talk -> artifact -> job -> observed, end to end (FunctionModel-scripted e2e: real file on disk, real validator verdict, real control-plane binary + worker drain).
+- omp-style model picker (`utag_tui.model_picker.ModelPicker`): provider row (tab cycles featured providers present in the live catalog), type-to-filter, enter persists provider/model to ~/.utag/config.yaml; bound to `m` in the session screen.
+- Session-screen job observability: any job the session creates gets a background watcher — status transitions and terminal artifact/verdict counts stream into the transcript.
+- Fix (found via minimal-repro bisect): ModelPicker's refresh method was named `_render`, shadowing Textual's internal `Widget._render()` -> compositor received `None` -> `render_strips` crash before children mounted. Renamed to `_refresh_list`. Rule adopted: no underscore-prefixed method names on Widget/Screen subclasses that collide with Textual internals.
+- Fix: `session_toolset` harness mount self-duplicated the toolset when `audit_kit_dir` was set (`tools += tools`); now mounts `harness_tools(**kw)` once, try-guarded.
+
+## 2.9.0
+- ~/.utag conventions (agent_harness.home): global + project scopes (project overrides), taxonomy-pathed skills with LAZY loading (frontmatter index always ~1 line/skill; body + $SKILL_DIR injection only on slash-invoke or NL trigger), commands/*.md with $ARGUMENTS, rules/*.md into the system prompt, hooks.yaml (pre-prompt/post-response, env-passing, timeout, malformed-entry surfacing), credentials.json 0600.
+- Session layer (agent_harness.session): expert system prompt + rules + skill index; load_skill lazy tool; slash routing (/help /skills /models /targets + custom + skill names); hooks around every turn; UsageLimits-bounded.
+- Model catalog (models.dev, 154 providers — same data family as Vercel AI Gateway): context/output, cost, modalities, reasoning/tool-call flags, per-provider env var names; UA-headered fetch, TTL cache, offline-safe stale fallback.
+- CLI: utag init | login <provider> (API-key path, catalog-hinted env var; subscription OAuth flows are explicit adapter slots, not faked) | models (filterable table).
+- TUI: SessionScreen (Claude-Code-style transcript + prompt bar, Esc to dashboard) with credential-aware model bootstrap; headless pilot test covers slash + NL-trigger + model turn.
+- install.sh one-liner (uv preferred, pip fallback, ~/.utag scaffold, Go build capability-gated).
+
+## 2.8.0
+- utag-tui (Textual 8): thin client of the control-plane — targets tree from the live registry, auto-refreshing jobs DataTable, status panel with queue-depth Sparkline, live event/artifact log, command bar (`generate <target> <path>`, `status <id>`, `refresh`, `quit`), row-select artifact inspection with validator verdicts. Stack decision documented: Textual over Ink (no third runtime) and over pi-tui (0.x churn); the HTTP API keeps an Ink client possible later.
+- control-plane: `GET /v1/jobs?limit=` list endpoint (memory + Postgres ListJobs; payloads stripped in list view).
+- Headless TUI e2e via Textual pilot against the real binary + real worker: submit -> queued -> succeeded -> artifact verdict; unknown-target and bad-path rejection; status-panel counts.
+- release gate now names failing tests on DO-NOT-RELEASE.
+
+## 2.7.0
+- Faceted taxonomy (`agent_harness.taxonomy`): 14-facet `FacetFrontmatter` mirroring master_mapped_taxonomy.md; parser handles all four frontmatter dialects found in the real corpus (`---…---`, `---…***`, leading ```yaml fence, fence nested inside `---`); ids verbatim, naming slugged; `subagent_spec_from_facets` scopes subagents by facet path + stack layers.
+- `taxonomy-skill` generator: taxonomy file -> SKILL.md (facets under spec-allowed `metadata`, description from summary+workflows) — validated by the agentskills (skill-md) validator; deterministic.
+- Viper-style typed flags on CLI subagent tools: declared `FlagSpec` surface only (string/int/bool, defaults, per-flag docs in tool description); undeclared flags and type mismatches return structured exit_code=2 — no injection surface.
+- taxonomy_template_v2.md: v1 tree + naming rules, per-level facet frontmatter contract, machine-readable `_index.yaml`, AGENT.md->SubAgentSpec contract, 6 validation gates.
+- Real taxonomy files vendored as fixtures; suite parses master/pipeline/offering corpus files directly.
+
+## 2.6.0
+- Real-kit verification: adapter suite green against the actual forge-jobs (43) + audit-kit (34; 36 files - schema - README) checkouts; honest-skip test made kit-agnostic (finds a required-env job dynamically, falls back to missing-commands preflight).
+- SubAgents generator (`agent_harness.subagents`): strict `SubAgentSpec` -> ephemeral pydantic-ai subagent with heterogeneous tools — CLI binaries (fixed argv, injection-off by default), Skills (SKILL.md progressive disclosure), OpenAPI endpoint tools (one per operation; GET/HEAD/OPTIONS by default, mutating verbs explicit opt-in; HEAD returns no body), openapi.tools KB search (195-tool registry), forge-jobs, audit templates, MCP toolsets passthrough; `subagent_tool` for subagent-as-tool; `taxonomy_subagents` maps <industry>/<domain>/<service>/<niche>/<task> rows (awaits master_mapped_taxonomy.md — no rows invented).
+- UDC (Universal Design Contract): fragment assembler (mirrors udc-toolchain), `udc` validator = user's real udc.schema.json (2020-12) + full design:// URI resolution; `udc-design-md` derivation passes utag's design-md validator (primary aliased + documented when absent); `udc-component` emits typed TSX from the components domain (props enums, token CSS-var wiring), tsc-gated. Verified against the toolchain's real example fragments.
+- Golden/release gates now feed each generator its contractual input shape.
+
+## 2.5.0
+- utag-adapters package (module `agent_harness`, vendored canonical from the adapters build): forge-jobs manifests -> `job_*` Tools with honest fail-fast preflight, lib.sh report-contract location, timeout status; audit-kit templates -> ephemeral subagent `audit_*` Tools with DoD enforced via `output_validator` + `ModelRetry`, read-only scope-contained file tools.
+- PydanticAIPort accepts `tools=` — utag backends + harness adapter tools compose in one Agent (tested with TestModel, no API key).
+- Schema-faithful kit fixtures under `fixtures/kits/` (valid instances of job.schema.json + audit _schema.json — not mocks of kit data); adapter suite runs against real kits when `FORGE_JOBS_ROOT`/`AUDIT_KIT_DIR` are set, fixtures otherwise. 9 new integration tests: discovery, report contract, honest skip, DoD-retry firing (feedback verified in captured messages), DoD-pass path, scope tools, registry uniqueness, port composition.
+
+## 2.4.0
+- Slack adapter: v0-signature-verified slash command (`/utag generate <target> <repo> <path>`, `/utag status <id>`); 5-minute replay guard; async result (status + PR link) posted to `response_url`; composes with the GitHub deliverer via a shared metadata schema.
+- Routines: in-binary interval scheduler from viper config (`routines:` list) — enqueues jobs with zero external trigger; interval-based by design, k8s CronJob manifest provided for cron-precision schedules.
 - Delivery generalized: one async path handles GitHub PR + Slack notify per job metadata.
-- Deploy kit: distroless control-plane + slim worker Dockerfiles; k8s Deployments/Service with probes and resource limits; KEDA ScaledObject autoscaling.
+- Deploy kit: distroless control-plane + slim worker Dockerfiles; k8s Deployments/Service with probes and resource limits; KEDA ScaledObject autoscaling workers on live Postgres queue depth (queued-jobs query); CronJob routine template.
 
-## [2.3.0] - 2026-07-09
-
-### Added
-- GitHub App adapter: HMAC-SHA256-verified webhook (`POST /v1/integrations/github/webhook`); `/utag generate <target> <path>` comment command; control-plane fetches the source file with an App installation token.
+## 2.3.0
+- GitHub App adapter: HMAC-SHA256-verified webhook (`POST /v1/integrations/github/webhook`); `/utag generate <target> <path>` comment command; control-plane fetches the source file with an App installation token (stdlib RS256 App JWT, signature unit-verified against the public key); worker stays GitHub-agnostic.
 - PR delivery on job success (async): git data API (blobs -> tree -> commit -> ref -> pull request); PR body embeds every ValidationReport as collapsible review evidence; PR link commented back on the triggering issue; `pr_opened`/`delivery_failed` job events.
 - Job.Metadata field threaded through memory + Postgres stores and the API.
 - E2E against a fake GitHub API server: bad-signature rejection + the full webhook->job->worker->PR->comment loop.
 
-## [2.2.0] - 2026-07-09
-
-### Added
+## 2.2.0
 - control-plane: Go `serve` daemon — job API (`POST /v1/jobs`, claim/complete, artifacts, SSE events), bearer auth, rate limiting, trace-id structured JSON logs, graceful shutdown.
 - stores: memory (dev) + Postgres (`FOR UPDATE SKIP LOCKED` queue); race-tested with concurrent workers.
 - utag-worker: stdlib-HTTP Python worker consuming the job API through existing registries.
 - Stage 0: GitHub Actions CI (pytest + go vet/build + release gate + PG service), goreleaser multi-arch config, committed `uv.lock`, key-gated live-provider smoke test.
 
-## [2.1.0] - 2026-07-09
-
-### Added
+## 2.1.0
 - go-harness target: cobra+viper single-struct Settings, twelve-factor precedence, go:embed control-plane; go-source validator; real-pinned cobra v1.10.2 / viper v1.21.0 / mapstructure v2.5.0.
 
-### Security
-- Fixed a path traversal vulnerability in `utag_cli` output path generation.
-- Fixed a code injection vulnerability in `utag_generators` TypeScript/Zod regex serialization.
-
-### Fixed
-- Fixed silent error swallowing during `ModuleSpec` JSON validation.
-- Enforced strict alphanumeric validation for `ModuleSpec.name` and `TypeSpec.name` to prevent malformed output paths and syntax errors.
-- Fixed an `AttributeError` crash when ingesting JSON arrays instead of objects.
-- Fixed potential JSON corruption during LLM fence stripping in `ports.py`.
-
-## [2.0.0] - 2026-07-09
-
-### Added
-- Initial release of the `utag` Universal Typed Artifact Generator.
-- Added provider-agnostic model ports with built-in validation and repair loops.
-- Added normalized Intermediate Representation (IR) (`ModuleSpec`, `TypeSpec`, `FieldSpec`).
-- Added generator registries for Pydantic models, Zod schemas, OpenAPI 3.1 docs, and others.
-- Added `utag` CLI for generating and validating artifacts.
+## 2.0.0
+- Initial harness: IR, registries, bounded repair loop, 3 backends (instructor / pydantic-ai / pi-RPC), 6 targets, meta-generation, deterministic release gate, live-pinned source manifest.

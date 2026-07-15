@@ -1,0 +1,11 @@
+{
+  "__unknown_property__": true,
+  "id": "default",
+  "rules": [
+    {
+      "max_side_effect": "write",
+      "status": "allowed",
+      "tool": "generate-artifact"
+    }
+  ]
+}

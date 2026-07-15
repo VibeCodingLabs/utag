@@ -1,0 +1,11 @@
+id: ui-snapshot
+name: UI snapshot report
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "uv run utag design snapshot --input design.yaml --out reports/ui-snapshots/"
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_automation_cli.py
+validation_gates:
+  - automation-doctor

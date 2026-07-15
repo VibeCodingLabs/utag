@@ -1,0 +1,6 @@
+udc: 1.0.0
+info:
+  title: Acme Design System
+  version: 0.1.0
+  description: Example Universal Design Contract workspace
+  owner: design-system

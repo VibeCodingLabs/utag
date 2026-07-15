@@ -1,0 +1,42 @@
+{
+  "$id": "https://utag.dev/schemas/eval-case.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "expected": {
+      "minLength": 1,
+      "title": "Expected",
+      "type": "string"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "input": {
+      "minLength": 1,
+      "title": "Input",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "input",
+    "expected"
+  ],
+  "title": "EvalCase",
+  "type": "object"
+}

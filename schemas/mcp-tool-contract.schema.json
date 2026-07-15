@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "PolicyStatus": {
+      "enum": [
+        "allowed",
+        "denied",
+        "review"
+      ],
+      "title": "PolicyStatus",
+      "type": "string"
+    },
+    "SideEffect": {
+      "enum": [
+        "none",
+        "read",
+        "write",
+        "destructive",
+        "network"
+      ],
+      "title": "SideEffect",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/mcp-tool-contract.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "auth_scopes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Auth Scopes",
+      "type": "array"
+    },
+    "description": {
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "input_schema": {
+      "additionalProperties": true,
+      "title": "Input Schema",
+      "type": "object"
+    },
+    "name": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Name",
+      "type": "string"
+    },
+    "output_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Output Schema"
+    },
+    "policy_status": {
+      "$ref": "#/$defs/PolicyStatus",
+      "default": "review"
+    },
+    "side_effect": {
+      "$ref": "#/$defs/SideEffect"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "input_schema",
+    "side_effect"
+  ],
+  "title": "MCPToolContract",
+  "type": "object"
+}

@@ -37,7 +37,11 @@ python scripts/release.py                                           # tests + de
 - Strict: every IR/contract model is `extra="forbid"`.
 - Bounded: repairable failures retry ≤ N (hard cap 10); terminal failures (`TerminalGenerationError`) never retry.
 - Capability-gated: `tsc` validation runs when Node/npx exists, degrades to info-level skip otherwise.
-- Tested: 64 tests — unit / integration / conformance (your 4 prompt fixtures × every target × its validator) / golden.
+- Tested: 750 tests (733 pass, 17 environment-gated skips) — unit / integration / conformance (your 4 prompt fixtures × every target × its validator) / golden. `./autoresearch.sh --strict` runs the suite and fails on any test failure.
+
+## Importers (public API)
+
+Existing API specs and route schemas import into the IR via `utag_core.registry.get_importer(fmt).ingest(content)`. Registered formats: `fastapi-importer`, `springdoc-importer`, `express-nest-importer`, `aspnet-importer`, `django-drf-importer`, `fastify-importer`, `laravel-importer`, `rails-importer`. `python scripts/check_entrypoints.py` asserts every registered generator/validator/importer stays reachable or documented.
 
 ## Backends
 
@@ -95,3 +99,30 @@ Cron-precision schedules: `deploy/k8s/routine-cronjob.yaml` (plain `POST /v1/job
 ## Deploy (autoscaling)
 
 `deploy/`: distroless control-plane image, slim worker image, k8s manifests, and a KEDA `ScaledObject` scaling workers 1→20 on live queue depth (`SELECT count(*) FROM jobs WHERE status='queued'`, ~5 jobs/worker). Twelve-factor throughout: all config via `UTAG_*` env from one Secret.
+
+## Agent-harness adapters
+
+`utag-adapters` (`from agent_harness import harness_tools`): forge-jobs + audit-kit as pydantic-ai tools; compose with utag backends via `PydanticAIPort(model, tools=harness_tools(...))`. CI runs the suite against fixtures; export `FORGE_JOBS_ROOT` / `AUDIT_KIT_DIR` to run it against the real kits (expects 43 jobs / 34 templates).
+
+## SubAgents
+
+`SubAgentSpec` -> `build_subagent(spec, model)` / `subagent_tool(spec, model)`: ephemeral, provider-agnostic subagents with CLI + Skill + OpenAPI-endpoint + openapi.tools-KB + job + audit + MCP tools. Mutating HTTP verbs are opt-in; CLI argv is fixed unless `allow_extra_args`. `taxonomy_subagents(rows)` maps taxonomy rows to specs.
+
+## UDC (Universal Design Contract)
+
+`assemble(design_dir)` -> validate (`udc` validator: your schema + URI resolution) -> derive: `udc-design-md` (validated DESIGN.md) and `udc-component` (typed TSX). The UDC graph stays canonical; derivations are deterministic.
+
+## TUI
+
+`utag-tui` (Textual): live console over the control-plane. `UTAG_CONTROL_PLANE_URL` + `UTAG_API_TOKEN`, then `utag-tui`. Keys: `r` refresh, `c` command bar, `q` quit. Command bar: `generate <target> <fixture-path>`, `status <job-id>`.
+
+## Install (one-liner)
+
+```bash
+curl -fsSL <raw-url>/install.sh | bash   # or: bash install.sh from a checkout
+utag login anthropic && utag-tui         # press s for the session, Esc for the dashboard
+```
+
+## ~/.utag conventions
+
+`skills/<industry>/<domain>/<service>/<workflow>/SKILL.md` (+references/assets/scripts/templates/evals), `commands/*.md` ($ARGUMENTS), `rules/*.md`, `hooks.yaml`, `config.yaml`, `credentials.json` (0600). Project `.utag/` overrides global. Skills lazy-load: index lines always, bodies (with `$SKILL_DIR` injected) only on `/skill-name` or NL trigger.

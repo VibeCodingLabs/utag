@@ -1,0 +1,20 @@
+{
+  "deterministic": true,
+  "files": [
+    {
+      "bytes": 120,
+      "path": "models.py",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "id": "pydantic-models-demo",
+  "provenance": {
+    "generator_id": "pydantic-models",
+    "inputs_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_paths": [
+      "fixtures/demo.yaml"
+    ],
+    "utag_version": "2.11.0"
+  },
+  "target": "pydantic-models"
+}

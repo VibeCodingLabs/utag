@@ -1,0 +1,5 @@
+surface:
+  background:
+    token: design://tokens/color/background/default
+  foreground:
+    token: design://tokens/color/foreground/default

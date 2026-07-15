@@ -1,0 +1,6 @@
+{
+  "__unknown_property__": true,
+  "code": "optional-check-skipped",
+  "message": "tsc unavailable; typescript validation skipped",
+  "severity": "warn"
+}

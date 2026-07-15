@@ -1,0 +1,13 @@
+id: schema-drift
+name: Schema drift check
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "uv run python scripts/generate_json_schemas.py"
+  - "git diff --exit-code -- schemas fixtures/schemas"
+  - "uv run python scripts/validate_schemas.py --root ."
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_automation_cli.py
+validation_gates:
+  - automation-doctor

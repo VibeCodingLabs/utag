@@ -1,0 +1,9 @@
+ui-generator:
+  version: 1.0.0
+  metadata:
+    status: experimental
+  spec:
+    consumes:
+      - design://components/Button
+      - design://widgets/Header
+    produces: [react, html]

@@ -1,0 +1,19 @@
+name: schema-drift
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+jobs:
+  schema-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-packages --group dev || uv sync --all-packages
+      - run: uv run utag automation run schema-drift
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: schema-drift-reports
+          path: reports/
+          if-no-files-found: ignore

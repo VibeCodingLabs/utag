@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "DesignTokens": {
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Color",
+          "type": "object"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "motion": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Motion",
+          "type": "object"
+        },
+        "radius": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Radius",
+          "type": "object"
+        },
+        "shadow": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Shadow",
+          "type": "object"
+        },
+        "spacing": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Spacing",
+          "type": "object"
+        },
+        "typography": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Typography",
+          "type": "object"
+        }
+      },
+      "title": "DesignTokens",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/design-token-document.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "tokens": {
+      "$ref": "#/$defs/DesignTokens"
+    },
+    "version": {
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "tokens"
+  ],
+  "title": "DesignTokenDocument",
+  "type": "object"
+}

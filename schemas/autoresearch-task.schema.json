@@ -1,0 +1,117 @@
+{
+  "$defs": {
+    "TaskGate": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "minLength": 1,
+          "title": "Command",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "name": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "command"
+      ],
+      "title": "TaskGate",
+      "type": "object"
+    },
+    "TaskMode": {
+      "enum": [
+        "research",
+        "implement",
+        "dry-run"
+      ],
+      "title": "TaskMode",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/autoresearch-task.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "done_when": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Done When",
+      "type": "array"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "gates": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/TaskGate"
+      },
+      "title": "Gates",
+      "type": "array"
+    },
+    "goal": {
+      "minLength": 1,
+      "title": "Goal",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "inputs": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Inputs",
+      "type": "array"
+    },
+    "mode": {
+      "$ref": "#/$defs/TaskMode"
+    },
+    "required_outputs": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Outputs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "goal",
+    "mode"
+  ],
+  "title": "AutoresearchTask",
+  "type": "object"
+}

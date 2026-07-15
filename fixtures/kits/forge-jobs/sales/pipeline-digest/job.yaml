@@ -1,0 +1,11 @@
+id: pipeline-digest
+title: Pipeline digest
+description: Fixture job with a required env var to prove honest skip.
+category: sales
+tags: [fixture]
+schedule: {on_calendar: "weekly", enabled: true}
+run: {command: scripts/run.sh, timeout_seconds: 30}
+concurrency: forbid
+env: {required: [FORGE_DATA_DIR], optional: []}
+requires: {commands: [bash]}
+outputs: []

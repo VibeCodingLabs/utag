@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: var(--utag-color-accent);
+  --color-bg: var(--utag-color-bg);
+  --color-danger: var(--utag-color-danger);
+  --color-fg: var(--utag-color-fg);
+  --color-success: var(--utag-color-success);
+  --transition-duration-fast: var(--utag-motion-fast);
+  --radius-md: var(--utag-radius-md);
+  --radius-sm: var(--utag-radius-sm);
+  --shadow-card: var(--utag-shadow-card);
+  --spacing-1: var(--utag-space-1);
+  --spacing-2: var(--utag-space-2);
+  --spacing-3: var(--utag-space-3);
+  --spacing-4: var(--utag-space-4);
+  --font-mono: var(--utag-font-mono);
+  --font-sans: var(--utag-font-sans);
+}

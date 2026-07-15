@@ -1,0 +1,5 @@
+{
+  "id": "module-spec-out",
+  "max_repair_attempts": 3,
+  "schema_kind": "artifact-manifest"
+}

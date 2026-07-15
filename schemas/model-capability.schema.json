@@ -1,0 +1,57 @@
+{
+  "$id": "https://utag.dev/schemas/model-capability.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "context_tokens": {
+      "minimum": 0,
+      "title": "Context Tokens",
+      "type": "integer"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "output_tokens": {
+      "minimum": 0,
+      "title": "Output Tokens",
+      "type": "integer"
+    },
+    "reasoning": {
+      "default": false,
+      "title": "Reasoning",
+      "type": "boolean"
+    },
+    "structured_output": {
+      "default": false,
+      "title": "Structured Output",
+      "type": "boolean"
+    },
+    "tool_call": {
+      "default": false,
+      "title": "Tool Call",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "context_tokens",
+    "output_tokens"
+  ],
+  "title": "ModelCapability",
+  "type": "object"
+}

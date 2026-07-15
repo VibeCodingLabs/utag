@@ -1,0 +1,42 @@
+{
+  "$id": "https://utag.dev/schemas/validation-trace.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "report_ref": {
+      "minLength": 1,
+      "title": "Report Ref",
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "span_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Span Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "span_id",
+    "report_ref"
+  ],
+  "title": "ValidationTrace",
+  "type": "object"
+}

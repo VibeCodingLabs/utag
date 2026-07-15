@@ -1,0 +1,535 @@
+{
+  "$defs": {
+    "AccessibilityContract": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "keyboardRequired": {
+          "title": "Keyboardrequired",
+          "type": "boolean"
+        },
+        "minContrast": {
+          "$ref": "#/$defs/ContrastLevel"
+        }
+      },
+      "required": [
+        "minContrast",
+        "keyboardRequired"
+      ],
+      "title": "AccessibilityContract",
+      "type": "object"
+    },
+    "Brand": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "voice": {
+          "default": "",
+          "title": "Voice",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Brand",
+      "type": "object"
+    },
+    "ComponentSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "props": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Props",
+          "type": "object"
+        },
+        "states": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "States",
+          "type": "array"
+        },
+        "type": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Type",
+          "type": "string"
+        },
+        "variants": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VariantSpec"
+          },
+          "title": "Variants",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "title": "ComponentSpec",
+      "type": "object"
+    },
+    "ContrastLevel": {
+      "enum": [
+        "AA",
+        "AAA"
+      ],
+      "title": "ContrastLevel",
+      "type": "string"
+    },
+    "DataBindingSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "component": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Component",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "resource": {
+          "minLength": 1,
+          "title": "Resource",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "resource",
+        "component"
+      ],
+      "title": "DataBindingSpec",
+      "type": "object"
+    },
+    "DataSection": {
+      "additionalProperties": false,
+      "properties": {
+        "bindings": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/DataBindingSpec"
+          },
+          "title": "Bindings",
+          "type": "array"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "resources": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Resources",
+          "type": "array"
+        }
+      },
+      "title": "DataSection",
+      "type": "object"
+    },
+    "DesignTokens": {
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Color",
+          "type": "object"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "motion": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Motion",
+          "type": "object"
+        },
+        "radius": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Radius",
+          "type": "object"
+        },
+        "shadow": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Shadow",
+          "type": "object"
+        },
+        "spacing": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Spacing",
+          "type": "object"
+        },
+        "typography": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Typography",
+          "type": "object"
+        }
+      },
+      "title": "DesignTokens",
+      "type": "object"
+    },
+    "InteractionSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "source": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target"
+      ],
+      "title": "InteractionSpec",
+      "type": "object"
+    },
+    "LayoutSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "regions": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Regions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "regions"
+      ],
+      "title": "LayoutSpec",
+      "type": "object"
+    },
+    "RouteSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "components": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "layout": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Layout",
+          "type": "string"
+        },
+        "path": {
+          "pattern": "^/",
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "layout"
+      ],
+      "title": "RouteSpec",
+      "type": "object"
+    },
+    "VariantSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "props": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Props",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "VariantSpec",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/design-yaml.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Canonical design source-of-truth (design.yaml).",
+  "properties": {
+    "accessibility": {
+      "$ref": "#/$defs/AccessibilityContract"
+    },
+    "brand": {
+      "$ref": "#/$defs/Brand"
+    },
+    "components": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ComponentSpec"
+      },
+      "title": "Components",
+      "type": "array"
+    },
+    "data": {
+      "$ref": "#/$defs/DataSection",
+      "default": {
+        "bindings": [],
+        "extensions": null,
+        "resources": []
+      }
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "interactions": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/InteractionSpec"
+      },
+      "title": "Interactions",
+      "type": "array"
+    },
+    "layouts": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/LayoutSpec"
+      },
+      "title": "Layouts",
+      "type": "array"
+    },
+    "routes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/RouteSpec"
+      },
+      "title": "Routes",
+      "type": "array"
+    },
+    "themes": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "default": {},
+      "title": "Themes",
+      "type": "object"
+    },
+    "tokens": {
+      "$ref": "#/$defs/DesignTokens",
+      "default": {
+        "color": {},
+        "extensions": null,
+        "motion": {},
+        "radius": {},
+        "shadow": {},
+        "spacing": {},
+        "typography": {}
+      }
+    },
+    "version": {
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "brand",
+    "accessibility"
+  ],
+  "title": "DesignYaml",
+  "type": "object"
+}

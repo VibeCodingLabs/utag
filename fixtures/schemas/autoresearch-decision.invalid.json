@@ -1,0 +1,6 @@
+{
+  "__unknown_property__": true,
+  "decision": "use pydantic emission",
+  "id": "d1",
+  "rationale": "already a core dependency; deterministic"
+}

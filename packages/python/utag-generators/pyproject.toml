@@ -1,8 +1,8 @@
 [project]
 name = "utag-generators"
-version = "2.4.0"
+version = "2.11.0"
 requires-python = ">=3.12"
-dependencies = ["utag-core", "jsonschema>=4.26,<5", "openapi-spec-validator>=0.9,<1"]
+dependencies = ["utag-core", "utag-adapters", "jsonschema>=4.26,<5", "openapi-spec-validator>=0.9,<1"]
 
 [build-system]
 requires = ["hatchling"]

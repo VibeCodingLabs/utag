@@ -1,8 +1,8 @@
 [project]
 name = "utag-cli"
-version = "2.4.0"
+version = "2.11.0"
 requires-python = ">=3.12"
-dependencies = ["utag-core", "utag-generators"]
+dependencies = ["utag-core", "utag-generators", "utag-adapters"]
 
 [build-system]
 requires = ["hatchling"]

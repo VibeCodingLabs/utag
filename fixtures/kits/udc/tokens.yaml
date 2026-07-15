@@ -1,0 +1,36 @@
+color:
+  primary:
+    value: oklch(0.90 0.210 0)
+    type: color
+    description: Brand primary
+  background:
+    default:
+      value: oklch(1.00 0.000 360)
+      type: color
+    inverse:
+      value: oklch(0.00 0.110 40)
+      type: color
+  foreground:
+    default:
+      value: oklch(0.17 0.075 40)
+      type: color
+radius:
+  default:
+    value: 0rem
+    type: dimension
+motion:
+  duration:
+    fast:
+      value: 470
+      type: duration
+    normal:
+      value: 660
+      type: duration
+  easing:
+    standard:
+      value:
+        - 0.47
+        - 1
+        - 0.3
+        - 0.54
+      type: cubicBezier

@@ -1,0 +1,6 @@
+{
+  "__unknown_property__": true,
+  "kind": "command",
+  "ref": "uv run pytest -q",
+  "step_id": "s1"
+}

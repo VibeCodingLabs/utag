@@ -1,0 +1,7 @@
+{
+  "id": "console-shell",
+  "regions": [
+    "sidebar",
+    "main"
+  ]
+}

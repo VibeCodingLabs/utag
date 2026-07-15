@@ -1,0 +1,44 @@
+{
+  "$id": "https://utag.dev/schemas/route-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "components": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Components",
+      "type": "array"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "layout": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Layout",
+      "type": "string"
+    },
+    "path": {
+      "pattern": "^/",
+      "title": "Path",
+      "type": "string"
+    }
+  },
+  "required": [
+    "path",
+    "layout"
+  ],
+  "title": "RouteSpec",
+  "type": "object"
+}

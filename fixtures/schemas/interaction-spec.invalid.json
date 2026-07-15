@@ -1,0 +1,6 @@
+{
+  "__unknown_property__": true,
+  "id": "select-run",
+  "source": "run-table",
+  "target": "run-inspector"
+}

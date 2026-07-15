@@ -1,0 +1,8 @@
+{
+  "__unknown_property__": true,
+  "components": [
+    "run-status-card"
+  ],
+  "layout": "console-shell",
+  "path": "/runs"
+}

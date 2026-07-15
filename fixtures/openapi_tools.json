@@ -1,0 +1,6122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "openapi.tools.json",
+  "title": "OpenAPI Tools Knowledge Base",
+  "description": "Agent-ready registry of 195 tools for working with OpenAPI. Structured for semantic search, vector embedding, and RAG retrieval. Source: openapi.tools.",
+  "version": "1.0.0",
+  "generated": "2026-06-19",
+  "source": "https://openapi.tools",
+  "license": "CC-BY-4.0",
+  "maintainer": "APIs You Won't Hate",
+  "agent_context": {
+    "purpose": "Tool discovery and recommendation for OpenAPI toolchain decisions",
+    "retrieval_hint": "Index `name`, `description_vector_text`, `tags`, `use_cases`, and `languages` for semantic search. Use `id` as stable cache key. Filter by `primary_category` for scoped queries.",
+    "cache_key_field": "id",
+    "embedding_fields": [
+      "name",
+      "description_vector_text",
+      "tags",
+      "use_cases"
+    ],
+    "filter_fields": [
+      "primary_category",
+      "secondary_category",
+      "type",
+      "languages",
+      "openapi_versions"
+    ],
+    "score_fields": [
+      "use_cases",
+      "tags"
+    ]
+  },
+  "index": {
+    "total_tools": 195,
+    "categories": [
+      "Annotations",
+      "Code generators",
+      "Converters",
+      "Data Validators",
+      "Documentation",
+      "Domain-Specific Languages",
+      "Gateways",
+      "HTTP Clients",
+      "IDEs and GUI Editors",
+      "Learning",
+      "MCP",
+      "Miscellaneous",
+      "Mock Servers",
+      "Monitoring",
+      "OpenAPI-aware Frameworks",
+      "Parsers",
+      "SDK Generators",
+      "Schema Validators",
+      "Security",
+      "Server Implementations",
+      "Testing",
+      "Text Editors"
+    ],
+    "types": [
+      "opensource",
+      "saas"
+    ],
+    "openapi_versions_supported": [
+      "v3.0",
+      "v3.1",
+      "v3.2"
+    ]
+  },
+  "tools": [
+    {
+      "slug": "stainless",
+      "id": "5fd7b74f",
+      "name": "Stainless",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Documentation",
+      "tags": [
+        "sdk",
+        "codegen",
+        "npm",
+        "publish",
+        "package-manager"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Go",
+        "Ruby",
+        "Java",
+        "Kotlin",
+        "C#",
+        "PHP",
+        "Swift",
+        "Rust"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "sdk-publishing"
+      ],
+      "type": "saas",
+      "website": "https://stainlessapi.com/",
+      "github": "https://github.com/stainless-api/stl-api",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Stainless is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, sdk-publishing. Tags: sdk, codegen, npm, publish, package-manager. Languages: TypeScript, Python, Go, Ruby, Java, Kotlin, C#, PHP, Swift, Rust. Type: saas."
+    },
+    {
+      "slug": "speakeasy",
+      "id": "96a28ddd",
+      "name": "Speakeasy",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Documentation",
+      "tags": [
+        "sdk",
+        "codegen",
+        "terraform",
+        "multi-language"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Go",
+        "Ruby",
+        "Java",
+        "PHP",
+        "C#",
+        "Swift",
+        "Terraform"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "terraform-provider",
+        "docs"
+      ],
+      "type": "saas",
+      "website": "https://www.speakeasy.com/",
+      "github": "https://github.com/speakeasy-api",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Speakeasy is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, terraform-provider, docs. Tags: sdk, codegen, terraform, multi-language. Languages: TypeScript, Python, Go, Ruby, Java, PHP, C#, Swift, Terraform. Type: saas."
+    },
+    {
+      "slug": "speakeasy-openapi",
+      "id": "e0759017",
+      "name": "Speakeasy OpenAPI",
+      "primary_category": "Converters",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "cli",
+        "bundling",
+        "validation",
+        "overlay",
+        "arazzo",
+        "oss"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "validation",
+        "bundling",
+        "upgrade",
+        "inline"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/speakeasy-api/openapi",
+      "github": "https://github.com/speakeasy-api/openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Speakeasy OpenAPI is a Converters tool for OpenAPI. Use cases: validation, bundling, upgrade, inline. Tags: cli, bundling, validation, overlay, arazzo, oss. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "zudoku",
+      "id": "aa99c944",
+      "name": "Zudoku",
+      "primary_category": "Documentation",
+      "secondary_category": "IDEs and GUI Editors",
+      "tags": [
+        "docs",
+        "api-reference",
+        "cdn",
+        "self-hosted",
+        "customizable"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "api-docs",
+        "developer-portal"
+      ],
+      "type": "opensource",
+      "website": "https://zudoku.dev/",
+      "github": "https://github.com/zuplo/zudoku",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Zudoku is a Documentation tool for OpenAPI. Use cases: api-docs, developer-portal. Tags: docs, api-reference, cdn, self-hosted, customizable. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "wiremock",
+      "id": "bc0a6c32",
+      "name": "WireMock Cloud",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Testing",
+      "tags": [
+        "mock",
+        "simulation",
+        "mcp",
+        "ai",
+        "stateful",
+        "chaos",
+        "graphql",
+        "grpc",
+        "soap"
+      ],
+      "languages": [],
+      "use_cases": [
+        "mocking",
+        "chaos-testing",
+        "ai-agent"
+      ],
+      "type": "saas",
+      "website": "https://www.wiremock.io/product",
+      "github": "https://github.com/wiremock/wiremock",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "WireMock Cloud is a Mock Servers tool for OpenAPI. Use cases: mocking, chaos-testing, ai-agent. Tags: mock, simulation, mcp, ai, stateful, chaos, graphql, grpc, soap. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "hey-api-openapi-ts",
+      "id": "a077c6ef",
+      "name": "@hey-api/openapi-ts",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "codegen",
+        "typescript",
+        "zod",
+        "tanstack-query",
+        "plugins",
+        "vercel",
+        "paypal"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "sdk",
+        "type-generation",
+        "hooks"
+      ],
+      "type": "opensource",
+      "website": "https://heyapi.dev/",
+      "github": "https://github.com/hey-api/openapi-ts",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "@hey-api/openapi-ts is a SDK Generators tool for OpenAPI. Use cases: sdk, type-generation, hooks. Tags: codegen, typescript, zod, tanstack-query, plugins, vercel, paypal. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "nest-openapi-mock",
+      "id": "c9ea9757",
+      "name": "@nest-openapi/mock",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "nestjs",
+        "mock",
+        "spec-driven"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "mocking",
+        "nestjs"
+      ],
+      "type": "opensource",
+      "website": "https://nest-openapi.github.io/mock/",
+      "github": "https://github.com/ts-oas/nest-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "@nest-openapi/mock is a Mock Servers tool for OpenAPI. Use cases: mocking, nestjs. Tags: nestjs, mock, spec-driven. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "nest-openapi-serializer",
+      "id": "a97ab497",
+      "name": "@nest-openapi/serializer",
+      "primary_category": "Server Implementations",
+      "secondary_category": "OpenAPI-aware Frameworks",
+      "tags": [
+        "nestjs",
+        "serialization",
+        "fast-json-stringify",
+        "performance"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "serialization",
+        "nestjs"
+      ],
+      "type": "opensource",
+      "website": "https://nest-openapi.github.io/serializer/",
+      "github": "https://github.com/ts-oas/nest-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "@nest-openapi/serializer is a Server Implementations tool for OpenAPI. Use cases: serialization, nestjs. Tags: nestjs, serialization, fast-json-stringify, performance. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "nest-openapi-validator",
+      "id": "240d7307",
+      "name": "@nest-openapi/validator",
+      "primary_category": "Data Validators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "nestjs",
+        "validation",
+        "ajv",
+        "request-response"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "validation",
+        "nestjs"
+      ],
+      "type": "opensource",
+      "website": "https://nest-openapi.github.io/validator/",
+      "github": "https://github.com/ts-oas/nest-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "@nest-openapi/validator is a Data Validators tool for OpenAPI. Use cases: validation, nestjs. Tags: nestjs, validation, ajv, request-response. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "sdk-it",
+      "id": "ce87f51a",
+      "name": "SDK-IT",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "sdk",
+        "typescript",
+        "codegen",
+        "type-safe"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "client-sdk"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/januarylabs/sdk-it",
+      "github": "https://github.com/januarylabs/sdk-it",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "SDK-IT is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, client-sdk. Tags: sdk, typescript, codegen, type-safe. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "agentify",
+      "id": "742d7dfe",
+      "name": "Agentify",
+      "primary_category": "MCP",
+      "secondary_category": "Code generators",
+      "tags": [
+        "mcp",
+        "agent",
+        "ai",
+        "agents-md",
+        "claude",
+        "cursor",
+        "llms-txt",
+        "a2a",
+        "cli",
+        "agentic"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "mcp-server",
+        "ai-agent",
+        "spec-to-agent"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/agentify-cli",
+      "github": "https://github.com/koriyoshi2041/agentify",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Agentify is a MCP tool for OpenAPI. Use cases: mcp-server, ai-agent, spec-to-agent. Tags: mcp, agent, ai, agents-md, claude, cursor, llms-txt, a2a, cli, agentic. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "aiopenapi3",
+      "id": "8b925df2",
+      "name": "aiopenapi3",
+      "primary_category": "Parsers",
+      "secondary_category": "HTTP Clients",
+      "tags": [
+        "python",
+        "async",
+        "pydantic",
+        "httpx",
+        "rest-client"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "api-client",
+        "parsing",
+        "validation"
+      ],
+      "type": "opensource",
+      "website": "https://aiopenapi3.readthedocs.io/",
+      "github": "https://github.com/commonism/aiopenapi3",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "aiopenapi3 is a Parsers tool for OpenAPI. Use cases: api-client, parsing, validation. Tags: python, async, pydantic, httpx, rest-client. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "allof-merge",
+      "id": "23194e8c",
+      "name": "allof-merge",
+      "primary_category": "Parsers",
+      "secondary_category": "Converters",
+      "tags": [
+        "json-schema",
+        "allof",
+        "merge",
+        "simplify"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "schema-merging",
+        "ref-resolution"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/udamir/allof-merge",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "allof-merge is a Parsers tool for OpenAPI. Use cases: schema-merging, ref-resolution. Tags: json-schema, allof, merge, simplify. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "apache-apisix",
+      "id": "159aa51e",
+      "name": "Apache APISIX",
+      "primary_category": "Gateways",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "gateway",
+        "load-balancing",
+        "canary",
+        "circuit-breaker",
+        "auth",
+        "observability",
+        "oss"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-gateway",
+        "traffic-management"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/apache/apisix",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Apache APISIX is a Gateways tool for OpenAPI. Use cases: api-gateway, traffic-management. Tags: gateway, load-balancing, canary, circuit-breaker, auth, observability, oss. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "api",
+      "id": "14c2529e",
+      "name": "api (ReadMe)",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "sdk",
+        "typescript",
+        "javascript",
+        "codegen",
+        "readme"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "api-client"
+      ],
+      "type": "opensource",
+      "website": "https://api.readme.dev/",
+      "github": "https://github.com/readmeio/api",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "api (ReadMe) is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, api-client. Tags: sdk, typescript, javascript, codegen, readme. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "api-diff-viewer",
+      "id": "0c49b103",
+      "name": "api-diff-viewer",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "diff",
+        "react",
+        "json-schema",
+        "asyncapi",
+        "component"
+      ],
+      "languages": [
+        "TypeScript",
+        "React"
+      ],
+      "use_cases": [
+        "api-diff",
+        "visualization"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/udamir/api-diff-viewer",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "api-diff-viewer is a Converters tool for OpenAPI. Use cases: api-diff, visualization. Tags: diff, react, json-schema, asyncapi, component. Languages: TypeScript, React. Type: opensource."
+    },
+    {
+      "slug": "api-fiddle",
+      "id": "88d5fbd5",
+      "name": "Api-Fiddle",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "design",
+        "collaboration",
+        "governance",
+        "review"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-design",
+        "collaboration"
+      ],
+      "type": "saas",
+      "website": "https://www.api-fiddle.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Api-Fiddle is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-design, collaboration. Tags: design, collaboration, governance, review. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "api-ref-bundler",
+      "id": "e92bca08",
+      "name": "api-ref-bundler",
+      "primary_category": "Converters",
+      "secondary_category": "Parsers",
+      "tags": [
+        "bundler",
+        "ref",
+        "json",
+        "external-refs"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "bundling",
+        "ref-resolution"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/udamir/api-ref-bundler",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "api-ref-bundler is a Converters tool for OpenAPI. Use cases: bundling, ref-resolution. Tags: bundler, ref, json, external-refs. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "api-smart-diff",
+      "id": "2da1473a",
+      "name": "api-smart-diff",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "diff",
+        "asyncapi",
+        "json-schema",
+        "graphapi",
+        "compare"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "api-diff",
+        "change-detection"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/udamir/api-smart-diff",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "api-smart-diff is a Converters tool for OpenAPI. Use cases: api-diff, change-detection. Tags: diff, asyncapi, json-schema, graphapi, compare. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "api7-enterprise-edition",
+      "id": "9c30acc0",
+      "name": "API7 Enterprise Edition",
+      "primary_category": "Gateways",
+      "secondary_category": "Documentation",
+      "tags": [
+        "gateway",
+        "developer-portal",
+        "apisix",
+        "enterprise",
+        "onboarding"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-gateway",
+        "developer-portal"
+      ],
+      "type": "saas",
+      "website": "https://api7.ai/demos",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "API7 Enterprise Edition is a Gateways tool for OpenAPI. Use cases: api-gateway, developer-portal. Tags: gateway, developer-portal, apisix, enterprise, onboarding. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apidog",
+      "id": "be105553",
+      "name": "APIdog",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Testing",
+      "tags": [
+        "all-in-one",
+        "design",
+        "test",
+        "mock",
+        "docs",
+        "platform"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-design",
+        "testing",
+        "mocking",
+        "docs"
+      ],
+      "type": "saas",
+      "website": "https://apidog.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIdog is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-design, testing, mocking, docs. Tags: all-in-one, design, test, mock, docs, platform. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apigen-ts",
+      "id": "9e547ce1",
+      "name": "apigen-ts",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "typescript",
+        "http-client",
+        "single-file",
+        "typed",
+        "generator"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "client-generation",
+        "sdk"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/apigen-ts",
+      "github": "https://github.com/vladkens/apigen-ts",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "apigen-ts is a SDK Generators tool for OpenAPI. Use cases: client-generation, sdk. Tags: typescript, http-client, single-file, typed, generator. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "apigit",
+      "id": "e35d505a",
+      "name": "APIGit",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "git",
+        "collaboration",
+        "design",
+        "mock",
+        "test",
+        "share"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-design",
+        "version-control",
+        "mocking"
+      ],
+      "type": "saas",
+      "website": "https://apigit.com/",
+      "github": "https://github.com/apigitlabs",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIGit is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-design, version-control, mocking. Tags: git, collaboration, design, mock, test, share. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apimatic-developer-experience-portal",
+      "id": "5131daca",
+      "name": "APIMatic Developer Experience Portal",
+      "primary_category": "Documentation",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "developer-portal",
+        "sdk",
+        "code-samples",
+        "api-console",
+        "customizable"
+      ],
+      "languages": [],
+      "use_cases": [
+        "docs",
+        "developer-portal",
+        "sdk"
+      ],
+      "type": "saas",
+      "website": "https://www.apimatic.io/product/publish",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIMatic Developer Experience Portal is a Documentation tool for OpenAPI. Use cases: docs, developer-portal, sdk. Tags: developer-portal, sdk, code-samples, api-console, customizable. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apimatic-generate",
+      "id": "57537b29",
+      "name": "APIMatic Generate",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Converters",
+      "tags": [
+        "sdk",
+        "multi-language",
+        "raml",
+        "api-blueprint",
+        "wsdl",
+        "codegen"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Go",
+        "Ruby",
+        "Java",
+        "PHP",
+        "C#",
+        "Swift"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "format-conversion"
+      ],
+      "type": "saas",
+      "website": "https://www.apimatic.io/product/generate",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIMatic Generate is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, format-conversion. Tags: sdk, multi-language, raml, api-blueprint, wsdl, codegen. Languages: TypeScript, Python, Go, Ruby, Java, PHP, C#, Swift. Type: saas."
+    },
+    {
+      "slug": "apimatic-openapi-linter-github-app",
+      "id": "2f816afa",
+      "name": "APIMatic OpenAPI Linter - GitHub App",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "linter",
+        "github-app",
+        "ci",
+        "validation",
+        "quality"
+      ],
+      "languages": [],
+      "use_cases": [
+        "linting",
+        "ci-cd",
+        "validation"
+      ],
+      "type": "saas",
+      "website": "https://github.com/marketplace/apimatic-openapi-linter",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIMatic OpenAPI Linter - GitHub App is a Schema Validators tool for OpenAPI. Use cases: linting, ci-cd, validation. Tags: linter, github-app, ci, validation, quality. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apimatic-transformer",
+      "id": "110f4715",
+      "name": "APIMatic Transformer",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "converter",
+        "raml",
+        "api-blueprint",
+        "wsdl",
+        "transform"
+      ],
+      "languages": [],
+      "use_cases": [
+        "format-conversion",
+        "migration"
+      ],
+      "type": "saas",
+      "website": "https://www.apimatic.io/transformer",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIMatic Transformer is a Converters tool for OpenAPI. Use cases: format-conversion, migration. Tags: converter, raml, api-blueprint, wsdl, transform. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apiquality",
+      "id": "98128dbe",
+      "name": "APIQuality",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Testing",
+      "tags": [
+        "apiops",
+        "low-code",
+        "ai",
+        "mock",
+        "template",
+        "platform"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-ops",
+        "mocking",
+        "testing",
+        "ai-assisted"
+      ],
+      "type": "saas",
+      "website": "https://apiquality.io/",
+      "github": "https://github.com/APIQuality-io",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "APIQuality is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-ops, mocking, testing, ai-assisted. Tags: apiops, low-code, ai, mock, template, platform. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "apitally",
+      "id": "67a8b364",
+      "name": "Apitally",
+      "primary_category": "Monitoring",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "monitoring",
+        "analytics",
+        "sdk",
+        "python",
+        "nodejs",
+        "go",
+        "java",
+        "dotnet",
+        "dashboards",
+        "alerts"
+      ],
+      "languages": [
+        "Python",
+        "JavaScript",
+        "Go",
+        "Java",
+        "C#"
+      ],
+      "use_cases": [
+        "api-monitoring",
+        "analytics",
+        "observability"
+      ],
+      "type": "saas",
+      "website": "https://apitally.io/",
+      "github": "https://github.com/apitally",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Apitally is a Monitoring tool for OpenAPI. Use cases: api-monitoring, analytics, observability. Tags: monitoring, analytics, sdk, python, nodejs, go, java, dotnet, dashboards, alerts. Languages: Python, JavaScript, Go, Java, C#. Type: saas."
+    },
+    {
+      "slug": "jentic-arazzo-editor",
+      "id": "8787ce52",
+      "name": "Arazzo Editor",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "arazzo",
+        "workflow",
+        "editor",
+        "yaml",
+        "json",
+        "diagram",
+        "form-based"
+      ],
+      "languages": [],
+      "use_cases": [
+        "arazzo",
+        "workflow-design"
+      ],
+      "type": "saas",
+      "website": "https://jentic.com/arazzo-editor",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Arazzo Editor is a IDEs and GUI Editors tool for OpenAPI. Use cases: arazzo, workflow-design. Tags: arazzo, workflow, editor, yaml, json, diagram, form-based. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "jentic-arazzo-parser",
+      "id": "f265d9c6",
+      "name": "Arazzo Parser",
+      "primary_category": "Parsers",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "arazzo",
+        "typescript",
+        "javascript",
+        "parser",
+        "apidom"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "arazzo",
+        "parsing"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/@jentic/arazzo-parser",
+      "github": "https://github.com/jentic/jentic-arazzo-tools",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Arazzo Parser is a Parsers tool for OpenAPI. Use cases: arazzo, parsing. Tags: arazzo, typescript, javascript, parser, apidom. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "jentic-arazzo-resolver",
+      "id": "16a9f0fa",
+      "name": "Arazzo Resolver",
+      "primary_category": "Parsers",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "arazzo",
+        "typescript",
+        "javascript",
+        "resolver",
+        "dereference",
+        "apidom"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "arazzo",
+        "ref-resolution"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/@jentic/arazzo-resolver",
+      "github": "https://github.com/jentic/jentic-arazzo-tools",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Arazzo Resolver is a Parsers tool for OpenAPI. Use cases: arazzo, ref-resolution. Tags: arazzo, typescript, javascript, resolver, dereference, apidom. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "jentic-arazzo-ui",
+      "id": "716625cd",
+      "name": "Arazzo UI",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "arazzo",
+        "workflow",
+        "visualization",
+        "diagram",
+        "interactive"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "arazzo",
+        "workflow-visualization"
+      ],
+      "type": "opensource",
+      "website": "https://arazzo-ui.jentic.com/",
+      "github": "https://github.com/jentic/jentic-arazzo-tools",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Arazzo UI is a Documentation tool for OpenAPI. Use cases: arazzo, workflow-visualization. Tags: arazzo, workflow, visualization, diagram, interactive. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "arazzo-cli",
+      "id": "cab10965",
+      "name": "arazzo-cli",
+      "primary_category": "MCP",
+      "secondary_category": "Testing",
+      "tags": [
+        "arazzo",
+        "cli",
+        "executor",
+        "debugger",
+        "mcp",
+        "ai-agent",
+        "workflow-runner"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "arazzo",
+        "workflow-execution",
+        "mcp-server"
+      ],
+      "type": "opensource",
+      "website": "https://strefethen.github.io/arazzo-cli/",
+      "github": "https://github.com/strefethen/arazzo-cli",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "arazzo-cli is a MCP tool for OpenAPI. Use cases: arazzo, workflow-execution, mcp-server. Tags: arazzo, cli, executor, debugger, mcp, ai-agent, workflow-runner. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "arazzo-to-openapi",
+      "id": "e36abdf9",
+      "name": "arazzo2openapi",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "arazzo",
+        "converter",
+        "type-inference",
+        "cli",
+        "programmatic"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "arazzo",
+        "format-conversion"
+      ],
+      "type": "opensource",
+      "website": "https://frankkilcommins.github.io/arazzo2openapi",
+      "github": "https://github.com/frankkilcommins/arazzo2openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "arazzo2openapi is a Converters tool for OpenAPI. Use cases: arazzo, format-conversion. Tags: arazzo, converter, type-inference, cli, programmatic. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "ballerina-openapi-tool",
+      "id": "d9d612e7",
+      "name": "Ballerina OpenAPI tool",
+      "primary_category": "Code generators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "ballerina",
+        "client",
+        "service",
+        "generation",
+        "dsl"
+      ],
+      "languages": [
+        "Ballerina"
+      ],
+      "use_cases": [
+        "code-gen",
+        "client-sdk",
+        "server-stub"
+      ],
+      "type": "opensource",
+      "website": "https://ballerina.io/learn/openapi-tool/",
+      "github": "https://github.com/ballerina-platform/openapi-tools",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Ballerina OpenAPI tool is a Code generators tool for OpenAPI. Use cases: code-gen, client-sdk, server-stub. Tags: ballerina, client, service, generation, dsl. Languages: Ballerina. Type: opensource."
+    },
+    {
+      "slug": "barbacane",
+      "id": "99bfd8b8",
+      "name": "Barbacane",
+      "primary_category": "Gateways",
+      "secondary_category": "MCP",
+      "tags": [
+        "rust",
+        "gateway",
+        "spec-driven",
+        "validation",
+        "auth",
+        "rate-limiting",
+        "ai-proxy",
+        "mcp",
+        "asyncapi"
+      ],
+      "languages": [
+        "Rust"
+      ],
+      "use_cases": [
+        "api-gateway",
+        "mcp-server",
+        "spec-driven"
+      ],
+      "type": "opensource",
+      "website": "https://barbacane.dev/",
+      "github": "https://github.com/barbacane-dev/barbacane",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Barbacane is a Gateways tool for OpenAPI. Use cases: api-gateway, mcp-server, spec-driven. Tags: rust, gateway, spec-driven, validation, auth, rate-limiting, ai-proxy, mcp, asyncapi. Languages: Rust. Type: opensource."
+    },
+    {
+      "slug": "beeceptor-openapi-mock-server",
+      "id": "46e25ab5",
+      "name": "Beeceptor OpenAPI Mock Server",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Testing",
+      "tags": [
+        "mock",
+        "ai",
+        "free",
+        "yaml",
+        "json",
+        "schema-compliant",
+        "integration-testing"
+      ],
+      "languages": [],
+      "use_cases": [
+        "mocking",
+        "ai-generated-responses"
+      ],
+      "type": "saas",
+      "website": "https://beeceptor.com/openapi-mock-server/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Beeceptor OpenAPI Mock Server is a Mock Servers tool for OpenAPI. Use cases: mocking, ai-generated-responses. Tags: mock, ai, free, yaml, json, schema-compliant, integration-testing. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "blocklyautomation",
+      "id": "f2fecac6",
+      "name": "BlocklyAutomation",
+      "primary_category": "Testing",
+      "secondary_category": "Documentation",
+      "tags": [
+        "blockly",
+        "visual",
+        "testing",
+        "docs",
+        "generation"
+      ],
+      "languages": [],
+      "use_cases": [
+        "visual-testing",
+        "code-gen"
+      ],
+      "type": "opensource",
+      "website": "https://ignatandrei.github.io/BlocklyAutomation/",
+      "github": "https://github.com/ignatandrei/BlocklyAutomation",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "BlocklyAutomation is a Testing tool for OpenAPI. Use cases: visual-testing, code-gen. Tags: blockly, visual, testing, docs, generation. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "bruno",
+      "id": "ccc68482",
+      "name": "Bruno",
+      "primary_category": "HTTP Clients",
+      "secondary_category": "Testing",
+      "tags": [
+        "http-client",
+        "git-native",
+        "local",
+        "offline",
+        "oss",
+        "collections"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-client",
+        "http-testing",
+        "git"
+      ],
+      "type": "opensource",
+      "website": "https://usebruno.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Bruno is a HTTP Clients tool for OpenAPI. Use cases: api-client, http-testing, git. Tags: http-client, git-native, local, offline, oss, collections. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "bump-sh",
+      "id": "aa0c294a",
+      "name": "Bump.sh",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "docs",
+        "changelog",
+        "ci",
+        "slack",
+        "git-diff",
+        "paid"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "changelog",
+        "ci-cd"
+      ],
+      "type": "saas",
+      "website": "https://bump.sh/",
+      "github": "https://github.com/bump-sh/cli",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Bump.sh is a Documentation tool for OpenAPI. Use cases: api-docs, changelog, ci-cd. Tags: docs, changelog, ci, slack, git-diff, paid. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "cats",
+      "id": "d936608b",
+      "name": "CATS",
+      "primary_category": "Testing",
+      "secondary_category": "Security",
+      "tags": [
+        "fuzzer",
+        "negative-testing",
+        "rest",
+        "automated",
+        "self-healing"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "fuzzing",
+        "negative-testing",
+        "api-security"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/Endava/cats",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "CATS is a Testing tool for OpenAPI. Use cases: fuzzing, negative-testing, api-security. Tags: fuzzer, negative-testing, rest, automated, self-healing. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "openapi-devtools",
+      "id": "97de9ce6",
+      "name": "Chrome OpenAPI DevTools",
+      "primary_category": "Learning",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "browser-extension",
+        "chrome",
+        "traffic",
+        "generation",
+        "reverse-engineer"
+      ],
+      "languages": [
+        "JavaScript"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "traffic-capture"
+      ],
+      "type": "opensource",
+      "website": "https://chrome.google.com/webstore/detail/openapi-devtools/jelghndoknklgabjgaeppjhommkkmdii",
+      "github": "https://github.com/AndrewWalsh/openapi-devtools",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Chrome OpenAPI DevTools is a Learning tool for OpenAPI. Use cases: spec-generation, traffic-capture. Tags: browser-extension, chrome, traffic, generation, reverse-engineer. Languages: JavaScript. Type: opensource."
+    },
+    {
+      "slug": "clio",
+      "id": "c38c694b",
+      "name": "Clio",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "overlay",
+        "cli",
+        "dotnet",
+        "oss",
+        "apply"
+      ],
+      "languages": [
+        "C#"
+      ],
+      "use_cases": [
+        "overlay",
+        "spec-transform"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/BinkyLabs/openapi-overlays-dotnet",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Clio is a Converters tool for OpenAPI. Use cases: overlay, spec-transform. Tags: overlay, cli, dotnet, oss, apply. Languages: C#. Type: opensource."
+    },
+    {
+      "slug": "counterfact",
+      "id": "bde42823",
+      "name": "Counterfact",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Testing",
+      "tags": [
+        "mock",
+        "stateful",
+        "typescript",
+        "hot-reload",
+        "simulation"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "mocking",
+        "stateful-simulation"
+      ],
+      "type": "opensource",
+      "website": "https://counterfact.dev/",
+      "github": "https://github.com/counterfact/api-simulator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Counterfact is a Mock Servers tool for OpenAPI. Use cases: mocking, stateful-simulation. Tags: mock, stateful, typescript, hot-reload, simulation. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "delimit",
+      "id": "8ee0b85b",
+      "name": "Delimit",
+      "primary_category": "Schema Validators",
+      "secondary_category": "MCP",
+      "tags": [
+        "breaking-changes",
+        "semver",
+        "ci",
+        "github-action",
+        "mcp",
+        "ai-assistant",
+        "policy"
+      ],
+      "languages": [],
+      "use_cases": [
+        "change-detection",
+        "breaking-changes",
+        "mcp-server"
+      ],
+      "type": "saas",
+      "website": "https://delimit.ai/",
+      "github": "https://github.com/delimit-ai/delimit",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Delimit is a Schema Validators tool for OpenAPI. Use cases: change-detection, breaking-changes, mcp-server. Tags: breaking-changes, semver, ci, github-action, mcp, ai-assistant, policy. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "developerhub",
+      "id": "dd4b00b0",
+      "name": "DeveloperHub",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "docs",
+        "collaboration",
+        "product",
+        "api",
+        "portal"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "developer-portal"
+      ],
+      "type": "saas",
+      "website": "https://developerhub.io/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "DeveloperHub is a Documentation tool for OpenAPI. Use cases: api-docs, developer-portal. Tags: docs, collaboration, product, api, portal. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "django-contract-tester",
+      "id": "e8232878",
+      "name": "django-contract-tester",
+      "primary_category": "Testing",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "django",
+        "drf",
+        "django-ninja",
+        "contract",
+        "validation"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "contract-testing",
+        "django"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/maticardenas/django-contract-tester",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "django-contract-tester is a Testing tool for OpenAPI. Use cases: contract-testing, django. Tags: django, drf, django-ninja, contract, validation. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "docdriven",
+      "id": "305b6b1a",
+      "name": "DocDriven",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "gui",
+        "editor",
+        "collaboration",
+        "cloud-mock",
+        "ai",
+        "codegen"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-design",
+        "mocking",
+        "ai-assisted"
+      ],
+      "type": "saas",
+      "website": "https://docdriven.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "DocDriven is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-design, mocking, ai-assisted. Tags: gui, editor, collaboration, cloud-mock, ai, codegen. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "docs",
+      "id": "46b42b42",
+      "name": "docs (go-oas)",
+      "primary_category": "Code generators",
+      "secondary_category": "Parsers",
+      "tags": [
+        "go",
+        "generation",
+        "parsing",
+        "alternative-to-go-swagger"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "code-gen",
+        "parsing"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/go-oas/docs",
+      "github": "https://github.com/go-oas/docs",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "docs (go-oas) is a Code generators tool for OpenAPI. Use cases: code-gen, parsing. Tags: go, generation, parsing, alternative-to-go-swagger. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "docuo",
+      "id": "9aca78e1",
+      "name": "Docuo",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "docs",
+        "developer-hub",
+        "api-reference",
+        "guides",
+        "lightweight"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "developer-portal"
+      ],
+      "type": "saas",
+      "website": "https://docuo.spreading.ai/",
+      "github": "https://github.com/spreadingai",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Docuo is a Documentation tool for OpenAPI. Use cases: api-docs, developer-portal. Tags: docs, developer-hub, api-reference, guides, lightweight. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "drf-spectacular",
+      "id": "f5f293ad",
+      "name": "drf-spectacular",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "django",
+        "drf",
+        "python",
+        "generation",
+        "flexible"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "django",
+        "annotation"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/tfranzel/drf-spectacular",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "drf-spectacular is a Annotations tool for OpenAPI. Use cases: spec-generation, django, annotation. Tags: django, drf, python, generation, flexible. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "elements",
+      "id": "b0b17893",
+      "name": "Elements (Stoplight)",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "react",
+        "web-components",
+        "interactive",
+        "docs",
+        "embeddable",
+        "markdown"
+      ],
+      "languages": [
+        "TypeScript",
+        "React"
+      ],
+      "use_cases": [
+        "api-docs",
+        "ui-component"
+      ],
+      "type": "opensource",
+      "website": "https://stoplight.io/open-source/elements",
+      "github": "https://github.com/stoplightio/elements",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Elements (Stoplight) is a Documentation tool for OpenAPI. Use cases: api-docs, ui-component. Tags: react, web-components, interactive, docs, embeddable, markdown. Languages: TypeScript, React. Type: opensource."
+    },
+    {
+      "slug": "evomaster",
+      "id": "b706f6cf",
+      "name": "EvoMaster",
+      "primary_category": "Testing",
+      "secondary_category": "Security",
+      "tags": [
+        "fuzzer",
+        "evolutionary",
+        "system-level",
+        "rest",
+        "dynamic-analysis"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "fuzzing",
+        "automated-testing",
+        "evolutionary-ai"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/WebFuzzing/EvoMaster",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "EvoMaster is a Testing tool for OpenAPI. Use cases: fuzzing, automated-testing, evolutionary-ai. Tags: fuzzer, evolutionary, system-level, rest, dynamic-analysis. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "express-openapi",
+      "id": "79cb9716",
+      "name": "express-openapi",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "express",
+        "nodejs",
+        "promise",
+        "middleware",
+        "security"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "express",
+        "server-framework"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/express-openapi",
+      "github": "https://github.com/kogosoftwarellc/open-api",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "express-openapi is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: express, server-framework. Tags: express, nodejs, promise, middleware, security. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "express-openapi-validator",
+      "id": "11a6e667",
+      "name": "express-openapi-validator",
+      "primary_category": "Data Validators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "express",
+        "validation",
+        "auto-validate",
+        "request",
+        "response"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "validation",
+        "express"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/cdimascio/express-openapi-validator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "express-openapi-validator is a Data Validators tool for OpenAPI. Use cases: validation, express. Tags: express, validation, auto-validate, request, response. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "fabrikt",
+      "id": "c2f6f92b",
+      "name": "FabriKt",
+      "primary_category": "Code generators",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "kotlin",
+        "jackson",
+        "spring",
+        "okhttp",
+        "polymorphism",
+        "dto",
+        "interfaces"
+      ],
+      "languages": [
+        "Kotlin"
+      ],
+      "use_cases": [
+        "code-gen",
+        "kotlin",
+        "spring-boot"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/fabrikt-io/fabrikt",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "FabriKt is a Code generators tool for OpenAPI. Use cases: code-gen, kotlin, spring-boot. Tags: kotlin, jackson, spring, okhttp, polymorphism, dto, interfaces. Languages: Kotlin. Type: opensource."
+    },
+    {
+      "slug": "fastapi",
+      "id": "6aee0e67",
+      "name": "FastAPI",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "python",
+        "async",
+        "high-performance",
+        "pydantic",
+        "first-class-openapi"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "web-framework",
+        "server",
+        "api-first"
+      ],
+      "type": "opensource",
+      "website": "https://fastapi.tiangolo.com/",
+      "github": "https://github.com/fastapi/fastapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "FastAPI is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, server, api-first. Tags: python, async, high-performance, pydantic, first-class-openapi. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "fastify-openapi-glue",
+      "id": "21182841",
+      "name": "fastify-openapi-glue",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "fastify",
+        "plugin",
+        "autogenerate",
+        "nodejs"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "fastify",
+        "server-framework"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/fastify-openapi-glue",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "fastify-openapi-glue is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: fastify, server-framework. Tags: fastify, plugin, autogenerate, nodejs. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "fastify-swagger",
+      "id": "6ee88732",
+      "name": "fastify-swagger",
+      "primary_category": "Annotations",
+      "secondary_category": "Documentation",
+      "tags": [
+        "fastify",
+        "plugin",
+        "docs",
+        "route-schemas",
+        "yaml",
+        "json"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "fastify",
+        "docs"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/fastify/fastify-swagger",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "fastify-swagger is a Annotations tool for OpenAPI. Use cases: spec-generation, fastify, docs. Tags: fastify, plugin, docs, route-schemas, yaml, json. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "fern-sdks-docs",
+      "id": "23d44b8e",
+      "name": "Fern SDKs & Docs",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Documentation",
+      "tags": [
+        "sdk",
+        "multi-language",
+        "npm",
+        "docs",
+        "beautiful",
+        "publish"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Go",
+        "Ruby",
+        "Java",
+        "Swift",
+        "C#"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "api-docs"
+      ],
+      "type": "saas",
+      "website": "https://buildwithfern.com/",
+      "github": "https://github.com/fern-api/fern",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Fern SDKs & Docs is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, api-docs. Tags: sdk, multi-language, npm, docs, beautiful, publish. Languages: TypeScript, Python, Go, Ruby, Java, Swift, C#. Type: saas."
+    },
+    {
+      "slug": "fern-server",
+      "id": "1e369d37",
+      "name": "Fern Server",
+      "primary_category": "Server Implementations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "server",
+        "boilerplate",
+        "business-logic",
+        "codegen"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Java"
+      ],
+      "use_cases": [
+        "server-stub",
+        "code-gen"
+      ],
+      "type": "saas",
+      "website": "https://buildwithfern.com/",
+      "github": "https://github.com/fern-api/fern",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Fern Server is a Server Implementations tool for OpenAPI. Use cases: server-stub, code-gen. Tags: server, boilerplate, business-logic, codegen. Languages: TypeScript, Python, Java. Type: saas."
+    },
+    {
+      "slug": "fitting",
+      "id": "14d7952a",
+      "name": "Fitting",
+      "primary_category": "Testing",
+      "secondary_category": "Documentation",
+      "tags": [
+        "rspec",
+        "webmock",
+        "ruby",
+        "api-blueprint",
+        "coverage",
+        "log"
+      ],
+      "languages": [
+        "Ruby"
+      ],
+      "use_cases": [
+        "contract-testing",
+        "coverage",
+        "ruby"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/tuwilof/fitting",
+      "github": "https://github.com/tuwilof/fitting",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Fitting is a Testing tool for OpenAPI. Use cases: contract-testing, coverage, ruby. Tags: rspec, webmock, ruby, api-blueprint, coverage, log. Languages: Ruby. Type: opensource."
+    },
+    {
+      "slug": "fix-my-openapi-a-vscode-extension-by-apimatic",
+      "id": "1a56150b",
+      "name": "Fix My OpenAPI (APIMatic VSCode)",
+      "primary_category": "Text Editors",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "vscode",
+        "extension",
+        "lint",
+        "validate",
+        "auto-fix",
+        "transform",
+        "sdk"
+      ],
+      "languages": [],
+      "use_cases": [
+        "linting",
+        "vscode",
+        "auto-fix"
+      ],
+      "type": "saas",
+      "website": "https://marketplace.visualstudio.com/items?itemName=apimatic-developers.apimatic-for-vscode",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Fix My OpenAPI (APIMatic VSCode) is a Text Editors tool for OpenAPI. Use cases: linting, vscode, auto-fix. Tags: vscode, extension, lint, validate, auto-fix, transform, sdk. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "flotiq-headless-cms-with-openapi-support",
+      "id": "17105e27",
+      "name": "Flotiq - Headless CMS with OpenAPI",
+      "primary_category": "Code generators",
+      "secondary_category": "Documentation",
+      "tags": [
+        "cms",
+        "headless",
+        "endpoints",
+        "sdk",
+        "postman",
+        "content-types"
+      ],
+      "languages": [],
+      "use_cases": [
+        "cms",
+        "spec-generation",
+        "sdk"
+      ],
+      "type": "saas",
+      "website": "https://flotiq.com/",
+      "github": "https://github.com/flotiq",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Flotiq - Headless CMS with OpenAPI is a Code generators tool for OpenAPI. Use cases: cms, spec-generation, sdk. Tags: cms, headless, endpoints, sdk, postman, content-types. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "framna-docs",
+      "id": "ec7b7032",
+      "name": "Framna Docs",
+      "primary_category": "Documentation",
+      "secondary_category": "IDEs and GUI Editors",
+      "tags": [
+        "self-hosted",
+        "portal",
+        "github-auth",
+        "swagger-ui",
+        "elements",
+        "redocly"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "self-hosted",
+        "developer-portal"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/shapehq/framna-docs/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Framna Docs is a Documentation tool for OpenAPI. Use cases: api-docs, self-hosted, developer-portal. Tags: self-hosted, portal, github-auth, swagger-ui, elements, redocly. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "frevo",
+      "id": "7cdf8f63",
+      "name": "Frevo",
+      "primary_category": "Documentation",
+      "secondary_category": "Monitoring",
+      "tags": [
+        "changelog",
+        "api-reference",
+        "tracking",
+        "changes"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "change-tracking"
+      ],
+      "type": "saas",
+      "website": "https://frevo.dev/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Frevo is a Documentation tool for OpenAPI. Use cases: api-docs, change-tracking. Tags: changelog, api-reference, tracking, changes. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "frogment-editor",
+      "id": "d4e9a780",
+      "name": "Frogment Editor",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Text Editors",
+      "tags": [
+        "editor",
+        "linter",
+        "fragments",
+        "free",
+        "web"
+      ],
+      "languages": [],
+      "use_cases": [
+        "spec-editing",
+        "linting"
+      ],
+      "type": "saas",
+      "website": "https://www.frogment.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Frogment Editor is a IDEs and GUI Editors tool for OpenAPI. Use cases: spec-editing, linting. Tags: editor, linter, fragments, free, web. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "gitbook",
+      "id": "f90fc630",
+      "name": "GitBook",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "docs",
+        "interactive",
+        "product",
+        "api",
+        "platform",
+        "publish"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "developer-docs"
+      ],
+      "type": "saas",
+      "website": "https://www.gitbook.com/",
+      "github": "https://github.com/GitbookIO/gitbook",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "GitBook is a Documentation tool for OpenAPI. Use cases: api-docs, developer-docs. Tags: docs, interactive, product, api, platform, publish. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "go-openapi-spec-code-diffs",
+      "id": "db60b0d2",
+      "name": "go-openapi-spec-code-diffs",
+      "primary_category": "Miscellaneous",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "go",
+        "golang",
+        "diff",
+        "routes",
+        "sync",
+        "validation"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "spec-sync",
+        "code-diff"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/RHEcosystemAppEng/go-openapi-spec-code-diffs",
+      "github": "https://github.com/RHEcosystemAppEng/go-openapi-spec-code-diffs",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "go-openapi-spec-code-diffs is a Miscellaneous tool for OpenAPI. Use cases: spec-sync, code-diff. Tags: go, golang, diff, routes, sync, validation. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "gram",
+      "id": "caa75103",
+      "name": "Gram",
+      "primary_category": "MCP",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "mcp",
+        "typescript",
+        "serverless",
+        "oauth",
+        "observability",
+        "ai-agent",
+        "deploy",
+        "toolset"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "mcp-server",
+        "mcp-platform",
+        "agent-tools",
+        "serverless"
+      ],
+      "type": "saas",
+      "website": "https://www.getgram.ai/",
+      "github": "https://github.com/speakeasy-api/gram",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Gram is a MCP tool for OpenAPI. Use cases: mcp-server, mcp-platform, agent-tools, serverless. Tags: mcp, typescript, serverless, oauth, observability, ai-agent, deploy, toolset. Languages: TypeScript. Type: saas."
+    },
+    {
+      "slug": "hackolade",
+      "id": "9283d2ef",
+      "name": "Hackolade",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "visual-editor",
+        "nosql",
+        "data-modeling",
+        "v2",
+        "v3"
+      ],
+      "languages": [],
+      "use_cases": [
+        "spec-editing",
+        "data-modeling"
+      ],
+      "type": "saas",
+      "website": "https://hackolade.com/",
+      "github": "https://github.com/hackolade/OpenAPI",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Hackolade is a IDEs and GUI Editors tool for OpenAPI. Use cases: spec-editing, data-modeling. Tags: visual-editor, nosql, data-modeling, v2, v3. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "hidi",
+      "id": "e7510a1f",
+      "name": "hidi (Microsoft)",
+      "primary_category": "Converters",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "microsoft",
+        "cli",
+        "convert",
+        "validate",
+        "transform",
+        "filter",
+        "dotnet"
+      ],
+      "languages": [
+        "C#"
+      ],
+      "use_cases": [
+        "conversion",
+        "validation",
+        "filtering"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/microsoft/OpenAPI.NET/tree/main/src/Microsoft.OpenApi.Hidi",
+      "github": "https://github.com/microsoft/openapi.net",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "hidi (Microsoft) is a Converters tool for OpenAPI. Use cases: conversion, validation, filtering. Tags: microsoft, cli, convert, validate, transform, filter, dotnet. Languages: C#. Type: opensource."
+    },
+    {
+      "slug": "huma",
+      "id": "2f609677",
+      "name": "Huma",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "go",
+        "micro-framework",
+        "rest",
+        "rpc",
+        "json-schema",
+        "fast",
+        "flexible"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "web-framework",
+        "go",
+        "api-first"
+      ],
+      "type": "opensource",
+      "website": "https://huma.rocks/",
+      "github": "https://github.com/danielgtaylor/huma",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Huma is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, go, api-first. Tags: go, micro-framework, rest, rpc, json-schema, fast, flexible. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "inducoapi",
+      "id": "c30446b3",
+      "name": "InducOapi",
+      "primary_category": "Learning",
+      "secondary_category": "Code generators",
+      "tags": [
+        "python",
+        "generate",
+        "request-response",
+        "simple"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "learning"
+      ],
+      "type": "opensource",
+      "website": "https://pypi.org/project/inducoapi",
+      "github": "https://github.com/TheWall89/inducoapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "InducOapi is a Learning tool for OpenAPI. Use cases: spec-generation, learning. Tags: python, generate, request-response, simple. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "inspectr",
+      "id": "61ca7b67",
+      "name": "Inspectr",
+      "primary_category": "Monitoring",
+      "secondary_category": "Mock Servers",
+      "tags": [
+        "inspection",
+        "debugging",
+        "mock",
+        "mcp",
+        "http",
+        "webhook",
+        "real-time",
+        "testing"
+      ],
+      "languages": [],
+      "use_cases": [
+        "http-inspection",
+        "mocking",
+        "mcp-monitoring"
+      ],
+      "type": "opensource",
+      "website": "https://inspectr.dev/",
+      "github": "https://github.com/inspectr-hq/inspectr",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Inspectr is a Monitoring tool for OpenAPI. Use cases: http-inspection, mocking, mcp-monitoring. Tags: inspection, debugging, mock, mcp, http, webhook, real-time, testing. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "janephp",
+      "id": "0bf7093b",
+      "name": "janephp",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "php",
+        "psr-7",
+        "client",
+        "generation"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "php"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/janephp/janephp",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "janephp is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, php. Tags: php, psr-7, client, generation. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "kappa",
+      "id": "6a30f630",
+      "name": "Kappa",
+      "primary_category": "Data Validators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "java",
+        "middleware",
+        "spring",
+        "vertx",
+        "validation",
+        "request-response"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "validation",
+        "java",
+        "spring"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/erosb/kappa",
+      "github": "https://github.com/erosb/kappa",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Kappa is a Data Validators tool for OpenAPI. Use cases: validation, java, spring. Tags: java, middleware, spring, vertx, validation, request-response. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "kin-openapi",
+      "id": "86d56966",
+      "name": "kin-openapi",
+      "primary_category": "Parsers",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "go",
+        "parse",
+        "convert",
+        "validate"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "parsing",
+        "validation",
+        "go"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/getkin/kin-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "kin-openapi is a Parsers tool for OpenAPI. Use cases: parsing, validation, go. Tags: go, parse, convert, validate. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "kiota",
+      "id": "65abd6f0",
+      "name": "Kiota (Microsoft)",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "microsoft",
+        "cross-platform",
+        "client",
+        "multi-language",
+        "selective",
+        "fast",
+        "small"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Go",
+        "Java",
+        "PHP",
+        "C#",
+        "Swift",
+        "Ruby"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "multi-language",
+        "client"
+      ],
+      "type": "opensource",
+      "website": "https://aka.ms/kiota/docs",
+      "github": "https://github.com/microsoft/kiota",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Kiota (Microsoft) is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, multi-language, client. Tags: microsoft, cross-platform, client, multi-language, selective, fast, small. Languages: TypeScript, Python, Go, Java, PHP, C#, Swift, Ruby. Type: opensource."
+    },
+    {
+      "slug": "kong-enterprise-edition",
+      "id": "61113671",
+      "name": "Kong Enterprise Edition",
+      "primary_category": "Gateways",
+      "secondary_category": "Documentation",
+      "tags": [
+        "developer-portal",
+        "kong",
+        "gateway",
+        "enterprise",
+        "onboarding"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-gateway",
+        "developer-portal"
+      ],
+      "type": "saas",
+      "website": "https://konghq.com/kong-enterprise-edition/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Kong Enterprise Edition is a Gateways tool for OpenAPI. Use cases: api-gateway, developer-portal. Tags: developer-portal, kong, gateway, enterprise, onboarding. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "kubb",
+      "id": "3b1ee5d8",
+      "name": "kubb",
+      "primary_category": "Code generators",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "typescript",
+        "zod",
+        "react-query",
+        "tanstack",
+        "swr",
+        "vue",
+        "svelte",
+        "solid",
+        "axios",
+        "plugins"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "code-gen",
+        "hooks",
+        "type-generation"
+      ],
+      "type": "opensource",
+      "website": "https://kubb.dev/",
+      "github": "https://github.com/kubb-project/kubb",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "kubb is a Code generators tool for OpenAPI. Use cases: code-gen, hooks, type-generation. Tags: typescript, zod, react-query, tanstack, swr, vue, svelte, solid, axios, plugins. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "lap",
+      "id": "066addf6",
+      "name": "LAP",
+      "primary_category": "MCP",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "ai",
+        "llm",
+        "token-efficient",
+        "precompiled",
+        "agent",
+        "anti-hallucination"
+      ],
+      "languages": [],
+      "use_cases": [
+        "ai-agent",
+        "spec-compilation",
+        "token-optimization"
+      ],
+      "type": "saas",
+      "website": "https://lap.sh/",
+      "github": "https://github.com/Lap-Platform/LAP",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "LAP is a MCP tool for OpenAPI. Use cases: ai-agent, spec-compilation, token-optimization. Tags: ai, llm, token-efficient, precompiled, agent, anti-hallucination. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "legba",
+      "id": "ae1ac038",
+      "name": "Legba",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "clojure",
+        "validation",
+        "routing",
+        "overlay",
+        "full-coverage"
+      ],
+      "languages": [
+        "Clojure"
+      ],
+      "use_cases": [
+        "web-framework",
+        "clojure",
+        "server"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/mpenet/legba",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Legba is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, clojure, server. Tags: clojure, validation, routing, overlay, full-coverage. Languages: Clojure. Type: opensource."
+    },
+    {
+      "slug": "libopenapi",
+      "id": "c774eefc",
+      "name": "libopenapi",
+      "primary_category": "Parsers",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "go",
+        "enterprise",
+        "parser",
+        "diff",
+        "index",
+        "resolver",
+        "swagger"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "parsing",
+        "diff",
+        "enterprise",
+        "go"
+      ],
+      "type": "opensource",
+      "website": "https://pb33f.io/libopenapi",
+      "github": "https://github.com/pb33f/libopenapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "libopenapi is a Parsers tool for OpenAPI. Use cases: parsing, diff, enterprise, go. Tags: go, enterprise, parser, diff, index, resolver, swagger. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "mayhem-for-api",
+      "id": "c8513ee9",
+      "name": "Mayhem for API",
+      "primary_category": "Testing",
+      "secondary_category": "Security",
+      "tags": [
+        "fuzzer",
+        "infinite",
+        "automated",
+        "rest",
+        "forallsecure"
+      ],
+      "languages": [],
+      "use_cases": [
+        "fuzzing",
+        "automated-testing"
+      ],
+      "type": "saas",
+      "website": "https://forallsecure.com/mayhem-for-api",
+      "github": "https://github.com/ForAllSecure/mapi-action",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Mayhem for API is a Testing tool for OpenAPI. Use cases: fuzzing, automated-testing. Tags: fuzzer, infinite, automated, rest, forallsecure. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "membrane-api-gateway",
+      "id": "c7592450",
+      "name": "Membrane API Gateway",
+      "primary_category": "Gateways",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "gateway",
+        "oss",
+        "validation",
+        "request",
+        "response",
+        "enforcement"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "api-gateway",
+        "validation"
+      ],
+      "type": "opensource",
+      "website": "https://www.membrane-api.io/",
+      "github": "https://github.com/membrane/api-gateway",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Membrane API Gateway is a Gateways tool for OpenAPI. Use cases: api-gateway, validation. Tags: gateway, oss, validation, request, response, enforcement. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "microcks",
+      "id": "bf322eed",
+      "name": "Microcks",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Testing",
+      "tags": [
+        "kubernetes",
+        "cncf",
+        "mocking",
+        "testing",
+        "cloud-native",
+        "sandbox"
+      ],
+      "languages": [],
+      "use_cases": [
+        "mocking",
+        "kubernetes",
+        "cloud-native"
+      ],
+      "type": "opensource",
+      "website": "https://microcks.io/",
+      "github": "https://github.com/microcks/microcks",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Microcks is a Mock Servers tool for OpenAPI. Use cases: mocking, kubernetes, cloud-native. Tags: kubernetes, cncf, mocking, testing, cloud-native, sandbox. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "microsoft-openapi-net",
+      "id": "202e25b8",
+      "name": "Microsoft/OpenAPI.NET",
+      "primary_category": "Parsers",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "csharp",
+        "dotnet",
+        "parse",
+        "validate",
+        "migrate",
+        "v2",
+        "v3"
+      ],
+      "languages": [
+        "C#"
+      ],
+      "use_cases": [
+        "parsing",
+        "validation",
+        "dotnet"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/Microsoft/OpenAPI.NET",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Microsoft/OpenAPI.NET is a Parsers tool for OpenAPI. Use cases: parsing, validation, dotnet. Tags: csharp, dotnet, parse, validate, migrate, v2, v3. Languages: C#. Type: opensource."
+    },
+    {
+      "slug": "middlebrick",
+      "id": "a5f3026e",
+      "name": "middleBrick",
+      "primary_category": "Security",
+      "secondary_category": "MCP",
+      "tags": [
+        "owasp",
+        "api-security",
+        "scanner",
+        "risk-score",
+        "llm",
+        "ai",
+        "graphql",
+        "rest",
+        "github-action",
+        "mcp"
+      ],
+      "languages": [],
+      "use_cases": [
+        "security-scanning",
+        "owasp",
+        "ai-security",
+        "mcp-server"
+      ],
+      "type": "saas",
+      "website": "https://middlebrick.com/",
+      "github": "https://github.com/middleBrick",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "middleBrick is a Security tool for OpenAPI. Use cases: security-scanning, owasp, ai-security, mcp-server. Tags: owasp, api-security, scanner, risk-score, llm, ai, graphql, rest, github-action, mcp. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "mintlify",
+      "id": "8bc74bb8",
+      "name": "Mintlify",
+      "primary_category": "Documentation",
+      "secondary_category": "IDEs and GUI Editors",
+      "tags": [
+        "docs",
+        "interactive",
+        "playground",
+        "beautiful",
+        "modern",
+        "ui"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "developer-experience"
+      ],
+      "type": "saas",
+      "website": "https://mintlify.com/",
+      "github": "https://github.com/mintlify/starter",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Mintlify is a Documentation tool for OpenAPI. Use cases: api-docs, developer-experience. Tags: docs, interactive, playground, beautiful, modern, ui. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "mkdocs-redoc-tag",
+      "id": "21207689",
+      "name": "MkDocs Redoc Tag",
+      "primary_category": "Documentation",
+      "secondary_category": "Text Editors",
+      "tags": [
+        "mkdocs",
+        "redoc",
+        "plugin",
+        "embed"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "docs",
+        "mkdocs",
+        "redoc"
+      ],
+      "type": "opensource",
+      "website": "https://blueswen.github.io/mkdocs-redoc-tag/",
+      "github": "https://github.com/blueswen/mkdocs-redoc-tag",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "MkDocs Redoc Tag is a Documentation tool for OpenAPI. Use cases: docs, mkdocs, redoc. Tags: mkdocs, redoc, plugin, embed. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "mkdocs-swagger-ui-tag",
+      "id": "07a672d7",
+      "name": "MkDocs Swagger UI Tag",
+      "primary_category": "Documentation",
+      "secondary_category": "Text Editors",
+      "tags": [
+        "mkdocs",
+        "swagger-ui",
+        "plugin",
+        "embed"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "docs",
+        "mkdocs",
+        "swagger-ui"
+      ],
+      "type": "opensource",
+      "website": "https://blueswen.github.io/mkdocs-swagger-ui-tag/",
+      "github": "https://github.com/blueswen/mkdocs-swagger-ui-tag",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "MkDocs Swagger UI Tag is a Documentation tool for OpenAPI. Use cases: docs, mkdocs, swagger-ui. Tags: mkdocs, swagger-ui, plugin, embed. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "mockintosh",
+      "id": "4927be0d",
+      "name": "Mockintosh",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Testing",
+      "tags": [
+        "cloud-native",
+        "kafka",
+        "rabbitmq",
+        "async",
+        "chaos",
+        "performance",
+        "docker"
+      ],
+      "languages": [],
+      "use_cases": [
+        "mocking",
+        "cloud-native",
+        "async-messaging"
+      ],
+      "type": "opensource",
+      "website": "https://mockintosh.io/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Mockintosh is a Mock Servers tool for OpenAPI. Use cases: mocking, cloud-native, async-messaging. Tags: cloud-native, kafka, rabbitmq, async, chaos, performance, docker. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "mockzilla",
+      "id": "f6e48679",
+      "name": "Mockzilla",
+      "primary_category": "Mock Servers",
+      "secondary_category": "MCP",
+      "tags": [
+        "go",
+        "multi-spec",
+        "validation",
+        "proxy",
+        "fallback",
+        "mcp",
+        "ai-agent"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "mocking",
+        "mcp-server",
+        "proxy-mock"
+      ],
+      "type": "opensource",
+      "website": "https://mockzilla.org/",
+      "github": "https://github.com/mockzilla/mockzilla",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Mockzilla is a Mock Servers tool for OpenAPI. Use cases: mocking, mcp-server, proxy-mock. Tags: go, multi-spec, validation, proxy, fallback, mcp, ai-agent. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "mojolicious-plugin-openapi-modern",
+      "id": "0f77ded2",
+      "name": "Mojolicious::Plugin::OpenAPI::Modern",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "perl",
+        "mojolicious",
+        "plugin",
+        "framework"
+      ],
+      "languages": [
+        "Perl"
+      ],
+      "use_cases": [
+        "web-framework",
+        "perl"
+      ],
+      "type": "opensource",
+      "website": "https://metacpan.org/dist/Mojolicious-Plugin-OpenAPI-Modern",
+      "github": "https://github.com/karenetheridge/Mojolicious-Plugin-OpenAPI-Modern",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Mojolicious::Plugin::OpenAPI::Modern is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, perl. Tags: perl, mojolicious, plugin, framework. Languages: Perl. Type: opensource."
+    },
+    {
+      "slug": "mokapi",
+      "id": "dae9c15d",
+      "name": "Mokapi",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Testing",
+      "tags": [
+        "mock",
+        "asyncapi",
+        "ldap",
+        "smtp",
+        "imap",
+        "kafka",
+        "ci-cd",
+        "javascript",
+        "oss"
+      ],
+      "languages": [
+        "JavaScript"
+      ],
+      "use_cases": [
+        "mocking",
+        "async-messaging",
+        "email",
+        "ci-cd"
+      ],
+      "type": "opensource",
+      "website": "https://mokapi.io/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Mokapi is a Mock Servers tool for OpenAPI. Use cases: mocking, async-messaging, email, ci-cd. Tags: mock, asyncapi, ldap, smtp, imap, kafka, ci-cd, javascript, oss. Languages: JavaScript. Type: opensource."
+    },
+    {
+      "slug": "mondrian-framework",
+      "id": "8297dfc7",
+      "name": "mondrian-framework",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Code generators",
+      "tags": [
+        "typescript",
+        "formal-types",
+        "models",
+        "services",
+        "validation",
+        "generation"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "web-framework",
+        "spec-generation",
+        "typescript"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/mondrian-framework/mondrian-framework",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "mondrian-framework is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, spec-generation, typescript. Tags: typescript, formal-types, models, services, validation, generation. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "oapi-bundler",
+      "id": "cb56651d",
+      "name": "oapi-bundler",
+      "primary_category": "Converters",
+      "secondary_category": "Parsers",
+      "tags": [
+        "bundler",
+        "modular",
+        "yaml",
+        "json",
+        "domain-split",
+        "ref"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "bundling",
+        "spec-organization"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/yhnavein/oapi-bundler",
+      "github": "https://github.com/yhnavein/oapi-bundler",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oapi-bundler is a Converters tool for OpenAPI. Use cases: bundling, spec-organization. Tags: bundler, modular, yaml, json, domain-split, ref. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "oas",
+      "id": "5c6a5f1d",
+      "name": "oas (ReadMe)",
+      "primary_category": "Parsers",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "readme",
+        "tooling",
+        "comprehensive",
+        "js"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "parsing",
+        "tooling"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/readmeio/oas",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oas (ReadMe) is a Parsers tool for OpenAPI. Use cases: parsing, tooling. Tags: readme, tooling, comprehensive, js. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "oas_rails",
+      "id": "1a6a9e81",
+      "name": "oas_rails",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "ruby",
+        "rails",
+        "yard",
+        "documentation",
+        "oas-core",
+        "generation"
+      ],
+      "languages": [
+        "Ruby"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "ruby",
+        "rails"
+      ],
+      "type": "opensource",
+      "website": "https://a-chacon.github.io/oas_core/",
+      "github": "https://github.com/a-chacon/oas_rails",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oas_rails is a Annotations tool for OpenAPI. Use cases: spec-generation, ruby, rails. Tags: ruby, rails, yard, documentation, oas-core, generation. Languages: Ruby. Type: opensource."
+    },
+    {
+      "slug": "oas-normalize",
+      "id": "71a951ba",
+      "name": "oas-normalize",
+      "primary_category": "Parsers",
+      "secondary_category": "Converters",
+      "tags": [
+        "normalize",
+        "tooling",
+        "readme",
+        "js"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "parsing",
+        "normalization"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/readmeio/oas",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oas-normalize is a Parsers tool for OpenAPI. Use cases: parsing, normalization. Tags: normalize, tooling, readme, js. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "oas-overlay-java",
+      "id": "fd63d7cc",
+      "name": "oas-overlay-java",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "java",
+        "overlay",
+        "ibm",
+        "library"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "overlay",
+        "java"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/IBM/oas-overlay-java",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oas-overlay-java is a Converters tool for OpenAPI. Use cases: overlay, java. Tags: java, overlay, ibm, library. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "oas-patch",
+      "id": "283a6954",
+      "name": "oas-patch",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "overlay",
+        "patch",
+        "cli",
+        "diff",
+        "modifier"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "overlay",
+        "patching"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/mcroissant/oas_patcher",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oas-patch is a Converters tool for OpenAPI. Use cases: overlay, patching. Tags: overlay, patch, cli, diff, modifier. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "oaswrap-spec",
+      "id": "3ca253ee",
+      "name": "oaswrap/spec",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "go",
+        "code-first",
+        "framework-agnostic",
+        "route-registration",
+        "structs",
+        "no-annotations"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "go",
+        "code-first"
+      ],
+      "type": "opensource",
+      "website": "https://oaswrap.github.io/docs/spec/introduction",
+      "github": "https://github.com/oaswrap/spec",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "oaswrap/spec is a Annotations tool for OpenAPI. Use cases: spec-generation, go, code-first. Tags: go, code-first, framework-agnostic, route-registration, structs, no-annotations. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "openapi-commander",
+      "id": "5cf9b0fb",
+      "name": "OpenAPI Commander",
+      "primary_category": "Code generators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "nodejs",
+        "cli",
+        "generator",
+        "command-line-tool"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "cli-generation",
+        "sdk"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/openapi-commander",
+      "github": "https://github.com/bcoughlan/openapi-commander",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Commander is a Code generators tool for OpenAPI. Use cases: cli-generation, sdk. Tags: nodejs, cli, generator, command-line-tool. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-crud-wizard",
+      "id": "f5fe9e7b",
+      "name": "OpenAPI CRUD Wizard",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Code generators",
+      "tags": [
+        "intellij",
+        "plugin",
+        "crud",
+        "yaml",
+        "no-knowledge",
+        "gui"
+      ],
+      "languages": [],
+      "use_cases": [
+        "spec-generation",
+        "intellij",
+        "crud"
+      ],
+      "type": "opensource",
+      "website": "https://plugins.jetbrains.com/plugin/19889-openapi-crud-wizard",
+      "github": "https://github.com/inssch/openapicrudwizard",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI CRUD Wizard is a IDEs and GUI Editors tool for OpenAPI. Use cases: spec-generation, intellij, crud. Tags: intellij, plugin, crud, yaml, no-knowledge, gui. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "openapi-designer",
+      "id": "5d0a4e41",
+      "name": "OpenAPI Designer",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Text Editors",
+      "tags": [
+        "editor",
+        "web",
+        "free",
+        "codeless",
+        "json",
+        "yaml",
+        "gui"
+      ],
+      "languages": [],
+      "use_cases": [
+        "spec-editing",
+        "gui"
+      ],
+      "type": "saas",
+      "website": "https://openapidesigner.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Designer is a IDEs and GUI Editors tool for OpenAPI. Use cases: spec-editing, gui. Tags: editor, web, free, codeless, json, yaml, gui. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "openapi-explorer",
+      "id": "cb07b692",
+      "name": "OpenAPI Explorer",
+      "primary_category": "Documentation",
+      "secondary_category": "HTTP Clients",
+      "tags": [
+        "docs",
+        "console",
+        "interactive",
+        "customizable",
+        "execute"
+      ],
+      "languages": [
+        "JavaScript"
+      ],
+      "use_cases": [
+        "api-docs",
+        "interactive-console"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/Rhosys/openapi-explorer/blob/main/README.md",
+      "github": "https://github.com/Authress-Engineering/openapi-explorer",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Explorer is a Documentation tool for OpenAPI. Use cases: api-docs, interactive-console. Tags: docs, console, interactive, customizable, execute. Languages: JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-generator",
+      "id": "11fa238f",
+      "name": "OpenAPI Generator",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "multi-language",
+        "template-driven",
+        "50-plus-languages",
+        "community",
+        "oss"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Go",
+        "Ruby",
+        "Java",
+        "Kotlin",
+        "PHP",
+        "Rust",
+        "Scala",
+        "C#",
+        "Swift",
+        "Groovy"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "server-stub",
+        "multi-language"
+      ],
+      "type": "opensource",
+      "website": "https://openapi-generator.tech/",
+      "github": "https://github.com/OpenAPITools/openapi-generator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Generator is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, server-stub, multi-language. Tags: multi-language, template-driven, 50-plus-languages, community, oss. Languages: TypeScript, Python, Go, Ruby, Java, Kotlin, PHP, Rust, Scala, C#, Swift, Groovy. Type: opensource."
+    },
+    {
+      "slug": "openapi-httpfoundation-testing",
+      "id": "b164f14f",
+      "name": "OpenAPI HttpFoundation Testing",
+      "primary_category": "Testing",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "php",
+        "symfony",
+        "laravel",
+        "drupal",
+        "psr-7",
+        "validation"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "contract-testing",
+        "php"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/osteel/openapi-httpfoundation-testing",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI HttpFoundation Testing is a Testing tool for OpenAPI. Use cases: contract-testing, php. Tags: php, symfony, laravel, drupal, psr-7, validation. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "openapi-json-schema-generator",
+      "id": "4e382b92",
+      "name": "OpenAPI JSON Schema Generator",
+      "primary_category": "Code generators",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "template-driven",
+        "client",
+        "docs",
+        "json-schema",
+        "parsing"
+      ],
+      "languages": [
+        "TypeScript",
+        "Python",
+        "Java"
+      ],
+      "use_cases": [
+        "code-gen",
+        "sdk",
+        "json-schema"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/openapi-json-schema-tools/openapi-json-schema-generator",
+      "github": "https://github.com/openapi-json-schema-tools/openapi-json-schema-generator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI JSON Schema Generator is a Code generators tool for OpenAPI. Use cases: code-gen, sdk, json-schema. Tags: template-driven, client, docs, json-schema, parsing. Languages: TypeScript, Python, Java. Type: opensource."
+    },
+    {
+      "slug": "openapi-laravel",
+      "id": "fd01f595",
+      "name": "OpenAPI Laravel",
+      "primary_category": "Code generators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "laravel",
+        "php",
+        "models",
+        "enums",
+        "scaffold",
+        "design-first",
+        "spatie"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "code-gen",
+        "laravel",
+        "server-stub"
+      ],
+      "type": "opensource",
+      "website": "https://openapi-laravel.codewithagents.de/",
+      "github": "https://github.com/codewithagents/openapi-laravel",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Laravel is a Code generators tool for OpenAPI. Use cases: code-gen, laravel, server-stub. Tags: laravel, php, models, enums, scaffold, design-first, spatie. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "openapi-qraft",
+      "id": "12161a7a",
+      "name": "OpenAPI Qraft",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "tanstack-query",
+        "react",
+        "type-safe",
+        "client",
+        "hooks"
+      ],
+      "languages": [
+        "TypeScript",
+        "React"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "react",
+        "tanstack"
+      ],
+      "type": "opensource",
+      "website": "https://openapi-qraft.github.io/openapi-qraft/",
+      "github": "https://github.com/OpenAPI-Qraft/openapi-qraft",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Qraft is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, react, tanstack. Tags: tanstack-query, react, type-safe, client, hooks. Languages: TypeScript, React. Type: opensource."
+    },
+    {
+      "slug": "openapi-typescript",
+      "id": "01db6179",
+      "name": "OpenAPI TypeScript",
+      "primary_category": "Code generators",
+      "secondary_category": "Parsers",
+      "tags": [
+        "typescript",
+        "types",
+        "node",
+        "pure",
+        "lightweight",
+        "fast"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "type-generation",
+        "static-analysis"
+      ],
+      "type": "opensource",
+      "website": "https://openapi-ts.pages.dev/",
+      "github": "https://github.com/drwpow/openapi-typescript",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI TypeScript is a Code generators tool for OpenAPI. Use cases: type-generation, static-analysis. Tags: typescript, types, node, pure, lightweight, fast. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-validator",
+      "id": "b30992e1",
+      "name": "OpenAPI Validator (IBM)",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "ibm",
+        "linter",
+        "configurable",
+        "extensible",
+        "validation"
+      ],
+      "languages": [],
+      "use_cases": [
+        "linting",
+        "validation"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/IBM/openapi-validator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI Validator (IBM) is a Schema Validators tool for OpenAPI. Use cases: linting, validation. Tags: ibm, linter, configurable, extensible, validation. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "openapi_first",
+      "id": "36512c4a",
+      "name": "openapi_first",
+      "primary_category": "Data Validators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "ruby",
+        "rack",
+        "middleware",
+        "request-response",
+        "params",
+        "error"
+      ],
+      "languages": [
+        "Ruby"
+      ],
+      "use_cases": [
+        "validation",
+        "rack",
+        "ruby"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/ahx/openapi_first",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi_first is a Data Validators tool for OpenAPI. Use cases: validation, rack, ruby. Tags: ruby, rack, middleware, request-response, params, error. Languages: Ruby. Type: opensource."
+    },
+    {
+      "slug": "openapi-backend",
+      "id": "b5100bc7",
+      "name": "openapi-backend",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Mock Servers",
+      "tags": [
+        "nodejs",
+        "framework-agnostic",
+        "route",
+        "validate",
+        "mock",
+        "build"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "backend-framework",
+        "validation",
+        "mocking"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/openapi-backend",
+      "github": "https://github.com/anttiviljami/openapi-backend",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-backend is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: backend-framework, validation, mocking. Tags: nodejs, framework-agnostic, route, validate, mock, build. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-changes",
+      "id": "6f6850f0",
+      "name": "openapi-changes",
+      "primary_category": "Miscellaneous",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "change-detection",
+        "git",
+        "history",
+        "breaking",
+        "libopenapi",
+        "beautiful",
+        "fast"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "change-detection",
+        "breaking-changes",
+        "history"
+      ],
+      "type": "opensource",
+      "website": "https://pb33f.io/openapi-changes",
+      "github": "https://github.com/pb33f/openapi-changes",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-changes is a Miscellaneous tool for OpenAPI. Use cases: change-detection, breaking-changes, history. Tags: change-detection, git, history, breaking, libopenapi, beautiful, fast. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "openapi-code-generator",
+      "id": "59f827a0",
+      "name": "openapi-code-generator",
+      "primary_category": "Code generators",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "typescript",
+        "typespec",
+        "client-sdk",
+        "server-stub",
+        "compile-safe",
+        "runtime-safe"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "code-gen",
+        "sdk",
+        "server-stub"
+      ],
+      "type": "opensource",
+      "website": "https://openapi-code-generator.nahkies.co.nz/",
+      "github": "https://github.com/mnahkies/openapi-code-generator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-code-generator is a Code generators tool for OpenAPI. Use cases: code-gen, sdk, server-stub. Tags: typescript, typespec, client-sdk, server-stub, compile-safe, runtime-safe. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-core",
+      "id": "27eaf4c4",
+      "name": "openapi-core",
+      "primary_category": "Data Validators",
+      "secondary_category": "Parsers",
+      "tags": [
+        "python",
+        "validation",
+        "deserialization",
+        "request",
+        "response",
+        "verbose-errors"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "validation",
+        "python"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/p1c2u/openapi-core",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-core is a Data Validators tool for OpenAPI. Use cases: validation, python. Tags: python, validation, deserialization, request, response, verbose-errors. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "openapi-data-validator",
+      "id": "a50beea8",
+      "name": "openapi-data-validator",
+      "primary_category": "Data Validators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "js",
+        "lightweight",
+        "framework-agnostic",
+        "schema",
+        "request"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "validation",
+        "lightweight"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/Rhosys/openapi-data-validator.js/blob/main/README.md",
+      "github": "https://github.com/Rhosys/openapi-data-validator.js",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-data-validator is a Data Validators tool for OpenAPI. Use cases: validation, lightweight. Tags: js, lightweight, framework-agnostic, schema, request. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-dev-tool",
+      "id": "c671aad5",
+      "name": "openapi-dev-tool",
+      "primary_category": "Miscellaneous",
+      "secondary_category": "Code generators",
+      "tags": [
+        "dev",
+        "industrialization",
+        "unique",
+        "tooling"
+      ],
+      "languages": [],
+      "use_cases": [
+        "dev-tooling",
+        "miscellaneous"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/lyra/openapi-dev-tool",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-dev-tool is a Miscellaneous tool for OpenAPI. Use cases: dev-tooling, miscellaneous. Tags: dev, industrialization, unique, tooling. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "openapi-format",
+      "id": "3300415c",
+      "name": "openapi-format",
+      "primary_category": "Converters",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "cli",
+        "format",
+        "order",
+        "filter",
+        "convert",
+        "3.0",
+        "3.1",
+        "3.2",
+        "yaml",
+        "json"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "formatting",
+        "filtering",
+        "conversion"
+      ],
+      "type": "opensource",
+      "website": "https://openapi-format.com/",
+      "github": "https://github.com/thim81/openapi-format",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-format is a Converters tool for OpenAPI. Use cases: formatting, filtering, conversion. Tags: cli, format, order, filter, convert, 3.0, 3.1, 3.2, yaml, json. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-overlays-dotnet",
+      "id": "8f854b25",
+      "name": "openapi-overlays-dotnet",
+      "primary_category": "Converters",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "dotnet",
+        "overlay",
+        "library",
+        "cli",
+        "microsoft-openapi"
+      ],
+      "languages": [
+        "C#"
+      ],
+      "use_cases": [
+        "overlay",
+        "dotnet"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/BinkyLabs/openapi-overlays-dotnet",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-overlays-dotnet is a Converters tool for OpenAPI. Use cases: overlay, dotnet. Tags: dotnet, overlay, library, cli, microsoft-openapi. Languages: C#. Type: opensource."
+    },
+    {
+      "slug": "openapi-processor",
+      "id": "ae0150da",
+      "name": "openapi-processor",
+      "primary_category": "Code generators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "java",
+        "spring-boot",
+        "micronaut",
+        "interfaces",
+        "dto",
+        "pojo",
+        "record",
+        "gradle",
+        "maven"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "code-gen",
+        "java",
+        "spring-boot"
+      ],
+      "type": "opensource",
+      "website": "https://docs.openapiprocessor.io/",
+      "github": "https://github.com/openapi-processor",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-processor is a Code generators tool for OpenAPI. Use cases: code-gen, java, spring-boot. Tags: java, spring-boot, micronaut, interfaces, dto, pojo, record, gradle, maven. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "openapi-processor-openapi-parser",
+      "id": "7a0ed397",
+      "name": "openapi-processor/openapi-parser",
+      "primary_category": "Parsers",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "java",
+        "parse",
+        "validate",
+        "json-schema",
+        "ref",
+        "minimal-deps"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "parsing",
+        "validation",
+        "java"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/openapi-processor/openapi-parser",
+      "github": "https://github.com/openapi-processor/openapi-parser",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-processor/openapi-parser is a Parsers tool for OpenAPI. Use cases: parsing, validation, java. Tags: java, parse, validate, json-schema, ref, minimal-deps. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "openapi-psr7-validator",
+      "id": "819d0739",
+      "name": "openapi-psr7-validator",
+      "primary_category": "Data Validators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "php",
+        "psr-7",
+        "middleware",
+        "symfony",
+        "laravel"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "validation",
+        "php",
+        "middleware"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/thephpleague/openapi-psr7-validator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-psr7-validator is a Data Validators tool for OpenAPI. Use cases: validation, php, middleware. Tags: php, psr-7, middleware, symfony, laravel. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "openapi-python-client",
+      "id": "aecde43b",
+      "name": "openapi-python-client",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "python",
+        "modern",
+        "client",
+        "generation"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "python"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/openapi-generators/openapi-python-client",
+      "github": "https://github.com/openapi-generators/openapi-python-client",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-python-client is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, python. Tags: python, modern, client, generation. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "openapi-schema-validator",
+      "id": "99e5fdb8",
+      "name": "openapi-schema-validator",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Parsers",
+      "tags": [
+        "nodejs",
+        "ajv",
+        "npm",
+        "validation"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "schema-validation",
+        "nodejs"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/@seriousme/openapi-schema-validator",
+      "github": "https://github.com/seriousme/openapi-schema-validator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-schema-validator is a Schema Validators tool for OpenAPI. Use cases: schema-validation, nodejs. Tags: nodejs, ajv, npm, validation. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-spec-validator",
+      "id": "db2522db",
+      "name": "openapi-spec-validator",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Parsers",
+      "tags": [
+        "python",
+        "validation",
+        "spec"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "schema-validation",
+        "python"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/p1c2u/openapi-spec-validator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-spec-validator is a Schema Validators tool for OpenAPI. Use cases: schema-validation, python. Tags: python, validation, spec. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "openapi-to-hurl",
+      "id": "a81c7568",
+      "name": "openapi-to-hurl",
+      "primary_category": "Converters",
+      "secondary_category": "Testing",
+      "tags": [
+        "cli",
+        "hurl",
+        "test-files",
+        "convert"
+      ],
+      "languages": [
+        "Rust"
+      ],
+      "use_cases": [
+        "conversion",
+        "testing"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/ethancarlsson/openapi-to-hurl",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-to-hurl is a Converters tool for OpenAPI. Use cases: conversion, testing. Tags: cli, hurl, test-files, convert. Languages: Rust. Type: opensource."
+    },
+    {
+      "slug": "openapi-to-postman",
+      "id": "13951133",
+      "name": "openapi-to-postman",
+      "primary_category": "Converters",
+      "secondary_category": "Testing",
+      "tags": [
+        "postman",
+        "collection",
+        "v2",
+        "swagger",
+        "convert"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "conversion",
+        "postman"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/postmanlabs/openapi-to-postman",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-to-postman is a Converters tool for OpenAPI. Use cases: conversion, postman. Tags: postman, collection, v2, swagger, convert. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-ts-sdk-builder",
+      "id": "15b648e3",
+      "name": "openapi-ts-sdk-builder",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "typescript",
+        "sdk",
+        "generation",
+        "nodejs"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "typescript"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/nfroidure/openapi-ts-sdk-builder",
+      "github": "https://github.com/nfroidure/openapi-ts-sdk-builder",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-ts-sdk-builder is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, typescript. Tags: typescript, sdk, generation, nodejs. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "openapi-validator-junit",
+      "id": "a521a131",
+      "name": "openapi-validator-junit",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Testing",
+      "tags": [
+        "junit",
+        "java",
+        "testing",
+        "validation",
+        "spec"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "schema-validation",
+        "java",
+        "junit"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/stefankoppier/openapi-validator",
+      "github": "https://github.com/stefankoppier/openapi-validator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "openapi-validator-junit is a Schema Validators tool for OpenAPI. Use cases: schema-validation, java, junit. Tags: junit, java, testing, validation, spec. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "openapi-modern",
+      "id": "9f62a860",
+      "name": "OpenAPI::Modern",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "perl",
+        "json-schema",
+        "draft4",
+        "draft2020",
+        "validation",
+        "v3.0",
+        "v3.1",
+        "v3.2"
+      ],
+      "languages": [
+        "Perl"
+      ],
+      "use_cases": [
+        "schema-validation",
+        "perl"
+      ],
+      "type": "opensource",
+      "website": "https://metacpan.org/dist/OpenAPI-Modern",
+      "github": "https://github.com/karenetheridge/OpenAPI-Modern",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPI::Modern is a Schema Validators tool for OpenAPI. Use cases: schema-validation, perl. Tags: perl, json-schema, draft4, draft2020, validation, v3.0, v3.1, v3.2. Languages: Perl. Type: opensource."
+    },
+    {
+      "slug": "openapi4s",
+      "id": "cbdb8a7d",
+      "name": "OpenApi4s",
+      "primary_category": "Code generators",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "scala",
+        "generation",
+        "direct",
+        "minimal-intrusive",
+        "refactoring"
+      ],
+      "languages": [
+        "Scala"
+      ],
+      "use_cases": [
+        "code-gen",
+        "scala"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/sake92/openapi4s",
+      "github": "https://github.com/sake92/openapi4s",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenApi4s is a Code generators tool for OpenAPI. Use cases: code-gen, scala. Tags: scala, generation, direct, minimal-intrusive, refactoring. Languages: Scala. Type: opensource."
+    },
+    {
+      "slug": "openapikit",
+      "id": "2776080a",
+      "name": "OpenAPIKit",
+      "primary_category": "Parsers",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "swift",
+        "codable",
+        "types",
+        "decode",
+        "encode"
+      ],
+      "languages": [
+        "Swift"
+      ],
+      "use_cases": [
+        "parsing",
+        "swift"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/mattpolzin/openapikit",
+      "github": "https://github.com/mattpolzin/openapikit",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "OpenAPIKit is a Parsers tool for OpenAPI. Use cases: parsing, swift. Tags: swift, codable, types, decode, encode. Languages: Swift. Type: opensource."
+    },
+    {
+      "slug": "openapiviewer",
+      "id": "e713e53b",
+      "name": "Openapiviewer",
+      "primary_category": "Documentation",
+      "secondary_category": "HTTP Clients",
+      "tags": [
+        "viewer",
+        "online",
+        "shareable",
+        "link",
+        "openapi-explorer"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "viewer"
+      ],
+      "type": "saas",
+      "website": "https://www.openapiviewer.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Openapiviewer is a Documentation tool for OpenAPI. Use cases: api-docs, viewer. Tags: viewer, online, shareable, link, openapi-explorer. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "optic",
+      "id": "36de516c",
+      "name": "optic",
+      "primary_category": "Learning",
+      "secondary_category": "Monitoring",
+      "tags": [
+        "traffic",
+        "patch",
+        "behavior",
+        "design-first",
+        "catch-up"
+      ],
+      "languages": [],
+      "use_cases": [
+        "spec-generation",
+        "traffic-sniffing",
+        "learning"
+      ],
+      "type": "opensource",
+      "website": "https://useoptic.com/",
+      "github": "https://github.com/opticdev/optic",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "optic is a Learning tool for OpenAPI. Use cases: spec-generation, traffic-sniffing, learning. Tags: traffic, patch, behavior, design-first, catch-up. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "optic-diff",
+      "id": "5066969b",
+      "name": "optic diff",
+      "primary_category": "Miscellaneous",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "diff",
+        "breaking-changes",
+        "ci",
+        "contract",
+        "effective"
+      ],
+      "languages": [],
+      "use_cases": [
+        "change-detection",
+        "breaking-changes",
+        "ci-cd"
+      ],
+      "type": "opensource",
+      "website": "https://www.useoptic.com/docs/diff-openapi",
+      "github": "https://github.com/opticdev/optic",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "optic diff is a Miscellaneous tool for OpenAPI. Use cases: change-detection, breaking-changes, ci-cd. Tags: diff, breaking-changes, ci, contract, effective. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "overlay-playground",
+      "id": "8ee81743",
+      "name": "Overlay Playground",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Converters",
+      "tags": [
+        "overlay",
+        "playground",
+        "online",
+        "combine",
+        "speakeasy"
+      ],
+      "languages": [],
+      "use_cases": [
+        "overlay",
+        "playground"
+      ],
+      "type": "saas",
+      "website": "https://overlay.speakeasy.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Overlay Playground is a IDEs and GUI Editors tool for OpenAPI. Use cases: overlay, playground. Tags: overlay, playground, online, combine, speakeasy. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "pi-openapi-tools",
+      "id": "ac2fd7fb",
+      "name": "pi-openapi-tools",
+      "primary_category": "MCP",
+      "secondary_category": "Code generators",
+      "tags": [
+        "pi",
+        "llm-tool",
+        "per-operation",
+        "runtime",
+        "auth",
+        "prefix-scoped",
+        "agentic"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "mcp",
+        "ai-agent",
+        "per-operation-tools"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/pi-openapi-tools",
+      "github": "https://github.com/gtesei/pi-openapi-tools",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "pi-openapi-tools is a MCP tool for OpenAPI. Use cases: mcp, ai-agent, per-operation-tools. Tags: pi, llm-tool, per-operation, runtime, auth, prefix-scoped, agentic. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "portman",
+      "id": "0a5bf9f0",
+      "name": "portman",
+      "primary_category": "Testing",
+      "secondary_category": "Converters",
+      "tags": [
+        "postman",
+        "contract",
+        "variation-tests",
+        "port",
+        "newman"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "postman",
+        "contract-testing",
+        "conversion"
+      ],
+      "type": "opensource",
+      "website": "https://getportman.com/",
+      "github": "https://github.com/apideck-libraries/portman",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "portman is a Testing tool for OpenAPI. Use cases: postman, contract-testing, conversion. Tags: postman, contract, variation-tests, port, newman. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "prism",
+      "id": "bb4c8eb9",
+      "name": "Prism (Stoplight)",
+      "primary_category": "Mock Servers",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "stoplight",
+        "mock",
+        "transform",
+        "validate",
+        "server"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "mocking",
+        "validation",
+        "server"
+      ],
+      "type": "opensource",
+      "website": "https://stoplight.io/open-source/prism",
+      "github": "https://github.com/stoplightio/prism",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Prism (Stoplight) is a Mock Servers tool for OpenAPI. Use cases: mocking, validation, server. Tags: stoplight, mock, transform, validate, server. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "rapidoc",
+      "id": "4e95d97d",
+      "name": "RapiDoc",
+      "primary_category": "Documentation",
+      "secondary_category": "Text Editors",
+      "tags": [
+        "custom-element",
+        "web-component",
+        "viewer"
+      ],
+      "languages": [
+        "JavaScript"
+      ],
+      "use_cases": [
+        "api-docs",
+        "web-component"
+      ],
+      "type": "opensource",
+      "website": "https://rapidocweb.com/",
+      "github": "https://github.com/mrin9/RapiDoc",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "RapiDoc is a Documentation tool for OpenAPI. Use cases: api-docs, web-component. Tags: custom-element, web-component, viewer. Languages: JavaScript. Type: opensource."
+    },
+    {
+      "slug": "rate-my-openapi",
+      "id": "a5343945",
+      "name": "Rate My OpenAPI",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "review",
+        "automated",
+        "free",
+        "oss",
+        "quality-score"
+      ],
+      "languages": [],
+      "use_cases": [
+        "linting",
+        "quality-score"
+      ],
+      "type": "opensource",
+      "website": "https://ratemyopenapi.com/",
+      "github": "https://github.com/zuplo/rate-my-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Rate My OpenAPI is a Schema Validators tool for OpenAPI. Use cases: linting, quality-score. Tags: review, automated, free, oss, quality-score. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "readme",
+      "id": "711a6108",
+      "name": "ReadMe",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "interactive",
+        "developer-hub",
+        "saas",
+        "owl",
+        "platform"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "developer-portal"
+      ],
+      "type": "saas",
+      "website": "https://readme.com/",
+      "github": "https://github.com/readmeio",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "ReadMe is a Documentation tool for OpenAPI. Use cases: api-docs, developer-portal. Tags: interactive, developer-hub, saas, owl, platform. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "redoc",
+      "id": "8c4c8c81",
+      "name": "ReDoc",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "oss",
+        "api-reference",
+        "html",
+        "redocly",
+        "classic"
+      ],
+      "languages": [
+        "TypeScript",
+        "React"
+      ],
+      "use_cases": [
+        "api-docs",
+        "reference"
+      ],
+      "type": "opensource",
+      "website": "https://redocly.github.io/redoc/",
+      "github": "https://github.com/Redocly/ReDoc/",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "ReDoc is a Documentation tool for OpenAPI. Use cases: api-docs, reference. Tags: oss, api-reference, html, redocly, classic. Languages: TypeScript, React. Type: opensource."
+    },
+    {
+      "slug": "redocly-cli",
+      "id": "fa60d27c",
+      "name": "Redocly CLI",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Converters",
+      "tags": [
+        "cli",
+        "lint",
+        "validate",
+        "bundle",
+        "swiss-army-knife",
+        "oss"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "linting",
+        "validation",
+        "bundling",
+        "cli"
+      ],
+      "type": "opensource",
+      "website": "https://redocly.com/redocly-cli/",
+      "github": "https://github.com/Redocly/redocly-cli",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Redocly CLI is a Schema Validators tool for OpenAPI. Use cases: linting, validation, bundling, cli. Tags: cli, lint, validate, bundle, swiss-army-knife, oss. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "redocly-vscode-extension",
+      "id": "b6763113",
+      "name": "Redocly VSCode Extension",
+      "primary_category": "Text Editors",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "vscode",
+        "extension",
+        "validate",
+        "preview",
+        "maintain",
+        "lint"
+      ],
+      "languages": [],
+      "use_cases": [
+        "vscode",
+        "linting",
+        "preview"
+      ],
+      "type": "opensource",
+      "website": "https://marketplace.visualstudio.com/items?itemName=Redocly.openapi-vs-code",
+      "github": "https://github.com/Redocly/redocly-vs-code",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Redocly VSCode Extension is a Text Editors tool for OpenAPI. Use cases: vscode, linting, preview. Tags: vscode, extension, validate, preview, maintain, lint. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "restish",
+      "id": "464a32ef",
+      "name": "Restish",
+      "primary_category": "HTTP Clients",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "cli",
+        "rest",
+        "http2",
+        "auth",
+        "caching",
+        "discovery",
+        "content-negotiation"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "api-client",
+        "cli",
+        "http-client"
+      ],
+      "type": "opensource",
+      "website": "https://rest.sh/",
+      "github": "https://github.com/danielgtaylor/restish",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Restish is a HTTP Clients tool for OpenAPI. Use cases: api-client, cli, http-client. Tags: cli, rest, http2, auth, caching, discovery, content-negotiation. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "rswag",
+      "id": "96b9a34c",
+      "name": "rswag",
+      "primary_category": "Testing",
+      "secondary_category": "Annotations",
+      "tags": [
+        "ruby",
+        "rspec",
+        "swagger-dsl",
+        "testing",
+        "rails"
+      ],
+      "languages": [
+        "Ruby"
+      ],
+      "use_cases": [
+        "contract-testing",
+        "ruby",
+        "spec-generation"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/rswag/rswag",
+      "github": "https://github.com/rswag/rswag",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "rswag is a Testing tool for OpenAPI. Use cases: contract-testing, ruby, spec-generation. Tags: ruby, rspec, swagger-dsl, testing, rails. Languages: Ruby. Type: opensource."
+    },
+    {
+      "slug": "scalar",
+      "id": "da3a456b",
+      "name": "Scalar",
+      "primary_category": "Documentation",
+      "secondary_category": "IDEs and GUI Editors",
+      "tags": [
+        "beautiful",
+        "oss",
+        "swagger-editor",
+        "reference",
+        "interactive"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "api-docs",
+        "interactive",
+        "editor"
+      ],
+      "type": "opensource",
+      "website": "https://docs.scalar.com/swagger-editor",
+      "github": "https://github.com/scalar/scalar",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Scalar is a Documentation tool for OpenAPI. Use cases: api-docs, interactive, editor. Tags: beautiful, oss, swagger-editor, reference, interactive. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "schemathesis",
+      "id": "ec66c0be",
+      "name": "Schemathesis",
+      "primary_category": "Testing",
+      "secondary_category": "Security",
+      "tags": [
+        "property-based",
+        "automated",
+        "crashes",
+        "graphql",
+        "violations",
+        "fuzzing"
+      ],
+      "languages": [
+        "Python"
+      ],
+      "use_cases": [
+        "fuzzing",
+        "automated-testing",
+        "property-based"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/schemathesis/schemathesis",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Schemathesis is a Testing tool for OpenAPI. Use cases: fuzzing, automated-testing, property-based. Tags: property-based, automated, crashes, graphql, violations, fuzzing. Languages: Python. Type: opensource."
+    },
+    {
+      "slug": "schemawatch",
+      "id": "fa9746ec",
+      "name": "SchemaWatch",
+      "primary_category": "Monitoring",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "third-party",
+        "breaking-changes",
+        "quality-score",
+        "history",
+        "alerts"
+      ],
+      "languages": [],
+      "use_cases": [
+        "monitoring",
+        "change-detection",
+        "alerts"
+      ],
+      "type": "saas",
+      "website": "https://schemawatch.tuvia.nl/",
+      "github": "https://github.com/ovoWeb/tuvia",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "SchemaWatch is a Monitoring tool for OpenAPI. Use cases: monitoring, change-detection, alerts. Tags: third-party, breaking-changes, quality-score, history, alerts. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "scramble",
+      "id": "b2b7d61b",
+      "name": "Scramble",
+      "primary_category": "Annotations",
+      "secondary_category": "Documentation",
+      "tags": [
+        "laravel",
+        "php",
+        "modern",
+        "no-phpdoc",
+        "generation"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "laravel",
+        "annotation"
+      ],
+      "type": "opensource",
+      "website": "https://scramble.dedoc.co/",
+      "github": "https://github.com/dedoc/scramble",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Scramble is a Annotations tool for OpenAPI. Use cases: spec-generation, laravel, annotation. Tags: laravel, php, modern, no-phpdoc, generation. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "scribe",
+      "id": "ffb301e2",
+      "name": "Scribe",
+      "primary_category": "Annotations",
+      "secondary_category": "Documentation",
+      "tags": [
+        "laravel",
+        "php",
+        "codebase",
+        "generation"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "laravel"
+      ],
+      "type": "opensource",
+      "website": "https://scribe.knuckles.wtf/",
+      "github": "https://github.com/knuckleswtf/scribe/",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Scribe is a Annotations tool for OpenAPI. Use cases: spec-generation, laravel. Tags: laravel, php, codebase, generation. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "serverless-api-gateway",
+      "id": "aed1ea33",
+      "name": "Serverless API Gateway",
+      "primary_category": "Gateways",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "serverless",
+        "oss",
+        "free",
+        "http",
+        "gateway"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-gateway",
+        "serverless"
+      ],
+      "type": "opensource",
+      "website": "https://serverlessapigateway.com/",
+      "github": "https://github.com/irensaltali/serverlessapigateway",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Serverless API Gateway is a Gateways tool for OpenAPI. Use cases: api-gateway, serverless. Tags: serverless, oss, free, http, gateway. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "sourcemeta-json-schema-standard-library",
+      "id": "a97bbbc3",
+      "name": "Sourcemeta JSON Schema Standard Library",
+      "primary_category": "Miscellaneous",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "json-schema",
+        "iso",
+        "ietf",
+        "iec",
+        "w3c",
+        "standards",
+        "battle-tested"
+      ],
+      "languages": [
+        "C++"
+      ],
+      "use_cases": [
+        "json-schema",
+        "standards-library"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/sourcemeta/std",
+      "github": "https://github.com/sourcemeta/std",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Sourcemeta JSON Schema Standard Library is a Miscellaneous tool for OpenAPI. Use cases: json-schema, standards-library. Tags: json-schema, iso, ietf, iec, w3c, standards, battle-tested. Languages: C++. Type: opensource."
+    },
+    {
+      "slug": "sourcey",
+      "id": "e94d857a",
+      "name": "Sourcey",
+      "primary_category": "Documentation",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "static",
+        "docs-site",
+        "search",
+        "guides",
+        "api-reference"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "static-site"
+      ],
+      "type": "opensource",
+      "website": "https://sourcey.com/",
+      "github": "https://github.com/sourcey/sourcey",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Sourcey is a Documentation tool for OpenAPI. Use cases: api-docs, static-site. Tags: static, docs-site, search, guides, api-reference. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "spectator",
+      "id": "929f9a34",
+      "name": "Spectator",
+      "primary_category": "Testing",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "laravel",
+        "php",
+        "lightweight",
+        "test-suite"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "contract-testing",
+        "laravel"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/hotmeteor/spectator",
+      "github": "https://github.com/hotmeteor/spectator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Spectator is a Testing tool for OpenAPI. Use cases: contract-testing, laravel. Tags: laravel, php, lightweight, test-suite. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "spectral",
+      "id": "a26ea51c",
+      "name": "Spectral",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "linter",
+        "asyncapi",
+        "governance",
+        "ruleset",
+        "json",
+        "yaml",
+        "custom-functions",
+        "oss"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "linting",
+        "governance",
+        "api-style-guide"
+      ],
+      "type": "opensource",
+      "website": "https://stoplight.io/spectral",
+      "github": "https://github.com/stoplightio/spectral",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Spectral is a Schema Validators tool for OpenAPI. Use cases: linting, governance, api-style-guide. Tags: linter, asyncapi, governance, ruleset, json, yaml, custom-functions, oss. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "specway",
+      "id": "2a847650",
+      "name": "Specway",
+      "primary_category": "Documentation",
+      "secondary_category": "Monitoring",
+      "tags": [
+        "live-sync",
+        "ai-chatbot",
+        "breaking-change",
+        "playground",
+        "interactive"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "ai-assisted",
+        "monitoring"
+      ],
+      "type": "saas",
+      "website": "https://specway.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Specway is a Documentation tool for OpenAPI. Use cases: api-docs, ai-assisted, monitoring. Tags: live-sync, ai-chatbot, breaking-change, playground, interactive. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "springdoc",
+      "id": "ea47172b",
+      "name": "Springdoc",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "java",
+        "spring-boot",
+        "runtime",
+        "inference",
+        "annotation",
+        "generation"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "java",
+        "spring-boot"
+      ],
+      "type": "opensource",
+      "website": "https://springdoc.org/",
+      "github": "https://github.com/springdoc/springdoc-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Springdoc is a Annotations tool for OpenAPI. Use cases: spec-generation, java, spring-boot. Tags: java, spring-boot, runtime, inference, annotation, generation. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "stoplight-docs",
+      "id": "f1760698",
+      "name": "Stoplight Docs",
+      "primary_category": "Documentation",
+      "secondary_category": "IDEs and GUI Editors",
+      "tags": [
+        "stoplight",
+        "customizable",
+        "interactive",
+        "platform",
+        "powered"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-docs",
+        "platform"
+      ],
+      "type": "saas",
+      "website": "https://stoplight.io/api-documentation",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Stoplight Docs is a Documentation tool for OpenAPI. Use cases: api-docs, platform. Tags: stoplight, customizable, interactive, platform, powered. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "stoplight-studio",
+      "id": "19d32e54",
+      "name": "Stoplight Studio",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Text Editors",
+      "tags": [
+        "gui",
+        "linting",
+        "mocking",
+        "browser",
+        "github",
+        "gitlab",
+        "bitbucket"
+      ],
+      "languages": [],
+      "use_cases": [
+        "spec-editing",
+        "linting",
+        "mocking"
+      ],
+      "type": "saas",
+      "website": "https://stoplight.io/studio",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Stoplight Studio is a IDEs and GUI Editors tool for OpenAPI. Use cases: spec-editing, linting, mocking. Tags: gui, linting, mocking, browser, github, gitlab, bitbucket. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "swagger-core",
+      "id": "950b0b36",
+      "name": "Swagger Core",
+      "primary_category": "Annotations",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "java",
+        "server",
+        "integration",
+        "spec-generation",
+        "rest"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "java",
+        "server"
+      ],
+      "type": "opensource",
+      "website": "https://swagger.io/",
+      "github": "https://github.com/swagger-api/swagger-core",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Swagger Core is a Annotations tool for OpenAPI. Use cases: spec-generation, java, server. Tags: java, server, integration, spec-generation, rest. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "swagger-php",
+      "id": "484f702d",
+      "name": "Swagger PHP",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "php",
+        "attributes",
+        "doctrine",
+        "annotations",
+        "rest"
+      ],
+      "languages": [
+        "PHP"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "php",
+        "annotation"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/zircote/swagger-php",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Swagger PHP is a Annotations tool for OpenAPI. Use cases: spec-generation, php, annotation. Tags: php, attributes, doctrine, annotations, rest. Languages: PHP. Type: opensource."
+    },
+    {
+      "slug": "swagger-coverage-cli",
+      "id": "2322c6ce",
+      "name": "swagger-coverage-cli",
+      "primary_category": "Testing",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "nodejs",
+        "coverage",
+        "postman",
+        "newman",
+        "path-matching"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "test-coverage",
+        "postman"
+      ],
+      "type": "opensource",
+      "website": "https://www.npmjs.com/package/swagger-coverage-cli",
+      "github": "https://github.com/dreamquality/swagger-coverage-cli",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "swagger-coverage-cli is a Testing tool for OpenAPI. Use cases: test-coverage, postman. Tags: nodejs, coverage, postman, newman, path-matching. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "swagger-jsdoc",
+      "id": "3fb4a985",
+      "name": "swagger-jsdoc",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "jsdoc",
+        "yaml",
+        "comments",
+        "generation",
+        "nodejs"
+      ],
+      "languages": [
+        "JavaScript"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "jsdoc",
+        "annotation"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/Surnet/swagger-jsdoc",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "swagger-jsdoc is a Annotations tool for OpenAPI. Use cases: spec-generation, jsdoc, annotation. Tags: jsdoc, yaml, comments, generation, nodejs. Languages: JavaScript. Type: opensource."
+    },
+    {
+      "slug": "swagger-parser",
+      "id": "17066044",
+      "name": "swagger-parser",
+      "primary_category": "Parsers",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "java",
+        "pojo",
+        "read",
+        "parse",
+        "swagger"
+      ],
+      "languages": [
+        "Java"
+      ],
+      "use_cases": [
+        "parsing",
+        "java"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/swagger-api/swagger-parser",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "swagger-parser is a Parsers tool for OpenAPI. Use cases: parsing, java. Tags: java, pojo, read, parse, swagger. Languages: Java. Type: opensource."
+    },
+    {
+      "slug": "swaggerhub",
+      "id": "f8509c97",
+      "name": "SwaggerHub",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "design",
+        "docs",
+        "collaboration",
+        "standardize",
+        "discovery",
+        "saas"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-design",
+        "docs",
+        "platform"
+      ],
+      "type": "saas",
+      "website": "https://swagger.io/tools/swaggerhub/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "SwaggerHub is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-design, docs, platform. Tags: design, docs, collaboration, standardize, discovery, saas. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "swaggie",
+      "id": "2bfdf225",
+      "name": "Swaggie",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Code generators",
+      "tags": [
+        "typescript",
+        "fetch",
+        "axios",
+        "xior",
+        "swr",
+        "tanstack-query",
+        "angular",
+        "typed"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "typescript",
+        "multi-client"
+      ],
+      "type": "opensource",
+      "website": "https://yhnavein.github.io/swaggie/",
+      "github": "https://github.com/yhnavein/swaggie",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Swaggie is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, typescript, multi-client. Tags: typescript, fetch, axios, xior, swr, tanstack-query, angular, typed. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "swashbuckle",
+      "id": "bfc88c5d",
+      "name": "Swashbuckle",
+      "primary_category": "Annotations",
+      "secondary_category": "Documentation",
+      "tags": [
+        "aspnet-core",
+        "dotnet",
+        "csharp",
+        "documentation",
+        "generation"
+      ],
+      "languages": [
+        "C#"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "aspnet",
+        "dotnet"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/domaindrivendev/Swashbuckle.AspNetCore",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Swashbuckle is a Annotations tool for OpenAPI. Use cases: spec-generation, aspnet, dotnet. Tags: aspnet-core, dotnet, csharp, documentation, generation. Languages: C#. Type: opensource."
+    },
+    {
+      "slug": "swift-openapi-generator",
+      "id": "02444072",
+      "name": "Swift OpenAPI Generator",
+      "primary_category": "SDK Generators",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "swift",
+        "apple",
+        "streaming",
+        "multipart",
+        "concurrency",
+        "middleware"
+      ],
+      "languages": [
+        "Swift"
+      ],
+      "use_cases": [
+        "sdk-generation",
+        "server-stub",
+        "swift"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/apple/swift-openapi-generator",
+      "github": "https://github.com/apple/swift-openapi-generator",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Swift OpenAPI Generator is a SDK Generators tool for OpenAPI. Use cases: sdk-generation, server-stub, swift. Tags: swift, apple, streaming, multipart, concurrency, middleware. Languages: Swift. Type: opensource."
+    },
+    {
+      "slug": "the-codegen-project",
+      "id": "ab7e98f5",
+      "name": "The Codegen Project",
+      "primary_category": "Code generators",
+      "secondary_category": "SDK Generators",
+      "tags": [
+        "payloads",
+        "parameters",
+        "headers",
+        "types",
+        "client-wrappers",
+        "codegen"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "code-gen",
+        "multi-use"
+      ],
+      "type": "opensource",
+      "website": "https://the-codegen-project.org/",
+      "github": "https://github.com/the-codegen-project/cli/",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "The Codegen Project is a Code generators tool for OpenAPI. Use cases: code-gen, multi-use. Tags: payloads, parameters, headers, types, client-wrappers, codegen. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "treblle",
+      "id": "b743a432",
+      "name": "Treblle",
+      "primary_category": "Monitoring",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "sdk",
+        "lightweight",
+        "engineering",
+        "product",
+        "rest",
+        "faster"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-monitoring",
+        "analytics",
+        "sdk"
+      ],
+      "type": "saas",
+      "website": "https://www.treblle.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Treblle is a Monitoring tool for OpenAPI. Use cases: api-monitoring, analytics, sdk. Tags: sdk, lightweight, engineering, product, rest, faster. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "ts-oas",
+      "id": "dd8aa7c0",
+      "name": "ts-oas",
+      "primary_category": "Annotations",
+      "secondary_category": "Code generators",
+      "tags": [
+        "typescript",
+        "types",
+        "generation",
+        "automatic"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "spec-generation",
+        "typescript",
+        "annotation"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/ts-oas/ts-oas",
+      "github": "https://github.com/ts-oas/ts-oas",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "ts-oas is a Annotations tool for OpenAPI. Use cases: spec-generation, typescript, annotation. Tags: typescript, types, generation, automatic. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "tsoa",
+      "id": "06c7228f",
+      "name": "tsoa",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Annotations",
+      "tags": [
+        "typescript",
+        "nodejs",
+        "koa",
+        "express",
+        "hapi",
+        "runtime-validation",
+        "v3.1-alpha"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "web-framework",
+        "spec-generation",
+        "typescript"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/lukeautry/tsoa",
+      "github": "https://github.com/lukeautry/tsoa",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "tsoa is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, spec-generation, typescript. Tags: typescript, nodejs, koa, express, hapi, runtime-validation, v3.1-alpha. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "typespec",
+      "id": "51ccd5db",
+      "name": "TypeSpec",
+      "primary_category": "Domain-Specific Languages",
+      "secondary_category": "Code generators",
+      "tags": [
+        "dsl",
+        "typescript-like",
+        "emit",
+        "elegant",
+        "microsoft"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "dsl",
+        "spec-generation",
+        "microsoft"
+      ],
+      "type": "opensource",
+      "website": "https://typespec.io/",
+      "github": "https://github.com/microsoft/typespec",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "TypeSpec is a Domain-Specific Languages tool for OpenAPI. Use cases: dsl, spec-generation, microsoft. Tags: dsl, typescript-like, emit, elegant, microsoft. Languages: TypeScript. Type: opensource."
+    },
+    {
+      "slug": "vacuum",
+      "id": "657fdc2b",
+      "name": "vacuum",
+      "primary_category": "Schema Validators",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "linter",
+        "fast",
+        "spectral-compatible",
+        "enterprise",
+        "golang"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "linting",
+        "validation",
+        "enterprise",
+        "performance"
+      ],
+      "type": "opensource",
+      "website": "https://quobix.com/vacuum",
+      "github": "https://github.com/daveshanley/vacuum",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "vacuum is a Schema Validators tool for OpenAPI. Use cases: linting, validation, enterprise, performance. Tags: linter, fast, spectral-compatible, enterprise, golang. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "vacuum-owasp",
+      "id": "a669adad",
+      "name": "vacuum OWASP",
+      "primary_category": "Security",
+      "secondary_category": "Schema Validators",
+      "tags": [
+        "owasp",
+        "api-security",
+        "ruleset",
+        "vacuum",
+        "vulnerabilities"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "owasp",
+        "security-linting",
+        "api-security"
+      ],
+      "type": "opensource",
+      "website": "https://quobix.com/vacuum/rulesets/owasp/",
+      "github": "https://github.com/daveshanley/vacuum",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "vacuum OWASP is a Security tool for OpenAPI. Use cases: owasp, security-linting, api-security. Tags: owasp, api-security, ruleset, vacuum, vulnerabilities. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "vitepress-openapi",
+      "id": "aca0dcef",
+      "name": "vitepress-openapi",
+      "primary_category": "Documentation",
+      "secondary_category": "Code generators",
+      "tags": [
+        "vitepress",
+        "api-docs",
+        "generation",
+        "vue"
+      ],
+      "languages": [
+        "TypeScript",
+        "Vue"
+      ],
+      "use_cases": [
+        "api-docs",
+        "vitepress"
+      ],
+      "type": "opensource",
+      "website": "https://vitepress-openapi.vercel.app/",
+      "github": "https://github.com/enzonotario/vitepress-openapi",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "vitepress-openapi is a Documentation tool for OpenAPI. Use cases: api-docs, vitepress. Tags: vitepress, api-docs, generation, vue. Languages: TypeScript, Vue. Type: opensource."
+    },
+    {
+      "slug": "vscode-openapi-preview",
+      "id": "97a3f7e1",
+      "name": "VSCode OpenAPI Preview",
+      "primary_category": "Text Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "vscode",
+        "extension",
+        "preview",
+        "spotlight-elements"
+      ],
+      "languages": [],
+      "use_cases": [
+        "vscode",
+        "preview"
+      ],
+      "type": "opensource",
+      "website": "https://marketplace.visualstudio.com/items?itemName=zoellner.openapi-preview",
+      "github": "https://github.com/zoellner/openapi-preview",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "VSCode OpenAPI Preview is a Text Editors tool for OpenAPI. Use cases: vscode, preview. Tags: vscode, extension, preview, spotlight-elements. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "vscode-openapi-viewer",
+      "id": "481e741c",
+      "name": "VSCode OpenAPI Viewer",
+      "primary_category": "Text Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "vscode",
+        "extension",
+        "rapidoc",
+        "json",
+        "yaml",
+        "preview"
+      ],
+      "languages": [],
+      "use_cases": [
+        "vscode",
+        "preview"
+      ],
+      "type": "opensource",
+      "website": "https://marketplace.visualstudio.com/items?itemName=AndrewButson.vscode-openapi-viewer",
+      "github": "https://github.com/arbs-io/vscode-openapi-viewer",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "VSCode OpenAPI Viewer is a Text Editors tool for OpenAPI. Use cases: vscode, preview. Tags: vscode, extension, rapidoc, json, yaml, preview. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "vscode-simple-openapi-viewer",
+      "id": "d09c8192",
+      "name": "VSCode Simple OpenAPI Viewer",
+      "primary_category": "Text Editors",
+      "secondary_category": "Documentation",
+      "tags": [
+        "vscode",
+        "extension",
+        "quick-preview",
+        "forks"
+      ],
+      "languages": [],
+      "use_cases": [
+        "vscode",
+        "preview"
+      ],
+      "type": "opensource",
+      "website": "https://marketplace.visualstudio.com/items?itemName=RahulDhole.simple-openapi-viewer",
+      "github": "https://github.com/rahuldhole/simple-openapi-viewer",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "VSCode Simple OpenAPI Viewer is a Text Editors tool for OpenAPI. Use cases: vscode, preview. Tags: vscode, extension, quick-preview, forks. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "whook",
+      "id": "78720eff",
+      "name": "Whook",
+      "primary_category": "OpenAPI-aware Frameworks",
+      "secondary_category": "Server Implementations",
+      "tags": [
+        "nodejs",
+        "server",
+        "openapi3",
+        "whook"
+      ],
+      "languages": [
+        "TypeScript",
+        "JavaScript"
+      ],
+      "use_cases": [
+        "web-framework",
+        "nodejs",
+        "server"
+      ],
+      "type": "opensource",
+      "website": "https://github.com/nfroidure/whook",
+      "github": "https://github.com/nfroidure/whook",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Whook is a OpenAPI-aware Frameworks tool for OpenAPI. Use cases: web-framework, nodejs, server. Tags: nodejs, server, openapi3, whook. Languages: TypeScript, JavaScript. Type: opensource."
+    },
+    {
+      "slug": "wiretap",
+      "id": "8110a06c",
+      "name": "wiretap",
+      "primary_category": "Testing",
+      "secondary_category": "Data Validators",
+      "tags": [
+        "compliance",
+        "client",
+        "server",
+        "rewrite",
+        "inject",
+        "ui",
+        "libopenapi"
+      ],
+      "languages": [
+        "Go"
+      ],
+      "use_cases": [
+        "compliance-testing",
+        "validation",
+        "proxy"
+      ],
+      "type": "opensource",
+      "website": "https://pb33f.io/wiretap/",
+      "github": "https://github.com/pb33f/wiretap",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "wiretap is a Testing tool for OpenAPI. Use cases: compliance-testing, validation, proxy. Tags: compliance, client, server, rewrite, inject, ui, libopenapi. Languages: Go. Type: opensource."
+    },
+    {
+      "slug": "wuppiefuzz",
+      "id": "d88d7f09",
+      "name": "WuppieFuzz",
+      "primary_category": "Testing",
+      "secondary_category": "Security",
+      "tags": [
+        "fuzzer",
+        "coverage-guided",
+        "libafl",
+        "black-box",
+        "grey-box",
+        "white-box",
+        "rest",
+        "explainable"
+      ],
+      "languages": [
+        "Rust"
+      ],
+      "use_cases": [
+        "fuzzing",
+        "security-testing",
+        "coverage-guided"
+      ],
+      "type": "opensource",
+      "website": "",
+      "github": "https://github.com/TNO-S3/WuppieFuzz",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "WuppieFuzz is a Testing tool for OpenAPI. Use cases: fuzzing, security-testing, coverage-guided. Tags: fuzzer, coverage-guided, libafl, black-box, grey-box, white-box, rest, explainable. Languages: Rust. Type: opensource."
+    },
+    {
+      "slug": "xapi-platform",
+      "id": "0300b25f",
+      "name": "Xapi Platform",
+      "primary_category": "IDEs and GUI Editors",
+      "secondary_category": "Miscellaneous",
+      "tags": [
+        "api-first",
+        "standardized",
+        "collaborative",
+        "platform",
+        "artifacts"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-design",
+        "platform",
+        "collaboration"
+      ],
+      "type": "saas",
+      "website": "https://xapihub.io/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Xapi Platform is a IDEs and GUI Editors tool for OpenAPI. Use cases: api-design, platform, collaboration. Tags: api-first, standardized, collaborative, platform, artifacts. Languages: language-agnostic. Type: saas."
+    },
+    {
+      "slug": "xyd",
+      "id": "f01a887a",
+      "name": "xyd",
+      "primary_category": "Documentation",
+      "secondary_category": "Code generators",
+      "tags": [
+        "docs",
+        "scalable",
+        "framework",
+        "livesession",
+        "api-reference",
+        "generation"
+      ],
+      "languages": [
+        "TypeScript"
+      ],
+      "use_cases": [
+        "api-docs",
+        "docs-framework"
+      ],
+      "type": "saas",
+      "website": "https://xyd.dev/",
+      "github": "https://github.com/livesession/xyd",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "xyd is a Documentation tool for OpenAPI. Use cases: api-docs, docs-framework. Tags: docs, scalable, framework, livesession, api-reference, generation. Languages: TypeScript. Type: saas."
+    },
+    {
+      "slug": "yaak",
+      "id": "d37580fd",
+      "name": "Yaak",
+      "primary_category": "HTTP Clients",
+      "secondary_category": "Testing",
+      "tags": [
+        "offline",
+        "fast",
+        "secure",
+        "git",
+        "insomnia-successor"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-client",
+        "http-client",
+        "git-native"
+      ],
+      "type": "opensource",
+      "website": "https://yaak.app/",
+      "github": "https://github.com/mountain-loop/yaak",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Yaak is a HTTP Clients tool for OpenAPI. Use cases: api-client, http-client, git-native. Tags: offline, fast, secure, git, insomnia-successor. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "zed-attack-proxy",
+      "id": "91a8dde1",
+      "name": "Zed Attack Proxy (ZAP)",
+      "primary_category": "Security",
+      "secondary_category": "Testing",
+      "tags": [
+        "owasp",
+        "penetration-testing",
+        "checkmarx",
+        "web-app",
+        "automated",
+        "free",
+        "oss",
+        "zaproxy"
+      ],
+      "languages": [],
+      "use_cases": [
+        "penetration-testing",
+        "security-scanner",
+        "owasp"
+      ],
+      "type": "opensource",
+      "website": "https://www.zaproxy.org/",
+      "github": "https://github.com/zaproxy/zaproxy",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Zed Attack Proxy (ZAP) is a Security tool for OpenAPI. Use cases: penetration-testing, security-scanner, owasp. Tags: owasp, penetration-testing, checkmarx, web-app, automated, free, oss, zaproxy. Languages: language-agnostic. Type: opensource."
+    },
+    {
+      "slug": "zuplo-openapi-based-gateway-and-documentation",
+      "id": "ed9b6bde",
+      "name": "Zuplo",
+      "primary_category": "Gateways",
+      "secondary_category": "Documentation",
+      "tags": [
+        "gateway",
+        "serverless",
+        "programmable",
+        "edge",
+        "validation",
+        "auth",
+        "rate-limiting",
+        "docs"
+      ],
+      "languages": [],
+      "use_cases": [
+        "api-gateway",
+        "docs",
+        "serverless-edge"
+      ],
+      "type": "saas",
+      "website": "https://www.zuplo.com/",
+      "github": "",
+      "openapi_versions": [
+        "v3.2",
+        "v3.1",
+        "v3.0"
+      ],
+      "description_vector_text": "Zuplo is a Gateways tool for OpenAPI. Use cases: api-gateway, docs, serverless-edge. Tags: gateway, serverless, programmable, edge, validation, auth, rate-limiting, docs. Languages: language-agnostic. Type: saas."
+    }
+  ]
+}

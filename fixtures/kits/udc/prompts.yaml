@@ -1,0 +1,8 @@
+summarize:
+  version: 1.0.0
+  metadata:
+    status: experimental
+  spec:
+    input: { type: string }
+    output: { type: string }
+    instructions: Summarize clearly and concisely.

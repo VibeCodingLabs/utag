@@ -10,7 +10,7 @@ def _get_module():
                 name="createUser",
                 method="POST",
                 path="/users",
-                request=RequestSpec(path_params=[FieldSpec(name="id", type=ScalarKind.string)]),
+                request=RequestSpec(path_params=[FieldSpec(name="id", type=ScalarKind.string, required=True)]),
             )
         ]
     )

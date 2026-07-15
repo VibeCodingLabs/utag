@@ -1,0 +1,19 @@
+name: release-gate
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-packages --group dev || uv sync --all-packages
+      - run: uv run utag automation run release-gate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-gate-reports
+          path: reports/
+          if-no-files-found: ignore

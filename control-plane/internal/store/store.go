@@ -51,6 +51,7 @@ var ErrNotFound = errors.New("not found")
 type Store interface {
 	CreateJob(ctx context.Context, j *Job) error
 	GetJob(ctx context.Context, id string) (*Job, error)
+	ListJobs(ctx context.Context, limit int) ([]Job, error)
 	// ClaimNext atomically moves the oldest queued job to running.
 	// Returns ErrNotFound when the queue is empty.
 	ClaimNext(ctx context.Context) (*Job, error)

@@ -1,0 +1,43 @@
+{
+  "$id": "https://utag.dev/schemas/metric-point.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {},
+      "title": "Labels",
+      "type": "object"
+    },
+    "name": {
+      "pattern": "^utag_[a-z0-9_]+$",
+      "title": "Name",
+      "type": "string"
+    },
+    "value": {
+      "title": "Value",
+      "type": "number"
+    }
+  },
+  "required": [
+    "name",
+    "value"
+  ],
+  "title": "MetricPoint",
+  "type": "object"
+}

@@ -1,0 +1,19 @@
+name: autoresearch-weekly
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+jobs:
+  autoresearch-weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-packages --group dev || uv sync --all-packages
+      - run: uv run utag automation run autoresearch-weekly
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: autoresearch-reports
+          path: reports/autoresearch/
+          if-no-files-found: ignore

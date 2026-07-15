@@ -1,0 +1,7 @@
+{
+  "components": [
+    "run-status-card"
+  ],
+  "layout": "console-shell",
+  "path": "/runs"
+}

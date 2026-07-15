@@ -1,0 +1,77 @@
+css-variables:
+  consumes: [design://tokens/color/primary]
+  outputs: [css]
+tailwind:
+  consumes: [design://tokens/color/primary, design://styles/surface]
+  outputs: ["@theme"]
+  mapping:
+    tokenNaming: "--{namespace}-{path}"
+    colorSpace: oklch-passthrough
+    target: tailwind-v4-theme-block
+scss:
+  consumes: [design://tokens/color/primary]
+  outputs: [scss]
+waybar:
+  consumes: [design://tokens/color/primary]
+  outputs: [gtk-css]
+  mapping: { colorSpace: srgb-hex }
+eww:
+  consumes: [design://tokens/color/primary]
+  outputs: [scss, yuck]
+  mapping: { colorSpace: srgb-hex }
+react:
+  consumes: [design://components/Button, design://components/Avatar]
+  outputs: [tsx]
+shadcn:
+  consumes: [design://components/Button, design://tokens/color/primary]
+  outputs: [tsx]
+  mapping: { classStrategy: tailwind-v4-arbitrary-custom-props }
+storybook:
+  consumes: [design://components/Button]
+  outputs: [csf3]
+typescript-types:
+  consumes: [design://components/Button]
+  outputs: [ts]
+json-schema:
+  consumes: [design://components/Button]
+  outputs: [json-schema]
+html:
+  consumes: [design://components/Button, design://tokens/color/primary]
+  outputs: [html]
+web-components:
+  consumes: [design://components/Button]
+  outputs: [js]
+vue:
+  consumes: [design://components/Button]
+  outputs: [vue-sfc]
+svelte:
+  consumes: [design://components/Button]
+  outputs: [svelte]
+framer-motion:
+  consumes: [design://tokens/motion/duration/normal, design://tokens/motion/easing/standard]
+  outputs: [ts]
+motion:
+  consumes: [design://tokens/motion/duration/normal, design://tokens/motion/easing/standard]
+  outputs: [ts]
+remotion:
+  consumes: [design://tokens/color/primary, design://tokens/motion/duration/normal]
+  outputs: [tsx]
+threejs:
+  consumes: [design://tokens/color/primary]
+  outputs: [ts]
+  mapping: { colorSpace: srgb-hex-number }
+style-dictionary:
+  consumes: [design://tokens/color/primary]
+  outputs: [dtcg-json]
+studio:
+  consumes: [design://tokens/color/primary, design://components/Button]
+  outputs: [html]
+  mapping: { theme: contract-derived, fonts: "fraunces+schibsted-grotesk+fragment-mono" }
+editor:
+  consumes: [design://tokens/color/primary, design://components/Button]
+  outputs: [html]
+  mapping: { roundTrip: "tokens.yaml via File System Access API", exports: "yaml,css,tailwind,dtcg" }
+shadcn-theme:
+  consumes: [design://tokens/color/primary, design://tokens/radius/default]
+  outputs: [css]
+  mapping: { contract: "shadcn token names", neutrals: "derived via color-mix", themes: ":root + .dark" }

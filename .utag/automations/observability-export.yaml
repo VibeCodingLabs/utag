@@ -1,0 +1,12 @@
+id: observability-export
+name: Observability export + schema check
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "uv run python scripts/check_observability_schema.py"
+  - "uv run python scripts/summarize_run_evidence.py"
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_automation_cli.py
+validation_gates:
+  - automation-doctor

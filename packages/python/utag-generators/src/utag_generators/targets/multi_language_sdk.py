@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+import json
+
 from utag_core.ir import ModuleSpec
 from utag_core.registry import register_generator
 
@@ -153,34 +156,89 @@ class GoSdkGenerator:
 @register_generator("java-sdk")
 class JavaSdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name.capitalize()}Sdk.java": "// java sdk stub\n"}
+        metadata = {"target": "java-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} Java SDK\n\n1. Verify Maven dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }
+
 
 @register_generator("kotlin-sdk")
 class KotlinSdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name.capitalize()}Sdk.kt": "// kotlin sdk stub\n"}
+        metadata = {"target": "kotlin-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} Kotlin SDK\n\n1. Verify Gradle dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }
+
 
 @register_generator("csharp-sdk")
 class CSharpSdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name.capitalize()}Sdk.cs": "// csharp sdk stub\n"}
+        metadata = {"target": "csharp-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} C# SDK\n\n1. Verify NuGet dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }
+
 
 @register_generator("php-sdk")
 class PhpSdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name.capitalize()}Sdk.php": "// php sdk stub\n"}
+        metadata = {"target": "php-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} PHP SDK\n\n1. Verify Composer dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }
+
 
 @register_generator("ruby-sdk")
 class RubySdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name}_sdk.rb": "# ruby sdk stub\n"}
+        metadata = {"target": "ruby-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} Ruby SDK\n\n1. Verify Gemfile dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }
+
 
 @register_generator("swift-sdk")
 class SwiftSdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name.capitalize()}Sdk.swift": "// swift sdk stub\n"}
+        metadata = {"target": "swift-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} Swift SDK\n\n1. Verify Swift Package Manager dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }
+
 
 @register_generator("rust-sdk")
 class RustSdkGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
-        return {f"{module.name}_sdk.rs": "// rust sdk stub\n"}
+        metadata = {"target": "rust-sdk", "implemented": False, "reason": "compiler gate pending"}
+        fixtures = {"sample": "example_data"}
+        plan = f"# Validation Plan for {module.name} Rust SDK\n\n1. Verify Cargo dependency resolution.\n2. Run generated unit tests."
+        return {
+            f"{module.name}-sdk-metadata.json": json.dumps(metadata),
+            f"{module.name}-sdk-fixtures.json": json.dumps(fixtures),
+            f"{module.name}-validation-plan.md": plan
+        }

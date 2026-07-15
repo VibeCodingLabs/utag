@@ -1,0 +1,106 @@
+{
+  "$defs": {
+    "RunSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Attributes",
+          "type": "object"
+        },
+        "end_ms": {
+          "minimum": 0,
+          "title": "End Ms",
+          "type": "number"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "name": {
+          "pattern": "^utag\\.[a-z][a-z0-9._-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "parent_span_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Span Id"
+        },
+        "span_id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Span Id",
+          "type": "string"
+        },
+        "start_ms": {
+          "minimum": 0,
+          "title": "Start Ms",
+          "type": "number"
+        }
+      },
+      "required": [
+        "span_id",
+        "name",
+        "start_ms",
+        "end_ms"
+      ],
+      "title": "RunSpan",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/run-trace.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "run_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "spans": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/RunSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+    }
+  },
+  "required": [
+    "run_id"
+  ],
+  "title": "RunTrace",
+  "type": "object"
+}

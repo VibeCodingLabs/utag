@@ -40,6 +40,20 @@ func (m *Memory) GetJob(_ context.Context, id string) (*Job, error) {
 	return &cp, nil
 }
 
+func (m *Memory) ListJobs(_ context.Context, limit int) ([]Job, error) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	var out []Job
+	for _, j := range m.jobs {
+		out = append(out, *j)
+	}
+	sort.Slice(out, func(a, b int) bool { return out[a].CreatedAt.After(out[b].CreatedAt) })
+	if limit > 0 && len(out) > limit {
+		out = out[:limit]
+	}
+	return out, nil
+}
+
 func (m *Memory) ClaimNext(_ context.Context) (*Job, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()

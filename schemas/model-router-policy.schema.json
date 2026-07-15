@@ -1,0 +1,81 @@
+{
+  "$id": "https://utag.dev/schemas/model-router-policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allow_fallback": {
+      "default": false,
+      "title": "Allow Fallback",
+      "type": "boolean"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "local_only": {
+      "default": false,
+      "title": "Local Only",
+      "type": "boolean"
+    },
+    "max_cost_usd": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Max Cost Usd"
+    },
+    "max_latency_ms": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Max Latency Ms"
+    },
+    "no_network": {
+      "default": false,
+      "title": "No Network",
+      "type": "boolean"
+    },
+    "prefer_cached": {
+      "default": true,
+      "title": "Prefer Cached",
+      "type": "boolean"
+    },
+    "require_structured_output": {
+      "default": false,
+      "title": "Require Structured Output",
+      "type": "boolean"
+    },
+    "task_kind": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Task Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_kind"
+  ],
+  "title": "ModelRouterPolicy",
+  "type": "object"
+}

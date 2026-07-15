@@ -57,7 +57,7 @@ class TypeSpec(_Strict):
     @field_validator("name")
     @classmethod
     def _pascal(cls, v: str) -> str:
-        if not v or not v[0].isalpha() or not v.replace("_", "a").isalnum():
+        if not v or not v[0].isalpha():
             raise ValueError(f"invalid type name: {v!r}")
         return v
 
@@ -93,13 +93,6 @@ class ModuleSpec(_Strict):
     types: list[TypeSpec] = Field(default_factory=list)
     operations: list[OperationSpec] = Field(default_factory=list)
     provenance: dict[str, str] = Field(default_factory=dict)  # source path/hash/kind
-
-    @field_validator("name")
-    @classmethod
-    def _ident(cls, v: str) -> str:
-        if not v or not v.replace("_", "a").replace("-", "a").isalnum():
-            raise ValueError(f"invalid module name: {v!r}")
-        return v
 
 
 class ProjectSpec(_Strict):

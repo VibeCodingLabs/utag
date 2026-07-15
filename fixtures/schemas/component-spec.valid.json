@@ -1,0 +1,19 @@
+{
+  "id": "run-status-card",
+  "props": {
+    "title": "Run"
+  },
+  "states": [
+    "idle",
+    "loading"
+  ],
+  "type": "card",
+  "variants": [
+    {
+      "id": "compact",
+      "props": {
+        "dense": true
+      }
+    }
+  ]
+}

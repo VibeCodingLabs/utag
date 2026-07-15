@@ -1,0 +1,42 @@
+{
+  "$id": "https://utag.dev/schemas/cost-metric.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "run_id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "source": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Source",
+      "type": "string"
+    },
+    "usd": {
+      "minimum": 0,
+      "title": "Usd",
+      "type": "number"
+    }
+  },
+  "required": [
+    "run_id",
+    "usd",
+    "source"
+  ],
+  "title": "CostMetric",
+  "type": "object"
+}

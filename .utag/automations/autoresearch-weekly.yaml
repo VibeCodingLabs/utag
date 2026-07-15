@@ -1,0 +1,11 @@
+id: autoresearch-weekly
+name: Weekly autoresearch scoring
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "uv run python scripts/autoresearch_score.py"
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_automation_cli.py
+validation_gates:
+  - automation-doctor

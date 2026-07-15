@@ -1,0 +1,21 @@
+{
+  "__unknown_property__": true,
+  "done_when": [
+    "all_gates_pass"
+  ],
+  "gates": [
+    {
+      "command": "python scripts/validate_schemas.py --root .",
+      "name": "schema"
+    }
+  ],
+  "goal": "Generate the observability dashboard from design.yaml and validate it.",
+  "id": "ar-ui-observability-dashboard",
+  "inputs": [
+    "design.yaml"
+  ],
+  "mode": "implement",
+  "required_outputs": [
+    "packages/ui/src/generated/components/RunTimeline.tsx"
+  ]
+}

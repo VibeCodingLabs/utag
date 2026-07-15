@@ -1,0 +1,8 @@
+Header:
+  version: 1.0.0
+  metadata:
+    status: stable
+  spec:
+    uses:
+      - design://components/Button
+      - design://components/Avatar

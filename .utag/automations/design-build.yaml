@@ -1,0 +1,15 @@
+id: design-build
+name: Design pipeline build
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "uv run python scripts/validate_design.py design.yaml"
+  - "uv run python scripts/generate_ui.py"
+  - "uv run python scripts/check_generated_ui.py"
+  - "uv run python scripts/check_accessibility_contracts.py"
+  - "git diff --exit-code -- packages/ui/src"
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_automation_cli.py
+validation_gates:
+  - automation-doctor

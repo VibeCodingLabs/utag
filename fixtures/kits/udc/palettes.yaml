@@ -1,0 +1,3 @@
+default:
+  primary:
+    token: design://tokens/color/primary
