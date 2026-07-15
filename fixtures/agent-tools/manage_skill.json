@@ -1,0 +1,42 @@
+{
+  "extensions": {
+    "harness_name": "manage_skill"
+  },
+  "name": "manage-skill",
+  "description": "Create, update, or delete a managed SKILL.md in the isolated skills dir.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "create",
+          "update",
+          "delete"
+        ]
+      },
+      "name": {
+        "type": "string",
+        "description": "kebab-case skill name"
+      },
+      "description": {
+        "type": "string",
+        "description": "discovery text"
+      },
+      "body": {
+        "type": "string",
+        "description": "skill body, no frontmatter"
+      }
+    },
+    "required": [
+      "action",
+      "name"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "skill:write"
+  ],
+  "policy_status": "allowed"
+}

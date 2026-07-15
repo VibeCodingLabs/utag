@@ -1,0 +1,29 @@
+{
+  "extensions": {
+    "harness_name": "grep"
+  },
+  "name": "grep",
+  "description": "Grep files using RE2-style regex.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "pattern": {
+        "type": "string",
+        "description": "Rust regex; no lookaround/backrefs"
+      },
+      "path": {
+        "type": "string",
+        "description": "scoped path(s)"
+      }
+    },
+    "required": [
+      "pattern"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "read",
+  "auth_scopes": [
+    "fs:read"
+  ],
+  "policy_status": "allowed"
+}

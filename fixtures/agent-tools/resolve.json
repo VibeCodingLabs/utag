@@ -1,0 +1,36 @@
+{
+  "extensions": {
+    "harness_name": "resolve"
+  },
+  "name": "resolve",
+  "description": "Resolve a pending action — apply or discard.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "apply",
+          "discard"
+        ]
+      },
+      "reason": {
+        "type": "string",
+        "description": "one-sentence why"
+      },
+      "extra": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "action",
+      "reason"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "session:state"
+  ],
+  "policy_status": "allowed"
+}

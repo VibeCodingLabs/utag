@@ -1,0 +1,35 @@
+{
+  "extensions": {
+    "harness_name": "todo"
+  },
+  "name": "todo",
+  "description": "Manage the phased task list (init/start/done/drop/append/view).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "op": {
+        "type": "string",
+        "description": "init|start|done|drop|rm|append|view"
+      },
+      "task": {
+        "type": "string",
+        "description": "verbatim task content"
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "op"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "session:state"
+  ],
+  "policy_status": "allowed"
+}

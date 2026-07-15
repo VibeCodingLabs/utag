@@ -1,0 +1,40 @@
+{
+  "extensions": {
+    "harness_name": "ask"
+  },
+  "name": "ask",
+  "description": "Ask the user to clarify or choose between approaches.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "questions": {
+        "type": "array",
+        "description": "questions with options",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "required": [
+      "questions"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "answers": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "answers"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "none",
+  "auth_scopes": [
+    "user:prompt"
+  ],
+  "policy_status": "allowed"
+}

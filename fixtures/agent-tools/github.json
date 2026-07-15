@@ -1,0 +1,30 @@
+{
+  "extensions": {
+    "harness_name": "github"
+  },
+  "name": "github",
+  "description": "Op-based gh wrapper: repos, PRs, search, checkout, push, Actions watch.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "op": {
+        "type": "string",
+        "description": "repo_view|pr_create|pr_checkout|pr_push|search_*|run_watch"
+      },
+      "repo": {
+        "type": "string",
+        "description": "owner/repo (defaults to checkout)"
+      }
+    },
+    "required": [
+      "op"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "network",
+  "auth_scopes": [
+    "repo",
+    "net:write"
+  ],
+  "policy_status": "review"
+}

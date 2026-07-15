@@ -1,0 +1,43 @@
+{
+  "extensions": {
+    "harness_name": "browser"
+  },
+  "name": "browser",
+  "description": "Drive a real Chromium tab; full puppeteer access via JS.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "open",
+          "close",
+          "run"
+        ]
+      },
+      "name": {
+        "type": "string",
+        "description": "tab name (default 'main')"
+      },
+      "url": {
+        "type": "string",
+        "description": "navigate on open"
+      },
+      "code": {
+        "type": "string",
+        "description": "async JS body for run"
+      }
+    },
+    "required": [
+      "action"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "network",
+  "auth_scopes": [
+    "net:read",
+    "net:write",
+    "exec"
+  ],
+  "policy_status": "review"
+}

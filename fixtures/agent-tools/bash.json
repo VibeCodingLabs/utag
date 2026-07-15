@@ -1,0 +1,53 @@
+{
+  "extensions": {
+    "harness_name": "bash"
+  },
+  "name": "bash",
+  "description": "Run a single binary or short pipeline in a shell session (git, bun, cargo, python).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "command": {
+        "type": "string",
+        "description": "the command to run"
+      },
+      "cwd": {
+        "type": "string",
+        "description": "working directory"
+      },
+      "timeout": {
+        "type": "integer",
+        "description": "wall-clock cap (seconds)"
+      },
+      "async": {
+        "type": "boolean",
+        "description": "run in background"
+      }
+    },
+    "required": [
+      "command"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "stdout": {
+        "type": "string",
+        "description": "merged stdout+stderr"
+      },
+      "exit_code": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "stdout"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "destructive",
+  "auth_scopes": [
+    "exec"
+  ],
+  "policy_status": "review"
+}

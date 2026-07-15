@@ -1,0 +1,39 @@
+{
+  "extensions": {
+    "harness_name": "ast_edit"
+  },
+  "name": "ast-edit",
+  "description": "Structural AST-aware rewrite via ast-grep (safe codemods).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "pat": {
+        "type": "string",
+        "description": "AST match pattern"
+      },
+      "out": {
+        "type": "string",
+        "description": "rewrite template ('' deletes)"
+      },
+      "path": {
+        "type": "string",
+        "description": "scoped path"
+      },
+      "lang": {
+        "type": "string",
+        "description": "language"
+      }
+    },
+    "required": [
+      "pat",
+      "out",
+      "path"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "fs:write"
+  ],
+  "policy_status": "allowed"
+}

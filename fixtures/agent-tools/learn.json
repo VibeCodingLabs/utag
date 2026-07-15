@@ -1,0 +1,30 @@
+{
+  "extensions": {
+    "harness_name": "learn"
+  },
+  "name": "learn",
+  "description": "Capture a reusable lesson into long-term memory; optionally mint/enhance a managed skill.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "lesson": {
+        "type": "string",
+        "description": "the reusable insight"
+      },
+      "skill": {
+        "type": "object",
+        "description": "optional managed-skill spec"
+      }
+    },
+    "required": [
+      "lesson"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "memory:write",
+    "skill:write"
+  ],
+  "policy_status": "allowed"
+}

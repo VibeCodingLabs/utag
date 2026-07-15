@@ -1,0 +1,26 @@
+{
+  "extensions": {
+    "harness_name": "read"
+  },
+  "name": "read",
+  "description": "Read files, directories, archives, SQLite, images, documents, internal resources, and web URLs via one path.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string",
+        "description": "local path, internal URI, or URL; append :<sel> for ranges/modes"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "read",
+  "auth_scopes": [
+    "fs:read",
+    "net:read"
+  ],
+  "policy_status": "allowed"
+}

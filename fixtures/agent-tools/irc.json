@@ -1,0 +1,42 @@
+{
+  "extensions": {
+    "harness_name": "irc"
+  },
+  "name": "irc",
+  "description": "Send/receive short messages between agents in this process.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "op": {
+        "type": "string",
+        "enum": [
+          "send",
+          "wait",
+          "inbox",
+          "list"
+        ]
+      },
+      "to": {
+        "type": "string",
+        "description": "peer id or 'all'"
+      },
+      "message": {
+        "type": "string",
+        "description": "plain prose"
+      },
+      "replyTo": {
+        "type": "string",
+        "description": "correlate a reply"
+      }
+    },
+    "required": [
+      "op"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "none",
+  "auth_scopes": [
+    "agent:message"
+  ],
+  "policy_status": "allowed"
+}

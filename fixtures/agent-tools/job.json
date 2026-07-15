@@ -1,0 +1,34 @@
+{
+  "extensions": {
+    "harness_name": "job"
+  },
+  "name": "job",
+  "description": "Manage async background tasks: poll, cancel, list.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "poll": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "cancel": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "list": {
+        "type": "boolean"
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "process:control"
+  ],
+  "policy_status": "allowed"
+}

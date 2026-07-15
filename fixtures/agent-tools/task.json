@@ -1,0 +1,50 @@
+{
+  "extensions": {
+    "harness_name": "task"
+  },
+  "name": "task",
+  "description": "Delegate work to background subagents via a tasks[] batch.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "context": {
+        "type": "string",
+        "description": "shared Goal/Constraints/Contract"
+      },
+      "tasks": {
+        "type": "array",
+        "description": "subagent assignments",
+        "items": {
+          "type": "object"
+        }
+      },
+      "agent": {
+        "type": "string",
+        "description": "base agent type"
+      }
+    },
+    "required": [
+      "tasks"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "agent_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "agent:spawn",
+    "exec"
+  ],
+  "policy_status": "allowed"
+}

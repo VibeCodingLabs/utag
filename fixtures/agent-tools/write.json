@@ -1,0 +1,30 @@
+{
+  "extensions": {
+    "harness_name": "write"
+  },
+  "name": "write",
+  "description": "Create or overwrite a file at a path (also archive/SQLite entries).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string",
+        "description": "destination path"
+      },
+      "content": {
+        "type": "string",
+        "description": "full file contents"
+      }
+    },
+    "required": [
+      "path",
+      "content"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "fs:write"
+  ],
+  "policy_status": "allowed"
+}

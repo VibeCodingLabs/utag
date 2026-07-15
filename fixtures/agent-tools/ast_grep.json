@@ -1,0 +1,34 @@
+{
+  "extensions": {
+    "harness_name": "ast_grep"
+  },
+  "name": "ast-grep",
+  "description": "Structural code search via ast-grep (syntax shape, not text).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "pat": {
+        "type": "string",
+        "description": "one AST pattern with $META vars"
+      },
+      "path": {
+        "type": "string",
+        "description": "scoped search path"
+      },
+      "lang": {
+        "type": "string",
+        "description": "language"
+      }
+    },
+    "required": [
+      "pat",
+      "path"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "read",
+  "auth_scopes": [
+    "fs:read"
+  ],
+  "policy_status": "allowed"
+}

@@ -1,0 +1,38 @@
+{
+  "extensions": {
+    "harness_name": "generate_image"
+  },
+  "name": "generate-image",
+  "description": "Generate or edit images from a detailed subject prompt.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "subject": {
+        "type": "string",
+        "description": "detailed image prompt"
+      }
+    },
+    "required": [
+      "subject"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "image_path": {
+        "type": "string",
+        "description": "path to the generated image"
+      }
+    },
+    "required": [
+      "image_path"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "media:write"
+  ],
+  "policy_status": "allowed"
+}

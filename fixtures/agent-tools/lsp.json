@@ -1,0 +1,41 @@
+{
+  "extensions": {
+    "harness_name": "lsp"
+  },
+  "name": "lsp",
+  "description": "Symbol-aware code intelligence: definition, references, rename, diagnostics.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "operation": {
+        "type": "string",
+        "description": "definition|references|rename|diagnostics|symbols|…"
+      },
+      "file": {
+        "type": "string",
+        "description": "target file"
+      },
+      "line": {
+        "type": "integer"
+      },
+      "symbol": {
+        "type": "string",
+        "description": "substring on that line"
+      },
+      "new_name": {
+        "type": "string",
+        "description": "for rename"
+      }
+    },
+    "required": [
+      "operation"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "fs:read",
+    "fs:write"
+  ],
+  "policy_status": "allowed"
+}

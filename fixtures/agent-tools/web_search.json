@@ -1,0 +1,40 @@
+{
+  "extensions": {
+    "harness_name": "web_search"
+  },
+  "name": "web-search",
+  "description": "Search the web for up-to-date information beyond the knowledge cutoff.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "search query"
+      }
+    },
+    "required": [
+      "query"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "required": [
+      "results"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "network",
+  "auth_scopes": [
+    "net:read"
+  ],
+  "policy_status": "review"
+}

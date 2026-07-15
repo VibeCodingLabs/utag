@@ -1,0 +1,25 @@
+{
+  "extensions": {
+    "harness_name": "edit"
+  },
+  "name": "edit",
+  "description": "Line/block-addressed patch: replace, delete, or insert content in an existing file.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "patch": {
+        "type": "string",
+        "description": "edit ops (SWAP/DEL/INS) with [PATH#TAG] headers and +body rows"
+      }
+    },
+    "required": [
+      "patch"
+    ],
+    "additionalProperties": false
+  },
+  "side_effect": "write",
+  "auth_scopes": [
+    "fs:write"
+  ],
+  "policy_status": "allowed"
+}

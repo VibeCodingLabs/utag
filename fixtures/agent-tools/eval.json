@@ -1,0 +1,52 @@
+{
+  "extensions": {
+    "harness_name": "eval"
+  },
+  "name": "eval",
+  "description": "Run one step of code in a persistent kernel (py or js).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "language": {
+        "type": "string",
+        "enum": [
+          "py",
+          "js"
+        ]
+      },
+      "code": {
+        "type": "string",
+        "description": "cell body, verbatim"
+      },
+      "title": {
+        "type": "string",
+        "description": "transcript label"
+      },
+      "reset": {
+        "type": "boolean",
+        "description": "wipe the kernel first"
+      }
+    },
+    "required": [
+      "language",
+      "code"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "result": {
+        "type": "string",
+        "description": "cell output"
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "side_effect": "destructive",
+  "auth_scopes": [
+    "exec"
+  ],
+  "policy_status": "review"
+}

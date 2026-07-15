@@ -1,0 +1,858 @@
+{
+  "tools": [
+    {
+      "auth_scopes": [
+        "fs:read",
+        "net:read"
+      ],
+      "description": "Read files, directories, archives, SQLite, images, documents, internal resources, and web URLs via one path.",
+      "extensions": {
+        "harness_name": "read"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "description": "local path, internal URI, or URL; append :<sel> for ranges/modes",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "type": "object"
+      },
+      "name": "read",
+      "policy_status": "allowed",
+      "side_effect": "read"
+    },
+    {
+      "auth_scopes": [
+        "exec"
+      ],
+      "description": "Run a single binary or short pipeline in a shell session (git, bun, cargo, python).",
+      "extensions": {
+        "harness_name": "bash"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "async": {
+            "description": "run in background",
+            "type": "boolean"
+          },
+          "command": {
+            "description": "the command to run",
+            "type": "string"
+          },
+          "cwd": {
+            "description": "working directory",
+            "type": "string"
+          },
+          "timeout": {
+            "description": "wall-clock cap (seconds)",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "command"
+        ],
+        "type": "object"
+      },
+      "name": "bash",
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "exit_code": {
+            "type": "integer"
+          },
+          "stdout": {
+            "description": "merged stdout+stderr",
+            "type": "string"
+          }
+        },
+        "required": [
+          "stdout"
+        ],
+        "type": "object"
+      },
+      "policy_status": "review",
+      "side_effect": "destructive"
+    },
+    {
+      "auth_scopes": [
+        "fs:write"
+      ],
+      "description": "Line/block-addressed patch: replace, delete, or insert content in an existing file.",
+      "extensions": {
+        "harness_name": "edit"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "patch": {
+            "description": "edit ops (SWAP/DEL/INS) with [PATH#TAG] headers and +body rows",
+            "type": "string"
+          }
+        },
+        "required": [
+          "patch"
+        ],
+        "type": "object"
+      },
+      "name": "edit",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "fs:read"
+      ],
+      "description": "Structural code search via ast-grep (syntax shape, not text).",
+      "extensions": {
+        "harness_name": "ast_grep"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "lang": {
+            "description": "language",
+            "type": "string"
+          },
+          "pat": {
+            "description": "one AST pattern with $META vars",
+            "type": "string"
+          },
+          "path": {
+            "description": "scoped search path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pat",
+          "path"
+        ],
+        "type": "object"
+      },
+      "name": "ast-grep",
+      "policy_status": "allowed",
+      "side_effect": "read"
+    },
+    {
+      "auth_scopes": [
+        "fs:write"
+      ],
+      "description": "Structural AST-aware rewrite via ast-grep (safe codemods).",
+      "extensions": {
+        "harness_name": "ast_edit"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "lang": {
+            "description": "language",
+            "type": "string"
+          },
+          "out": {
+            "description": "rewrite template ('' deletes)",
+            "type": "string"
+          },
+          "pat": {
+            "description": "AST match pattern",
+            "type": "string"
+          },
+          "path": {
+            "description": "scoped path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pat",
+          "out",
+          "path"
+        ],
+        "type": "object"
+      },
+      "name": "ast-edit",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "user:prompt"
+      ],
+      "description": "Ask the user to clarify or choose between approaches.",
+      "extensions": {
+        "harness_name": "ask"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "questions": {
+            "description": "questions with options",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "questions"
+        ],
+        "type": "object"
+      },
+      "name": "ask",
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "answers": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "answers"
+        ],
+        "type": "object"
+      },
+      "policy_status": "allowed",
+      "side_effect": "none"
+    },
+    {
+      "auth_scopes": [
+        "exec",
+        "process:control"
+      ],
+      "description": "Debugger access: launch/attach, breakpoints, stepping, inspection.",
+      "extensions": {
+        "harness_name": "debug"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "description": "launch|attach|continue|step_over|\u2026",
+            "type": "string"
+          },
+          "adapter": {
+            "description": "debugpy|gdb|lldb-dap|dlv dap",
+            "type": "string"
+          },
+          "program": {
+            "description": "target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      },
+      "name": "debug",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "exec"
+      ],
+      "description": "Run one step of code in a persistent kernel (py or js).",
+      "extensions": {
+        "harness_name": "eval"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "description": "cell body, verbatim",
+            "type": "string"
+          },
+          "language": {
+            "enum": [
+              "py",
+              "js"
+            ],
+            "type": "string"
+          },
+          "reset": {
+            "description": "wipe the kernel first",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "transcript label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "language",
+          "code"
+        ],
+        "type": "object"
+      },
+      "name": "eval",
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "result": {
+            "description": "cell output",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "policy_status": "review",
+      "side_effect": "destructive"
+    },
+    {
+      "auth_scopes": [
+        "repo",
+        "net:write"
+      ],
+      "description": "Op-based gh wrapper: repos, PRs, search, checkout, push, Actions watch.",
+      "extensions": {
+        "harness_name": "github"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "op": {
+            "description": "repo_view|pr_create|pr_checkout|pr_push|search_*|run_watch",
+            "type": "string"
+          },
+          "repo": {
+            "description": "owner/repo (defaults to checkout)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "type": "object"
+      },
+      "name": "github",
+      "policy_status": "review",
+      "side_effect": "network"
+    },
+    {
+      "auth_scopes": [
+        "fs:read"
+      ],
+      "description": "Glob files and directories via fast pattern matching.",
+      "extensions": {
+        "harness_name": "glob"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "gitignore": {
+            "type": "boolean"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "path": {
+            "description": "glob, file, or directory; ';'-delimited for many",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "type": "object"
+      },
+      "name": "glob",
+      "policy_status": "allowed",
+      "side_effect": "read"
+    },
+    {
+      "auth_scopes": [
+        "fs:read"
+      ],
+      "description": "Grep files using RE2-style regex.",
+      "extensions": {
+        "harness_name": "grep"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "description": "scoped path(s)",
+            "type": "string"
+          },
+          "pattern": {
+            "description": "Rust regex; no lookaround/backrefs",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern"
+        ],
+        "type": "object"
+      },
+      "name": "grep",
+      "policy_status": "allowed",
+      "side_effect": "read"
+    },
+    {
+      "auth_scopes": [
+        "fs:read",
+        "fs:write"
+      ],
+      "description": "Symbol-aware code intelligence: definition, references, rename, diagnostics.",
+      "extensions": {
+        "harness_name": "lsp"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "description": "target file",
+            "type": "string"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "new_name": {
+            "description": "for rename",
+            "type": "string"
+          },
+          "operation": {
+            "description": "definition|references|rename|diagnostics|symbols|\u2026",
+            "type": "string"
+          },
+          "symbol": {
+            "description": "substring on that line",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation"
+        ],
+        "type": "object"
+      },
+      "name": "lsp",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "net:read",
+        "net:write",
+        "exec"
+      ],
+      "description": "Drive a real Chromium tab; full puppeteer access via JS.",
+      "extensions": {
+        "harness_name": "browser"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "enum": [
+              "open",
+              "close",
+              "run"
+            ],
+            "type": "string"
+          },
+          "code": {
+            "description": "async JS body for run",
+            "type": "string"
+          },
+          "name": {
+            "description": "tab name (default 'main')",
+            "type": "string"
+          },
+          "url": {
+            "description": "navigate on open",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      },
+      "name": "browser",
+      "policy_status": "review",
+      "side_effect": "network"
+    },
+    {
+      "auth_scopes": [
+        "agent:spawn",
+        "exec"
+      ],
+      "description": "Delegate work to background subagents via a tasks[] batch.",
+      "extensions": {
+        "harness_name": "task"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "agent": {
+            "description": "base agent type",
+            "type": "string"
+          },
+          "context": {
+            "description": "shared Goal/Constraints/Contract",
+            "type": "string"
+          },
+          "tasks": {
+            "description": "subagent assignments",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "tasks"
+        ],
+        "type": "object"
+      },
+      "name": "task",
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "agent_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "process:control"
+      ],
+      "description": "Manage async background tasks: poll, cancel, list.",
+      "extensions": {
+        "harness_name": "job"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "cancel": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "list": {
+            "type": "boolean"
+          },
+          "poll": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "name": "job",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "agent:message"
+      ],
+      "description": "Send/receive short messages between agents in this process.",
+      "extensions": {
+        "harness_name": "irc"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "description": "plain prose",
+            "type": "string"
+          },
+          "op": {
+            "enum": [
+              "send",
+              "wait",
+              "inbox",
+              "list"
+            ],
+            "type": "string"
+          },
+          "replyTo": {
+            "description": "correlate a reply",
+            "type": "string"
+          },
+          "to": {
+            "description": "peer id or 'all'",
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "type": "object"
+      },
+      "name": "irc",
+      "policy_status": "allowed",
+      "side_effect": "none"
+    },
+    {
+      "auth_scopes": [
+        "session:state"
+      ],
+      "description": "Manage the phased task list (init/start/done/drop/append/view).",
+      "extensions": {
+        "harness_name": "todo"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "op": {
+            "description": "init|start|done|drop|rm|append|view",
+            "type": "string"
+          },
+          "task": {
+            "description": "verbatim task content",
+            "type": "string"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "type": "object"
+      },
+      "name": "todo",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "net:read"
+      ],
+      "description": "Search the web for up-to-date information beyond the knowledge cutoff.",
+      "extensions": {
+        "harness_name": "web_search"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "query": {
+            "description": "search query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      },
+      "name": "web-search",
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "results": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "results"
+        ],
+        "type": "object"
+      },
+      "policy_status": "review",
+      "side_effect": "network"
+    },
+    {
+      "auth_scopes": [
+        "fs:write"
+      ],
+      "description": "Create or overwrite a file at a path (also archive/SQLite entries).",
+      "extensions": {
+        "harness_name": "write"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "description": "full file contents",
+            "type": "string"
+          },
+          "path": {
+            "description": "destination path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "content"
+        ],
+        "type": "object"
+      },
+      "name": "write",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "memory:write",
+        "skill:write"
+      ],
+      "description": "Capture a reusable lesson into long-term memory; optionally mint/enhance a managed skill.",
+      "extensions": {
+        "harness_name": "learn"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "lesson": {
+            "description": "the reusable insight",
+            "type": "string"
+          },
+          "skill": {
+            "description": "optional managed-skill spec",
+            "type": "object"
+          }
+        },
+        "required": [
+          "lesson"
+        ],
+        "type": "object"
+      },
+      "name": "learn",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "skill:write"
+      ],
+      "description": "Create, update, or delete a managed SKILL.md in the isolated skills dir.",
+      "extensions": {
+        "harness_name": "manage_skill"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "enum": [
+              "create",
+              "update",
+              "delete"
+            ],
+            "type": "string"
+          },
+          "body": {
+            "description": "skill body, no frontmatter",
+            "type": "string"
+          },
+          "description": {
+            "description": "discovery text",
+            "type": "string"
+          },
+          "name": {
+            "description": "kebab-case skill name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "name"
+        ],
+        "type": "object"
+      },
+      "name": "manage-skill",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "session:state"
+      ],
+      "description": "Resolve a pending action \u2014 apply or discard.",
+      "extensions": {
+        "harness_name": "resolve"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "enum": [
+              "apply",
+              "discard"
+            ],
+            "type": "string"
+          },
+          "extra": {
+            "type": "object"
+          },
+          "reason": {
+            "description": "one-sentence why",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "name": "resolve",
+      "policy_status": "allowed",
+      "side_effect": "write"
+    },
+    {
+      "auth_scopes": [
+        "media:write"
+      ],
+      "description": "Generate or edit images from a detailed subject prompt.",
+      "extensions": {
+        "harness_name": "generate_image"
+      },
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "subject": {
+            "description": "detailed image prompt",
+            "type": "string"
+          }
+        },
+        "required": [
+          "subject"
+        ],
+        "type": "object"
+      },
+      "name": "generate-image",
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "image_path": {
+            "description": "path to the generated image",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image_path"
+        ],
+        "type": "object"
+      },
+      "policy_status": "allowed",
+      "side_effect": "write"
+    }
+  ]
+}
