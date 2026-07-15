@@ -295,7 +295,7 @@ def cmd_autoresearch(a: argparse.Namespace) -> int:
         task_id = "ar-" + "-".join(a.goal.lower().split())[:40].strip("-")
         spec = {"id": task_id, "goal": a.goal, "mode": "implement",
                 "inputs": [], "required_outputs": [],
-                "gates": [{"name": "tests", "command": "uv run --with pytest pytest"}],
+                "gates": [{"name": "tests", "command": "uv run pytest"}],
                 "done_when": ["all_gates_pass"]}
         ar.AutoresearchTask.model_validate(spec)
         out = Path(a.out or f"{task_id}.yaml")

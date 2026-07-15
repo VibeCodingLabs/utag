@@ -17,6 +17,9 @@ utag-adapters = { workspace = true }
 utag-tui = { workspace = true }
 utag-veriforge = { workspace = true }
 
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"

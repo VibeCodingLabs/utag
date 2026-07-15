@@ -3,7 +3,7 @@ name: Main CI (tests + determinism release gate + sources verify)
 version: 1.0.0
 kind: automation
 entrypoints:
-  - "uv run --with pytest pytest"
+  - "uv run pytest"
   - "uv run python scripts/release.py"
   - "uv run python scripts/sources.py"
 test_files:

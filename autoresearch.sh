@@ -7,7 +7,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 MODE="${1:---strict}"
-PYTEST_CMD="${PYTEST_CMD:-uv run --with pytest pytest}"
+PYTEST_CMD="${PYTEST_CMD:-uv run pytest}"
 
 run_metrics() {
   local out rc=0

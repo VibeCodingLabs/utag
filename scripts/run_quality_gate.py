@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # (name, command, required) — optional gates are skipped with a note when the
 # tool is absent, never silently.
 GATES: list[tuple[str, list[str], bool]] = [
-    ("pytest", ["uv", "run", "--with", "pytest", "pytest"], True),
+    ("pytest", ["uv", "run", "pytest"], True),
     ("entrypoints", ["uv", "run", "python", "scripts/check_entrypoints.py"], True),
     ("schemas", ["uv", "run", "python", "scripts/validate_schemas.py"], True),
     ("schema-fixtures", ["uv", "run", "python", "scripts/check_schema_fixtures.py"], True),
