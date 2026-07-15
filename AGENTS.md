@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **OpenAPI Pipeline**: `uv run utag openapi …` (subcommands are currently stubs — see TODO/v2.14.0-next-phase.md)
 - **Test Suite**: `pytest` — 391 tests (374 pass, 17 environment-gated skips). `./autoresearch.sh --strict` fails on any test failure; `--compare` collects metrics only.
 - **Schema Contracts**: `uv run utag schema list|emit|validate|validate-all|doctor` — 54 strict schemas (JSON Schema 2020-12, `additionalProperties: false`, `extensions` escape hatch) in `utag_core.schemas`, emitted to `schemas/`, fixtures in `fixtures/schemas/`. Regenerate with `python scripts/generate_json_schemas.py`; gate with `python scripts/validate_schemas.py --root .`. `utag generate` writes a validated `artifact.manifest.json` next to every artifact.
+- **Registry Manifests**: `uv run utag registry list|doctor|manifest --id <id>|coverage` — every registered generator/validator/importer carries a `RegistryManifest` (pass `manifest=` to `register_*` or a derived one is recorded); doctor fails on missing entrypoints/test files.
 - **Entrypoint Audit**: `python scripts/check_entrypoints.py` (every registered generator/validator/importer must be reachable or documented)
 - **Quality Gate**: `python scripts/run_quality_gate.py --release <ver>` (pytest + entrypoints required; ruff optional)
 - **Release Verification**: `python scripts/release.py` (Runs full test suite and checks artifact determinism).

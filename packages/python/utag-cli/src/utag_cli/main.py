@@ -181,6 +181,37 @@ def cmd_schema(a: argparse.Namespace) -> int:
     return 1
 
 
+def cmd_registry(a: argparse.Namespace) -> int:
+    from utag_core.registry import MANIFESTS, coverage_report, registry_problems
+
+    if a.registry_cmd == "list":
+        for (kind, id_), m in sorted(MANIFESTS.items()):
+            print(f"{kind:<10} {id_:<40} {m.status.value}")
+        return 0
+    if a.registry_cmd == "doctor":
+        problems = registry_problems(Path(a.root))
+        for p in problems:
+            print(f"FAIL {p}", file=sys.stderr)
+        print(f"registry doctor: {len(MANIFESTS)} manifests, {len(problems)} problem(s)")
+        return 1 if problems else 0
+    if a.registry_cmd == "manifest":
+        for (kind, id_), m in sorted(MANIFESTS.items()):
+            if id_ == a.id:
+                print(m.model_dump_json(indent=2, exclude_none=True))
+                return 0
+        print(f"no manifest with id {a.id!r}", file=sys.stderr)
+        return 1
+    if a.registry_cmd == "coverage":
+        report = coverage_report()
+        if a.out:
+            Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+            Path(a.out).write_text(report)
+        print(report, end="")
+        return 0
+    print("unknown registry command", file=sys.stderr)
+    return 1
+
+
 def cmd_openapi(a: argparse.Namespace) -> int:
     if a.openapi_cmd == "normalize":
         print("normalized")
@@ -253,6 +284,17 @@ def main(argv: list[str] | None = None) -> int:
     s_doc.add_argument("--root", default=".")
     s_doc.add_argument("--out", default="reports/schema-validation/doctor.md")
     s.set_defaults(fn=cmd_schema)
+
+    r = sub.add_parser("registry", help="registered generators/validators/importers + manifests")
+    rsub = r.add_subparsers(dest="registry_cmd", required=True)
+    rsub.add_parser("list")
+    r_doc = rsub.add_parser("doctor")
+    r_doc.add_argument("--root", default=".")
+    r_man = rsub.add_parser("manifest")
+    r_man.add_argument("--id", required=True)
+    r_cov = rsub.add_parser("coverage")
+    r_cov.add_argument("--out", default="reports/registry-coverage.md")
+    r.set_defaults(fn=cmd_registry)
 
     o = sub.add_parser("openapi", help="OpenAPI canonical pipeline tools")
     osub = o.add_subparsers(dest="openapi_cmd", required=True)
