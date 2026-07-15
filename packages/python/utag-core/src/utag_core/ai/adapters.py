@@ -147,4 +147,30 @@ class FakeStructuredPort:
         kind = kind_of(response_model)
         if kind in SCHEMAS and SCHEMAS[kind] is response_model:
             return response_model.model_validate(EXAMPLES[kind])
-        return response_model.model_construct()
+        return response_model.model_validate(_minimal_valid(response_model))
+
+
+def _minimal_valid(model: type[BaseModel]) -> dict:
+    """Deterministic minimal payload for required fields (enum→first, str→"",
+    number→0, bool→False, list→[]). Used only by the offline fake port."""
+    import enum
+    import typing
+
+    out = {}
+    for name, field in model.model_fields.items():
+        if not field.is_required():
+            continue
+        ann = field.annotation
+        if isinstance(ann, type) and issubclass(ann, enum.Enum):
+            out[name] = next(iter(ann)).value
+        elif ann is str:
+            out[name] = ""
+        elif ann in (int, float):
+            out[name] = 0
+        elif ann is bool:
+            out[name] = False
+        elif typing.get_origin(ann) is list:
+            out[name] = []
+        else:
+            out[name] = None
+    return out

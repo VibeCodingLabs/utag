@@ -21,7 +21,9 @@ def _now_iso() -> str:
 
 
 def _connect(path: Path) -> sqlite3.Connection:
-    db = sqlite3.connect(path)
+    # check_same_thread=False: WAL + serialized access lets the FastAPI thread
+    # pool share one connection; writes are single-statement + committed.
+    db = sqlite3.connect(path, check_same_thread=False)
     db.execute("PRAGMA journal_mode=WAL")
     db.execute("PRAGMA synchronous=NORMAL")
     return db
