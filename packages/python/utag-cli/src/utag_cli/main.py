@@ -374,6 +374,51 @@ def cmd_ai(a: argparse.Namespace) -> int:
         failed = sum(1 for r in results if not r.passed)
         print(f"eval: {len(results)} case(s), {failed} failed (adapter: fake-local, offline)")
         return 1 if failed else 0
+    if a.ai_cmd == "call":
+        from utag_core.ai.adapters import BudgetExceeded, RoutedStructuredAdapter
+        from utag_core.observe import Recorder
+        from utag_core.schemas import get_schema
+        from utag_generators.ai_bridge import credentials_present, manifest_for, port_for
+
+        policies = load_policies(Path(a.policy))
+        matches = [p for p in policies if p.task_kind == a.task]
+        if not matches:
+            print(f"no policy for task {a.task!r} in {a.policy}", file=sys.stderr)
+            return 1
+        policy = matches[0]
+        rec = Recorder()
+        try:
+            decision = ModelRouter(providers).route(policy, recorder=rec)
+        except RoutingError as e:
+            print(f"routing denied: {e}", file=sys.stderr)
+            return 1
+        manifest = manifest_for(decision, providers)
+        if not (manifest.extensions or {}).get("local") and not credentials_present(manifest):
+            print(f"refusing live call: no credential for {decision.provider} "
+                  f"(set one of {manifest.env_credentials})", file=sys.stderr)
+            return 1
+        adapter = RoutedStructuredAdapter(
+            decision, policy, port_for(decision, providers), recorder=rec,
+            cache_dir=Path(a.cache_dir) if a.cache_dir else None)
+        prompt = Path(a.prompt_file).read_text()
+        try:
+            result = adapter.generate(prompt=prompt, response_model=get_schema(a.schema))
+        except BudgetExceeded as e:
+            rec.flush()
+            print(f"BUDGET {e.finding.code}: {e.finding.message}", file=sys.stderr)
+            return 1
+        rec.flush()
+        text = result.output.model_dump_json(indent=2, exclude_none=True) + "\n"
+        if a.out:
+            Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+            Path(a.out).write_text(text)
+        print(text, end="")
+        for f in result.findings:
+            print(f"{f.severity.value.upper()} {f.code}: {f.message}", file=sys.stderr)
+        print(json.dumps({"provider": decision.provider, "model": decision.model,
+                          "cached": result.cached, "run_id": rec.run_id,
+                          "latency_ms": result.call_trace.latency_ms}), file=sys.stderr)
+        return 0
     if a.ai_cmd == "doctor":
         problems = []
         for pol_path in (Path("policies/ai-router.yaml"),):
@@ -634,6 +679,14 @@ def main(argv: list[str] | None = None) -> int:
     ai_eval = aisub.add_parser("eval")
     ai_eval.add_argument("--suite", required=True)
     ai_eval.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai_call = aisub.add_parser("call")
+    ai_call.add_argument("--task", required=True)
+    ai_call.add_argument("--prompt-file", required=True)
+    ai_call.add_argument("--schema", required=True, help="schema kind the output must validate against")
+    ai_call.add_argument("--policy", default="policies/ai-router.yaml")
+    ai_call.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai_call.add_argument("--cache-dir", default="")
+    ai_call.add_argument("--out", default="")
     ai.set_defaults(fn=cmd_ai)
 
     ob = sub.add_parser("observe", help="run evidence: traces/events/metrics (JSONL store)")
