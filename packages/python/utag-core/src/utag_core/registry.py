@@ -21,8 +21,35 @@ class Generator(Protocol):
         ...
 
 
+@runtime_checkable
+class Importer(Protocol):
+    source_format: str
+
+    def ingest(self, content: str, source: str = "<inline>") -> ModuleSpec:
+        """Return ModuleSpec parsed from the input content."""
+        ...
+
+
 GENERATORS: dict[str, Generator] = {}
 VALIDATORS: dict[str, Callable[[str, str], ValidationReport]] = {}  # (artifact_path, content) -> report
+IMPORTERS: dict[str, Importer] = {}
+
+def register_importer(source_format: str) -> Callable[[type], type]:
+    def deco(cls: type) -> type:
+        inst = cls()
+        inst.source_format = source_format
+        if source_format in IMPORTERS:
+            raise ValueError(f"duplicate importer format: {source_format}")
+        IMPORTERS[source_format] = inst
+        return cls
+    return deco
+
+def get_importer(source_format: str) -> Importer:
+    try:
+        return IMPORTERS[source_format]
+    except KeyError:
+        raise KeyError(f"no importer registered for format {source_format!r}; known: {sorted(IMPORTERS)}") from None
+
 
 
 def register_generator(target: str) -> Callable[[type], type]:
