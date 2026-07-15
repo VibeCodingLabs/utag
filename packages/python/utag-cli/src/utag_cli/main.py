@@ -467,22 +467,68 @@ def cmd_registry(a: argparse.Namespace) -> int:
 
 
 def cmd_openapi(a: argparse.Namespace) -> int:
-    if a.openapi_cmd == "normalize":
-        print("normalized")
-    elif a.openapi_cmd == "bundle":
-        print("bundled")
-    elif a.openapi_cmd == "diff":
-        print("diff computed")
-    elif a.openapi_cmd == "overlay":
-        print("overlay applied")
-    elif a.openapi_cmd == "lint":
-        print("linted")
-    elif a.openapi_cmd == "agent-readiness":
-        print("readiness checked")
-    else:
+    import yaml
+
+    from utag_core import openapi as oa
+    from utag_core.observe import Recorder
+
+    rec = Recorder()
+
+    def _write(out: str, text: str) -> None:
+        p = Path(out)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(text)
+        print(f"wrote {p}", file=sys.stderr)
+
+    def _run() -> int:
+        if a.openapi_cmd == "normalize":
+            doc = oa.resolve_local_refs(oa.load_spec(Path(a.path)))
+            _write(a.out, oa.canonical(doc))
+            return 0
+        if a.openapi_cmd == "bundle":
+            path = Path(a.path)
+            doc, resolved = oa.bundle(oa.load_spec(path), path.parent)
+            _write(a.out, oa.canonical(doc))
+            print(json.dumps({"resolved_refs": resolved}))
+            return 0
+        if a.openapi_cmd == "diff":
+            report = oa.diff(oa.load_spec(Path(a.old)), oa.load_spec(Path(a.new)),
+                             Path(a.old).name, Path(a.new).name)
+            text = report.model_dump_json(indent=2, exclude_none=True) + "\n"
+            if a.out:
+                _write(a.out, text)
+            print(text, end="")
+            return 0
+        if a.openapi_cmd == "overlay":
+            doc = oa.apply_overlay(oa.load_spec(Path(a.path)),
+                                   yaml.safe_load(Path(a.overlay).read_text()))
+            _write(a.out, oa.canonical(doc))
+            return 0
+        if a.openapi_cmd == "lint":
+            findings = oa.lint(oa.load_spec(Path(a.path)), Path(a.path).name)
+            for f in findings:
+                print(f"{f.severity.value.upper():<5} {f.code}: {f.message}")
+            errors = sum(1 for f in findings if f.severity.value == "error")
+            print(f"lint: {len(findings)} finding(s), {errors} error(s)")
+            if errors:
+                rec.metric("utag_validation_failures_total", errors, target="openapi-lint")
+            return 1 if errors else 0
         print("unknown openapi command", file=sys.stderr)
         return 1
-    return 0
+
+    def _run_readiness() -> int:
+        report = oa.readiness(oa.load_spec(Path(a.path)), Path(a.path).name)
+        text = report.model_dump_json(indent=2, exclude_none=True) + "\n"
+        if a.out:
+            _write(a.out, text)
+        print(text, end="")
+        return 0
+
+    with rec.span(f"utag.openapi.{a.openapi_cmd.replace('-', '_')}"):
+        rc = _run_readiness() if a.openapi_cmd == "agent-readiness" else _run()
+    rec.metric("utag_runs_total", 1, target=f"openapi-{a.openapi_cmd}")
+    rec.flush()
+    return rc
 
 
 
@@ -613,17 +659,28 @@ def main(argv: list[str] | None = None) -> int:
     r_cov.add_argument("--out", default="reports/registry-coverage.md")
     r.set_defaults(fn=cmd_registry)
 
-    o = sub.add_parser("openapi", help="OpenAPI canonical pipeline tools")
+    o = sub.add_parser("openapi", help="OpenAPI pipeline: normalize/bundle/diff/overlay/lint/agent-readiness")
     osub = o.add_subparsers(dest="openapi_cmd", required=True)
-    osub.add_parser("normalize")
-    osub.add_parser("bundle")
-    osub.add_parser("diff")
-    
+    o_norm = osub.add_parser("normalize")
+    o_norm.add_argument("--path", required=True)
+    o_norm.add_argument("--out", default="out/openapi.normalized.json")
+    o_bundle = osub.add_parser("bundle")
+    o_bundle.add_argument("--path", required=True)
+    o_bundle.add_argument("--out", default="out/openapi.bundled.json")
+    o_diff = osub.add_parser("diff")
+    o_diff.add_argument("--old", required=True)
+    o_diff.add_argument("--new", required=True)
+    o_diff.add_argument("--out", default="")
     o_overlay = osub.add_parser("overlay")
     o_overlay.add_argument("action", choices=["apply"])
-    
-    osub.add_parser("lint")
-    osub.add_parser("agent-readiness")
+    o_overlay.add_argument("--path", required=True)
+    o_overlay.add_argument("--overlay", required=True)
+    o_overlay.add_argument("--out", default="out/openapi.overlaid.json")
+    o_lint = osub.add_parser("lint")
+    o_lint.add_argument("--path", required=True)
+    o_ready = osub.add_parser("agent-readiness")
+    o_ready.add_argument("--path", required=True)
+    o_ready.add_argument("--out", default="")
     o.set_defaults(fn=cmd_openapi)
     a = ap.parse_args(argv)
     return a.fn(a)
