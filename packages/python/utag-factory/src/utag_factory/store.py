@@ -57,6 +57,16 @@ class JobStore:
             raise ValueError(f"payload {ref!r} digest mismatch")
         return json.loads(body)
 
+    def put_result(self, job_id: str, result: dict) -> None:
+        body = json.dumps(result, sort_keys=True)
+        sha = hashlib.sha256(body.encode()).hexdigest()
+        self.db.execute("INSERT OR REPLACE INTO payloads VALUES (?, ?, ?)",
+                        (f"result:{job_id}", body, sha))
+        self.db.commit()
+
+    def get_result(self, job_id: str) -> dict:
+        return self.get_payload(f"result:{job_id}")
+
     def put(self, job: FactoryJob) -> None:
         self.db.execute(
             "INSERT OR REPLACE INTO jobs VALUES (?, ?, ?, ?, ?)",
