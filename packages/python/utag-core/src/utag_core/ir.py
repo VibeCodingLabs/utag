@@ -62,10 +62,36 @@ class TypeSpec(_Strict):
         return v
 
 
+class RequestSpec(_Strict):
+    body_type: str | None = None
+    query_params: list[FieldSpec] = Field(default_factory=list)
+    path_params: list[FieldSpec] = Field(default_factory=list)
+
+class ResponseSpec(_Strict):
+    status_code: int = 200
+    body_type: str | None = None
+
+class OperationSpec(_Strict):
+    name: str
+    method: str
+    path: str
+    description: str = ""
+    request: RequestSpec = Field(default_factory=RequestSpec)
+    responses: list[ResponseSpec] = Field(default_factory=list)
+
+    @field_validator("name")
+    @classmethod
+    def _ident(cls, v: str) -> str:
+        if not v or not v.replace("_", "a").replace("-", "a").isalnum():
+            raise ValueError(f"invalid operation name: {v!r}")
+        return v
+
+
 class ModuleSpec(_Strict):
     name: str
     description: str = ""
     types: list[TypeSpec] = Field(default_factory=list)
+    operations: list[OperationSpec] = Field(default_factory=list)
     provenance: dict[str, str] = Field(default_factory=dict)  # source path/hash/kind
 
     @field_validator("name")

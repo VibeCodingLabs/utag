@@ -40,17 +40,70 @@ class OpenAPIGenerator:
             if required:
                 schema["required"] = required
             schemas[t.name] = schema
-            slug = t.name.lower()
-            paths[f"/{slug}s/{{id}}"] = {"get": {
-                "operationId": f"get{t.name}",
-                "parameters": [{"name": "id", "in": "path", "required": True,
-                                "schema": {"type": "string"}}],
-                "responses": {
-                    "200": {"description": f"{t.name} found", "content": {"application/json": {
-                        "schema": {"$ref": f"#/components/schemas/{t.name}"}}}},
-                    "404": {"description": f"{t.name} not found"},
-                },
-            }}
+        
+        if not module.operations:
+            # Fallback for older tests without operations
+            for t in module.types:
+                slug = t.name.lower()
+                paths[f"/{slug}s/{{id}}"] = {"get": {
+                    "operationId": f"get{t.name}",
+                    "parameters": [{"name": "id", "in": "path", "required": True,
+                                    "schema": {"type": "string"}}],
+                    "responses": {
+                        "200": {"description": f"{t.name} found", "content": {"application/json": {
+                            "schema": {"$ref": f"#/components/schemas/{t.name}"}}}},
+                        "404": {"description": f"{t.name} not found"},
+                    },
+                }}
+        else:
+            for op in module.operations:
+                if op.path not in paths:
+                    paths[op.path] = {}
+                    
+                method_spec = {
+                    "operationId": op.name,
+                    "responses": {},
+                    "parameters": []
+                }
+                if op.description:
+                    method_spec["description"] = op.description
+                    
+                for p in op.request.path_params:
+                    method_spec["parameters"].append({
+                        "name": p.name,
+                        "in": "path",
+                        "required": True,
+                        "schema": {"type": "string"}
+                    })
+                for q in op.request.query_params:
+                    method_spec["parameters"].append({
+                        "name": q.name,
+                        "in": "query",
+                        "required": q.required,
+                        "schema": {"type": "string"}
+                    })
+                    
+                if op.request.body_type:
+                    method_spec["requestBody"] = {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {"$ref": f"#/components/schemas/{op.request.body_type}"}
+                            }
+                        }
+                    }
+                    
+                for r in op.responses:
+                    resp_obj = {"description": f"{r.status_code} response"}
+                    if r.body_type:
+                        resp_obj["content"] = {
+                            "application/json": {
+                                "schema": {"$ref": f"#/components/schemas/{r.body_type}"}
+                            }
+                        }
+                    method_spec["responses"][str(r.status_code)] = resp_obj
+                    
+                paths[op.path][op.method.lower()] = method_spec
         doc = {
             "openapi": "3.1.1",
             "info": {"title": module.name, "version": "1.0.0",
