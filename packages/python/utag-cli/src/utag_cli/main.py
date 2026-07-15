@@ -250,6 +250,57 @@ def cmd_design(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_autoresearch(a: argparse.Namespace) -> int:
+    import yaml
+
+    from utag_core import autoresearch as ar
+
+    root = Path.cwd()
+    if a.ar_cmd == "init":
+        task_id = "ar-" + "-".join(a.goal.lower().split())[:40].strip("-")
+        spec = {"id": task_id, "goal": a.goal, "mode": "implement",
+                "inputs": [], "required_outputs": [],
+                "gates": [{"name": "tests", "command": "uv run --with pytest pytest"}],
+                "done_when": ["all_gates_pass"]}
+        ar.AutoresearchTask.model_validate(spec)
+        out = Path(a.out or f"{task_id}.yaml")
+        out.write_text(yaml.safe_dump(spec, sort_keys=False))
+        print(f"wrote {out}")
+        return 0
+
+    task = ar.load_task(Path(a.task))
+    if a.ar_cmd == "plan":
+        print(ar.make_plan(task).model_dump_json(indent=2, exclude_none=True))
+        return 0
+    if a.ar_cmd in ("execute", "validate", "receipt", "report"):
+        dry = a.ar_cmd == "execute" and a.mode == "dry-run"
+        gates, commands = ar.run_gates(task, root, dry_run=dry)
+        missing = [] if dry else ar.missing_outputs(task, root)
+        status = ar.result_status(gates, missing)
+        receipt = ar.build_receipt(task, gates, commands, missing)
+        if a.ar_cmd == "validate":
+            for g in gates:
+                print(f"{'PASS' if g.passed else 'FAIL'} {g.name}")
+            return 0 if status == ar.TaskStatus.completed else 1
+        if a.ar_cmd == "receipt":
+            print(receipt.model_dump_json(indent=2, exclude_none=True))
+            return 0 if status == ar.TaskStatus.completed else 1
+        report = ar.report_markdown(task, gates, commands, missing)
+        out_dir = Path(getattr(a, "out", "") or "reports/autoresearch")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / f"{task.id}.md").write_text(report)
+        (out_dir / f"{task.id}.receipt.json").write_text(
+            receipt.model_dump_json(indent=2, exclude_none=True) + "\n")
+        followup = None if dry else ar.write_followup(task, gates, missing, root)
+        print(f"status: {'dry-run preview (gates not executed)' if dry else status.value}")
+        print(f"report: {out_dir / f'{task.id}.md'}")
+        if followup:
+            print(f"follow-up task: {followup}")
+        return 0 if status == ar.TaskStatus.completed else 1
+    print("unknown autoresearch command", file=sys.stderr)
+    return 1
+
+
 def cmd_ai(a: argparse.Namespace) -> int:
     from utag_core.ai import ModelRouter, RoutingError, load_policies, load_providers, router
 
@@ -462,6 +513,23 @@ def main(argv: list[str] | None = None) -> int:
         if default_out:
             dp.add_argument("--out", default=default_out)
     d.set_defaults(fn=cmd_design)
+
+    ar_ = sub.add_parser("autoresearch", help="task engine: init/plan/execute/validate/report/receipt")
+    arsub = ar_.add_subparsers(dest="ar_cmd", required=True)
+    ar_init = arsub.add_parser("init")
+    ar_init.add_argument("--goal", required=True)
+    ar_init.add_argument("--out", default="")
+    for name in ("plan", "validate", "receipt"):
+        p_ = arsub.add_parser(name)
+        p_.add_argument("--task", required=True)
+    ar_exec = arsub.add_parser("execute")
+    ar_exec.add_argument("--task", required=True)
+    ar_exec.add_argument("--mode", choices=["local", "dry-run"], default="local")
+    ar_exec.add_argument("--out", default="reports/autoresearch")
+    ar_rep = arsub.add_parser("report")
+    ar_rep.add_argument("--task", required=True)
+    ar_rep.add_argument("--out", default="reports/autoresearch")
+    ar_.set_defaults(fn=cmd_autoresearch)
 
     ai = sub.add_parser("ai", help="governed AI layer: providers/models/route/eval/doctor (offline)")
     aisub = ai.add_subparsers(dest="ai_cmd", required=True)
