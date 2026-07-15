@@ -51,13 +51,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Competitive Intel**: `uv run utag intel import-openapi-tools|gaps|primitives`
 - **OpenAPI Pipeline**: `uv run utag openapi normalize|bundle|diff|overlay apply|lint|agent-readiness` — real ref resolution, bundling, structural diff, Overlay 1.0 subset, 5-rule lint (non-zero exit on errors), readiness scoring; fixtures in `fixtures/openapi/`.
 - **AI Calls**: `uv run utag ai call --task <kind> --prompt-file <p> --schema <kind>` — routed via policy, telemetry + budgets, refuses live calls without credentials; `--cache-dir` enables the sha-keyed cache.
-- **Test Suite**: `pytest` — 792 tests (775 pass, 17 environment-gated skips). `./autoresearch.sh --strict` fails on any test failure; `--compare` collects metrics only.
+- **Test Suite**: `pytest` — 852 tests (835 pass, 17 environment-gated skips). `./autoresearch.sh --strict` fails on any test failure; `--compare` collects metrics only.
 - **Schema Contracts**: `uv run utag schema list|emit|validate|validate-all|doctor` — 54 strict schemas (JSON Schema 2020-12, `additionalProperties: false`, `extensions` escape hatch) in `utag_core.schemas`, emitted to `schemas/`, fixtures in `fixtures/schemas/`. Regenerate with `python scripts/generate_json_schemas.py`; gate with `python scripts/validate_schemas.py --root .`. `utag generate` writes a validated `artifact.manifest.json` next to every artifact.
 - **Registry Manifests**: `uv run utag registry list|doctor|manifest --id <id>|coverage` — every registered generator/validator/importer carries a `RegistryManifest` (pass `manifest=` to `register_*` or a derived one is recorded); doctor fails on missing entrypoints/test files.
 - **Design Pipeline**: `uv run utag design validate|tokens|components|app|snapshot` — `design.yaml` is source-of-truth; regenerate `packages/ui/src/` with `python scripts/generate_ui.py`; gates: `check_generated_ui.py` (drift, hardcoded colors), `check_accessibility_contracts.py`.
 - **Observability**: `uv run utag observe run|export|summary|doctor` — every `utag generate` writes JSONL run evidence (`$UTAG_OBSERVE_DIR`, default `reports/observability/runs/`) plus `validation.report.json` linked by run/span id.
 - **Entrypoint Audit**: `python scripts/check_entrypoints.py` (every registered generator/validator/importer must be reachable or documented)
 - **Quality Gate**: `python scripts/run_quality_gate.py --release <ver>` (pytest + entrypoints required; ruff optional)
+- **Automation Factory**: `uv run utag-factory doctor|submit|work|supervise|serve|mcp` — Redis Streams queue + sqlite-vec state + sandboxed autoscaling workers, driven by the canonical `policies/autoscaling.yaml`. `submit --nl "…"` routes a natural-language ask through the agent; `serve` exposes the jobs API + `/events` SSE firehose; Flash burst tools are capability-gated on `RUNPOD_API_KEY` + `utag-factory[flash]`. Needs a running Redis (`UTAG_REDIS_URL`).
 - **Release Verification**: `python scripts/release.py` (Runs full test suite and checks artifact determinism).
 
 ## Code Conventions & Common Patterns

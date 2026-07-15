@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.16.0
+### Added
+- **utag-factory** — internal automation factory (`packages/python/utag-factory`), Python end-to-end, driven by the now-canonical `policies/autoscaling.yaml`:
+  - **Contracts**: `AutoscalingProfile` + `ResourceContract` + `FactoryJob` + `DeadLetterEntry` strict schemas; the operator's autoscaling template is promoted draft→canonical by validating against `AutoscalingProfile` (gated in `validate_schemas`). Decision of record: `execution.supervisor` is `python` in v1 (Go remains a declared adapter target).
+  - **Substrate**: `JobStore` (sqlite WAL, pointers-only payloads with digest checks) + `VectorStore` (sqlite-vec cosine); `StreamQueue` over the six template streams (consumer groups, at-least-once, `XAUTOCLAIM` crash recovery, DLQ with contract entries, depth/pending/oldest-age scaling signals); exact (Redis TTL) + semantic (sqlite-vec, 0.94 threshold, full key material) caches with a deterministic feature-hash placeholder embedder; retry taxonomy (retryable vs terminal, exponential-jitter backoff) from the template.
+  - **Execution**: `ProcessSandbox` + `BwrapSandbox` (RLIMIT caps, wall-time kill, scrubbed env, bwrap no-network/no-home); worker claim→sandboxed-execute→retry→DLQ loop with `run-python` and `generate-artifact` kinds; run evidence to the observe store and the `utag:events` firehose.
+  - **Supervisor**: AST-safe `desired_workers` formula evaluator, guardrails (memory reserve, failure-rate cap, per-interval step limits, scale-to-zero), spawn/drain via `systemd-run --user` transient units or subprocess fallback.
+  - **Agents + surfaces**: NL→`JobRequest` via the policy router (offline fake, live only with credentials); Typer CLI `utag-factory` (submit/work/supervise/status/doctor/serve/mcp), FastAPI (jobs + `/events` SSE firehose), FastMCP tools.
+  - **Flash cloud_burst**: agent-tool catalog (`run-python`/`embed`/`batch-generate`) as scale-to-zero runpod-flash Endpoints sized from the `cloud_burst` profile — the remote worker is the ephemeral sandbox; capability-gated on `RUNPOD_API_KEY` + the `flash` extra. Model serving (weights volume + vLLM streaming) scaffolded, fast-follow.
+
 ## 2.15.0
 ### Added
 - **Self-generated interactive console**: `packages/ui` Vite+React app whose components, layouts, routes, styles, fixtures, and interactions are all generated from `design.yaml` — the only hand-written frontend file is the 17-line `main.tsx`. New generators `typescript-contract-types` (TS interfaces from the schema contracts referenced by `data.contracts`, nested-model closure, enum literal unions) and `design-fixtures` (3 schema-validated mock records per resource). `react-component-library` now renders real bound data with the component-type vocabulary `card|table|matrix|panel|timeline|chart|board|graph|nav` (supersedes the 11 once-planned dashboard generators) and generates `useInteractions.tsx` from `design.yaml interactions:` (select a run → inspector shows it). Real `npm run typecheck` (strict, full @types/react) and `vite build` pass; `ui-typecheck`/`ui-build` quality gates required whenever the toolchain is present; `ui-build` automation + workflow.
