@@ -31,6 +31,15 @@ GATES: list[tuple[str, list[str], bool]] = [
     ("ruff", ["uv", "run", "--with", "ruff", "ruff", "check", "."], False),
 ]
 
+# gates that are REQUIRED whenever their toolchain is present, and an explicit
+# SKIP note otherwise (never silent): (name, command, availability probe)
+CONDITIONAL_GATES: list[tuple[str, list[str], "object"]] = [
+    ("ui-typecheck", ["npm", "--prefix", "packages/ui", "run", "typecheck"],
+     lambda: shutil.which("npm") and (ROOT / "packages/ui/node_modules").is_dir()),
+    ("ui-build", ["npm", "--prefix", "packages/ui", "run", "build"],
+     lambda: shutil.which("npm") and (ROOT / "packages/ui/node_modules").is_dir()),
+]
+
 
 def run_gate(name: str, cmd: list[str]) -> tuple[bool, str]:
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
@@ -62,6 +71,19 @@ def main() -> int:
         print(f"{status} {name}")
         if not ok:
             print(tail)
+
+    for name, cmd, available in CONDITIONAL_GATES:
+        if not available():
+            lines.append(f"- SKIPPED (toolchain absent — install node + `npm --prefix packages/ui install`): {name}")
+            print(f"SKIP {name}: toolchain absent")
+            continue
+        ok, tail = run_gate(name, cmd)
+        status = "PASS" if ok else "FAIL"
+        if not ok:
+            failed = True
+            print(tail)
+        lines.append(f"- {status}: {name} — `{' '.join(cmd)}` (required: toolchain present)")
+        print(f"{status} {name}")
 
     report_dir = ROOT / "reports" / a.release
     report_dir.mkdir(parents=True, exist_ok=True)

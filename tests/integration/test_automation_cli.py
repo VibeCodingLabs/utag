@@ -28,7 +28,7 @@ def test_list_and_validate():
     rc, out = run_cli("automation", "list")
     assert rc == 0 and "schema-drift" in out and "release-gate" in out
     rc, out = run_cli("automation", "validate")
-    assert rc == 0 and "7 manifest(s) valid" in out
+    assert rc == 0 and "8 manifest(s) valid" in out
 
 
 def test_doctor_clean():

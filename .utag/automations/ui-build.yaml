@@ -1,0 +1,13 @@
+id: ui-build
+name: Console app install + typecheck + build (self-generated UI)
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "npm --prefix packages/ui ci"
+  - "npm --prefix packages/ui run typecheck"
+  - "npm --prefix packages/ui run build"
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_design_cli.py
+validation_gates:
+  - automation-doctor

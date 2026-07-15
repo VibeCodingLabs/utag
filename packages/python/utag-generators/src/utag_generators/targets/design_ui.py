@@ -746,6 +746,23 @@ export function {name}() {{
 """
 
 
+def _routes_index_tsx(design: DesignYaml) -> str:
+    imports = "\n".join(
+        f'import {{ {route_page_name(r.path)} }} from "./{route_page_name(r.path)}";'
+        for r in design.routes)
+    entries = "\n".join(
+        f'  {{ path: "{r.path}", element: <{route_page_name(r.path)} /> }},'
+        for r in design.routes)
+    return f"""// generated route table from design.yaml — do not edit by hand
+import React from "react";
+{imports}
+
+export const routes = [
+{entries}
+];
+"""
+
+
 @register_generator("react-component-library", manifest=_manifest(
     "react-component-library",
     ["generated/components/*.tsx", "generated/layouts/*.tsx",
@@ -755,7 +772,8 @@ class ReactComponentLibraryGenerator:
     def generate(self, module: ModuleSpec) -> dict[str, str]:
         design = _design(module)
         ctx = _Ctx(design)
-        out: dict[str, str] = {"generated/hooks/useInteractions.tsx": _SELECT_HELPERS}
+        out: dict[str, str] = {"generated/hooks/useInteractions.tsx": _SELECT_HELPERS,
+                               "generated/routes/index.tsx": _routes_index_tsx(design)}
         for spec in design.components:
             renderer = _RENDERERS.get(spec.type)
             if renderer is None:

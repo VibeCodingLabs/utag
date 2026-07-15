@@ -53,7 +53,14 @@ def test_generated_ui_and_accessibility_gates():
 
 
 def test_generated_ui_typechecks(tmp_path):
-    """Capability-gated like the tsc validator: skips (visibly) without npx."""
+    """Real `npm run typecheck` when the UI package is installed; otherwise a
+    capability-gated scratch tsc check (repo convention: TS2307 tolerated)."""
+    ui = ROOT / "packages" / "ui"
+    if shutil.which("npm") and (ui / "node_modules").is_dir():
+        proc = subprocess.run(["npm", "run", "typecheck"], cwd=ui,
+                              capture_output=True, text=True, timeout=600)
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        return
     if shutil.which("npx") is None:
         pytest.skip("npx unavailable — typecheck gate skipped")
     rc, _ = run_cli("design", "components", "--input", str(ROOT / "design.yaml"), "--out", str(tmp_path))
