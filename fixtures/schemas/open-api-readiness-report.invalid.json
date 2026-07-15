@@ -1,0 +1,9 @@
+{
+  "__unknown_property__": true,
+  "findings": [
+    "2 operations missing summaries"
+  ],
+  "operations": 12,
+  "score": 0.85,
+  "spec": "petstore.yaml"
+}

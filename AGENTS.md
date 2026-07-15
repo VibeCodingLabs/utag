@@ -49,8 +49,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Validate Artifact**: `uv run utag validate --kind <kind> --path <path>`
 - **List Targets**: `uv run utag targets` (79 registered generators)
 - **Competitive Intel**: `uv run utag intel import-openapi-tools|gaps|primitives`
-- **OpenAPI Pipeline**: `uv run utag openapi …` (subcommands are currently stubs — see TODO/v2.14.0-next-phase.md)
-- **Test Suite**: `pytest` — 750 tests (733 pass, 17 environment-gated skips). `./autoresearch.sh --strict` fails on any test failure; `--compare` collects metrics only.
+- **OpenAPI Pipeline**: `uv run utag openapi normalize|bundle|diff|overlay apply|lint|agent-readiness` — real ref resolution, bundling, structural diff, Overlay 1.0 subset, 5-rule lint (non-zero exit on errors), readiness scoring; fixtures in `fixtures/openapi/`.
+- **AI Calls**: `uv run utag ai call --task <kind> --prompt-file <p> --schema <kind>` — routed via policy, telemetry + budgets, refuses live calls without credentials; `--cache-dir` enables the sha-keyed cache.
+- **Test Suite**: `pytest` — 792 tests (775 pass, 17 environment-gated skips). `./autoresearch.sh --strict` fails on any test failure; `--compare` collects metrics only.
 - **Schema Contracts**: `uv run utag schema list|emit|validate|validate-all|doctor` — 54 strict schemas (JSON Schema 2020-12, `additionalProperties: false`, `extensions` escape hatch) in `utag_core.schemas`, emitted to `schemas/`, fixtures in `fixtures/schemas/`. Regenerate with `python scripts/generate_json_schemas.py`; gate with `python scripts/validate_schemas.py --root .`. `utag generate` writes a validated `artifact.manifest.json` next to every artifact.
 - **Registry Manifests**: `uv run utag registry list|doctor|manifest --id <id>|coverage` — every registered generator/validator/importer carries a `RegistryManifest` (pass `manifest=` to `register_*` or a derived one is recorded); doctor fails on missing entrypoints/test files.
 - **Design Pipeline**: `uv run utag design validate|tokens|components|app|snapshot` — `design.yaml` is source-of-truth; regenerate `packages/ui/src/` with `python scripts/generate_ui.py`; gates: `check_generated_ui.py` (drift, hardcoded colors), `check_accessibility_contracts.py`.

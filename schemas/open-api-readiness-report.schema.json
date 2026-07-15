@@ -1,0 +1,51 @@
+{
+  "$id": "https://utag.dev/schemas/open-api-readiness-report.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "findings": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "operations": {
+      "minimum": 0,
+      "title": "Operations",
+      "type": "integer"
+    },
+    "score": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Score",
+      "type": "number"
+    },
+    "spec": {
+      "minLength": 1,
+      "title": "Spec",
+      "type": "string"
+    }
+  },
+  "required": [
+    "spec",
+    "score",
+    "operations"
+  ],
+  "title": "OpenApiReadinessReport",
+  "type": "object"
+}

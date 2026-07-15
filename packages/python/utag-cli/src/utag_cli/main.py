@@ -204,7 +204,8 @@ def cmd_schema(a: argparse.Namespace) -> int:
     return 1
 
 
-DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "react-component-library")
+DESIGN_TARGETS = ("design-tokens-css", "tailwind-v4-theme", "typescript-contract-types",
+                  "design-fixtures", "react-component-library")
 
 
 def cmd_design(a: argparse.Namespace) -> int:
@@ -226,7 +227,7 @@ def cmd_design(a: argparse.Namespace) -> int:
     module = ModuleSpec(name="design", description="design.yaml",
                         provenance={"design_yaml": design_path.read_text()})
     targets = {"tokens": DESIGN_TARGETS[:2], "components": DESIGN_TARGETS[2:],
-               "app": DESIGN_TARGETS, "snapshot": DESIGN_TARGETS}[a.design_cmd]
+               "app": DESIGN_TARGETS, "snapshot": DESIGN_TARGETS}[a.design_cmd]  # tokens=css+tailwind; components=types+fixtures+tsx
     files: dict[str, str] = {}
     for target in targets:
         files.update(get_generator(target).generate(module))
@@ -373,6 +374,51 @@ def cmd_ai(a: argparse.Namespace) -> int:
         failed = sum(1 for r in results if not r.passed)
         print(f"eval: {len(results)} case(s), {failed} failed (adapter: fake-local, offline)")
         return 1 if failed else 0
+    if a.ai_cmd == "call":
+        from utag_core.ai.adapters import BudgetExceeded, RoutedStructuredAdapter
+        from utag_core.observe import Recorder
+        from utag_core.schemas import get_schema
+        from utag_generators.ai_bridge import credentials_present, manifest_for, port_for
+
+        policies = load_policies(Path(a.policy))
+        matches = [p for p in policies if p.task_kind == a.task]
+        if not matches:
+            print(f"no policy for task {a.task!r} in {a.policy}", file=sys.stderr)
+            return 1
+        policy = matches[0]
+        rec = Recorder()
+        try:
+            decision = ModelRouter(providers).route(policy, recorder=rec)
+        except RoutingError as e:
+            print(f"routing denied: {e}", file=sys.stderr)
+            return 1
+        manifest = manifest_for(decision, providers)
+        if not (manifest.extensions or {}).get("local") and not credentials_present(manifest):
+            print(f"refusing live call: no credential for {decision.provider} "
+                  f"(set one of {manifest.env_credentials})", file=sys.stderr)
+            return 1
+        adapter = RoutedStructuredAdapter(
+            decision, policy, port_for(decision, providers), recorder=rec,
+            cache_dir=Path(a.cache_dir) if a.cache_dir else None)
+        prompt = Path(a.prompt_file).read_text()
+        try:
+            result = adapter.generate(prompt=prompt, response_model=get_schema(a.schema))
+        except BudgetExceeded as e:
+            rec.flush()
+            print(f"BUDGET {e.finding.code}: {e.finding.message}", file=sys.stderr)
+            return 1
+        rec.flush()
+        text = result.output.model_dump_json(indent=2, exclude_none=True) + "\n"
+        if a.out:
+            Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+            Path(a.out).write_text(text)
+        print(text, end="")
+        for f in result.findings:
+            print(f"{f.severity.value.upper()} {f.code}: {f.message}", file=sys.stderr)
+        print(json.dumps({"provider": decision.provider, "model": decision.model,
+                          "cached": result.cached, "run_id": rec.run_id,
+                          "latency_ms": result.call_trace.latency_ms}), file=sys.stderr)
+        return 0
     if a.ai_cmd == "doctor":
         problems = []
         for pol_path in (Path("policies/ai-router.yaml"),):
@@ -466,22 +512,68 @@ def cmd_registry(a: argparse.Namespace) -> int:
 
 
 def cmd_openapi(a: argparse.Namespace) -> int:
-    if a.openapi_cmd == "normalize":
-        print("normalized")
-    elif a.openapi_cmd == "bundle":
-        print("bundled")
-    elif a.openapi_cmd == "diff":
-        print("diff computed")
-    elif a.openapi_cmd == "overlay":
-        print("overlay applied")
-    elif a.openapi_cmd == "lint":
-        print("linted")
-    elif a.openapi_cmd == "agent-readiness":
-        print("readiness checked")
-    else:
+    import yaml
+
+    from utag_core import openapi as oa
+    from utag_core.observe import Recorder
+
+    rec = Recorder()
+
+    def _write(out: str, text: str) -> None:
+        p = Path(out)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(text)
+        print(f"wrote {p}", file=sys.stderr)
+
+    def _run() -> int:
+        if a.openapi_cmd == "normalize":
+            doc = oa.resolve_local_refs(oa.load_spec(Path(a.path)))
+            _write(a.out, oa.canonical(doc))
+            return 0
+        if a.openapi_cmd == "bundle":
+            path = Path(a.path)
+            doc, resolved = oa.bundle(oa.load_spec(path), path.parent)
+            _write(a.out, oa.canonical(doc))
+            print(json.dumps({"resolved_refs": resolved}))
+            return 0
+        if a.openapi_cmd == "diff":
+            report = oa.diff(oa.load_spec(Path(a.old)), oa.load_spec(Path(a.new)),
+                             Path(a.old).name, Path(a.new).name)
+            text = report.model_dump_json(indent=2, exclude_none=True) + "\n"
+            if a.out:
+                _write(a.out, text)
+            print(text, end="")
+            return 0
+        if a.openapi_cmd == "overlay":
+            doc = oa.apply_overlay(oa.load_spec(Path(a.path)),
+                                   yaml.safe_load(Path(a.overlay).read_text()))
+            _write(a.out, oa.canonical(doc))
+            return 0
+        if a.openapi_cmd == "lint":
+            findings = oa.lint(oa.load_spec(Path(a.path)), Path(a.path).name)
+            for f in findings:
+                print(f"{f.severity.value.upper():<5} {f.code}: {f.message}")
+            errors = sum(1 for f in findings if f.severity.value == "error")
+            print(f"lint: {len(findings)} finding(s), {errors} error(s)")
+            if errors:
+                rec.metric("utag_validation_failures_total", errors, target="openapi-lint")
+            return 1 if errors else 0
         print("unknown openapi command", file=sys.stderr)
         return 1
-    return 0
+
+    def _run_readiness() -> int:
+        report = oa.readiness(oa.load_spec(Path(a.path)), Path(a.path).name)
+        text = report.model_dump_json(indent=2, exclude_none=True) + "\n"
+        if a.out:
+            _write(a.out, text)
+        print(text, end="")
+        return 0
+
+    with rec.span(f"utag.openapi.{a.openapi_cmd.replace('-', '_')}"):
+        rc = _run_readiness() if a.openapi_cmd == "agent-readiness" else _run()
+    rec.metric("utag_runs_total", 1, target=f"openapi-{a.openapi_cmd}")
+    rec.flush()
+    return rc
 
 
 
@@ -587,6 +679,14 @@ def main(argv: list[str] | None = None) -> int:
     ai_eval = aisub.add_parser("eval")
     ai_eval.add_argument("--suite", required=True)
     ai_eval.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai_call = aisub.add_parser("call")
+    ai_call.add_argument("--task", required=True)
+    ai_call.add_argument("--prompt-file", required=True)
+    ai_call.add_argument("--schema", required=True, help="schema kind the output must validate against")
+    ai_call.add_argument("--policy", default="policies/ai-router.yaml")
+    ai_call.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai_call.add_argument("--cache-dir", default="")
+    ai_call.add_argument("--out", default="")
     ai.set_defaults(fn=cmd_ai)
 
     ob = sub.add_parser("observe", help="run evidence: traces/events/metrics (JSONL store)")
@@ -612,17 +712,28 @@ def main(argv: list[str] | None = None) -> int:
     r_cov.add_argument("--out", default="reports/registry-coverage.md")
     r.set_defaults(fn=cmd_registry)
 
-    o = sub.add_parser("openapi", help="OpenAPI canonical pipeline tools")
+    o = sub.add_parser("openapi", help="OpenAPI pipeline: normalize/bundle/diff/overlay/lint/agent-readiness")
     osub = o.add_subparsers(dest="openapi_cmd", required=True)
-    osub.add_parser("normalize")
-    osub.add_parser("bundle")
-    osub.add_parser("diff")
-    
+    o_norm = osub.add_parser("normalize")
+    o_norm.add_argument("--path", required=True)
+    o_norm.add_argument("--out", default="out/openapi.normalized.json")
+    o_bundle = osub.add_parser("bundle")
+    o_bundle.add_argument("--path", required=True)
+    o_bundle.add_argument("--out", default="out/openapi.bundled.json")
+    o_diff = osub.add_parser("diff")
+    o_diff.add_argument("--old", required=True)
+    o_diff.add_argument("--new", required=True)
+    o_diff.add_argument("--out", default="")
     o_overlay = osub.add_parser("overlay")
     o_overlay.add_argument("action", choices=["apply"])
-    
-    osub.add_parser("lint")
-    osub.add_parser("agent-readiness")
+    o_overlay.add_argument("--path", required=True)
+    o_overlay.add_argument("--overlay", required=True)
+    o_overlay.add_argument("--out", default="out/openapi.overlaid.json")
+    o_lint = osub.add_parser("lint")
+    o_lint.add_argument("--path", required=True)
+    o_ready = osub.add_parser("agent-readiness")
+    o_ready.add_argument("--path", required=True)
+    o_ready.add_argument("--out", default="")
     o.set_defaults(fn=cmd_openapi)
     a = ap.parse_args(argv)
     return a.fn(a)

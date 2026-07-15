@@ -11,7 +11,7 @@ from utag_core.schemas.core import RegistryKind
 ROOT = Path(__file__).resolve().parents[2]
 
 EXPECTED = {"schema-drift", "design-build", "ui-snapshot", "observability-export",
-            "autoresearch-weekly", "release-gate", "ci"}
+            "autoresearch-weekly", "release-gate", "ci", "ui-build"}
 
 
 def test_all_expected_automations_present_and_valid():

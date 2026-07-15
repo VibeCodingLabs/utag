@@ -26,7 +26,8 @@ def golden_hash() -> str:
         "tools": "job_repo_audit"})
     design_mod = ModuleSpec(name="utag_console", description="design.yaml-derived",
                             provenance={"design_yaml": Path("design.yaml").read_text()})
-    design_targets = {"design-tokens-css", "tailwind-v4-theme", "react-component-library"}
+    design_targets = {"design-tokens-css", "tailwind-v4-theme", "typescript-contract-types",
+                      "design-fixtures", "react-component-library"}
     for fx in sorted(Path("fixtures/prompts").glob("*.yaml")):
         m = ingest_prompt_yaml(fx.read_text(), str(fx))
         for t in sorted(GENERATORS):

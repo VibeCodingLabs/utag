@@ -1,5 +1,5 @@
 id: utag-console
-version: 1.0.0
+version: 1.1.0
 brand:
   name: UTAG
   voice: verification-first
@@ -33,10 +33,13 @@ themes:
     bg: "#0b0d10"
     fg: "#e6e8ea"
 components:
+  - id: nav-sidebar
+    type: nav
   - id: run-status-card
     type: card
     props:
       title: Run status
+      resource: runs
     states: [idle, loading, error]
   - id: run-table
     type: table
@@ -46,15 +49,19 @@ components:
     type: panel
     props:
       resource: runs
+  - id: run-timeline
+    type: timeline
+    props:
+      resource: runs
+    states: [idle, loading]
   - id: validation-report-panel
     type: panel
     props:
       resource: validation-reports
-  - id: run-timeline
+  - id: schema-validation-inspector
     type: panel
     props:
-      resource: runs
-    states: [idle, loading]
+      resource: schema-reports
   - id: artifact-manifest-panel
     type: panel
     props:
@@ -64,11 +71,11 @@ components:
     props:
       resource: artifacts
   - id: generator-coverage-matrix
-    type: table
+    type: matrix
     props:
       resource: registry
   - id: provider-capability-matrix
-    type: table
+    type: matrix
     props:
       resource: ai-providers
   - id: mcp-tool-browser
@@ -76,7 +83,7 @@ components:
     props:
       resource: mcp-tools
   - id: arazzo-workflow-graph
-    type: panel
+    type: graph
     props:
       resource: workflows
   - id: openapi-operation-explorer
@@ -84,27 +91,23 @@ components:
     props:
       resource: openapi-operations
   - id: design-token-explorer
-    type: table
+    type: panel
     props:
       resource: design-tokens
   - id: autoresearch-task-board
-    type: panel
+    type: board
     props:
       resource: autoresearch-tasks
   - id: cost-latency-chart
-    type: panel
+    type: chart
     props:
-      resource: model-calls
+      resource: metrics
   - id: model-call-trace-panel
     type: panel
     props:
       resource: model-calls
-  - id: schema-validation-inspector
-    type: panel
-    props:
-      resource: schema-reports
   - id: queue-dlq-panel
-    type: panel
+    type: board
     props:
       resource: jobs
   - id: policy-settings-panel
@@ -167,7 +170,24 @@ interactions:
 data:
   resources: [runs, validation-reports, artifacts, registry, ai-providers,
               mcp-tools, workflows, openapi-operations, design-tokens,
-              autoresearch-tasks, model-calls, schema-reports, jobs, policies]
+              autoresearch-tasks, model-calls, metrics, schema-reports,
+              jobs, policies]
+  contracts:
+    runs: run-trace
+    validation-reports: validation-report
+    schema-reports: validation-report
+    artifacts: artifact-manifest
+    registry: generator-manifest
+    ai-providers: ai-provider-manifest
+    mcp-tools: mcp-tool-contract
+    workflows: autoresearch-plan
+    openapi-operations: open-api-operation
+    design-tokens: css-variable-manifest
+    autoresearch-tasks: autoresearch-task
+    model-calls: model-call-trace
+    metrics: metric-point
+    jobs: worker-job-trace
+    policies: model-router-policy
 accessibility:
   minContrast: AA
   keyboardRequired: true

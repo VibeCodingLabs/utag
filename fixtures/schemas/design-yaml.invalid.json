@@ -20,6 +20,9 @@
     }
   ],
   "data": {
+    "contracts": {
+      "runs": "run-trace"
+    },
     "resources": [
       "runs"
     ]

@@ -1,0 +1,79 @@
+{
+  "$defs": {
+    "HttpMethod": {
+      "enum": [
+        "get",
+        "put",
+        "post",
+        "delete",
+        "options",
+        "head",
+        "patch",
+        "trace"
+      ],
+      "title": "HttpMethod",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/open-api-operation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "has_request_schema": {
+      "default": false,
+      "title": "Has Request Schema",
+      "type": "boolean"
+    },
+    "has_response_schema": {
+      "default": false,
+      "title": "Has Response Schema",
+      "type": "boolean"
+    },
+    "method": {
+      "$ref": "#/$defs/HttpMethod"
+    },
+    "operation_id": {
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "path": {
+      "pattern": "^/",
+      "title": "Path",
+      "type": "string"
+    },
+    "summary": {
+      "default": "",
+      "title": "Summary",
+      "type": "string"
+    },
+    "tags": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "operation_id",
+    "method",
+    "path"
+  ],
+  "title": "OpenApiOperation",
+  "type": "object"
+}

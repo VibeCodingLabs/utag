@@ -1,0 +1,10 @@
+overlay: 1.0.0
+info:
+  title: Retitle + drop POST /pets
+actions:
+  - target: $.info
+    update:
+      title: Petstore (Partner Edition)
+      x-audience: partners
+  - target: $.paths['/pets'].post
+    remove: true

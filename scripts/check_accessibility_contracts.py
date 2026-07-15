@@ -22,11 +22,15 @@ if __name__ == "__main__":
     files = get_generator("react-component-library").generate(module)
     problems = []
     for rel, content in sorted(files.items()):
-        # routes are compositions; their layouts/components carry the labels
-        if not rel.startswith("generated/routes/") and "aria-label" not in content:
+        # routes compose labeled components; hooks are logic, not UI
+        if rel.startswith(("generated/routes/", "generated/hooks/")):
+            continue
+        if "aria-label" not in content:
             problems.append(f"{rel}: no aria-label")
+        # links (<NavLink>) and table rows are natively/explicitly focusable
         if design.accessibility.keyboardRequired and rel.startswith("generated/components/") \
-                and "tabIndex" not in content and "<table" not in content:
+                and "tabIndex" not in content and "<table" not in content \
+                and "NavLink" not in content:
             problems.append(f"{rel}: keyboardRequired but no tabIndex")
     for p in problems:
         print(f"FAIL {p}", file=sys.stderr)

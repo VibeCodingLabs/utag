@@ -53,7 +53,14 @@ def test_generated_ui_and_accessibility_gates():
 
 
 def test_generated_ui_typechecks(tmp_path):
-    """Capability-gated like the tsc validator: skips (visibly) without npx."""
+    """Real `npm run typecheck` when the UI package is installed; otherwise a
+    capability-gated scratch tsc check (repo convention: TS2307 tolerated)."""
+    ui = ROOT / "packages" / "ui"
+    if shutil.which("npm") and (ui / "node_modules").is_dir():
+        proc = subprocess.run(["npm", "run", "typecheck"], cwd=ui,
+                              capture_output=True, text=True, timeout=600)
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        return
     if shutil.which("npx") is None:
         pytest.skip("npx unavailable — typecheck gate skipped")
     rc, _ = run_cli("design", "components", "--input", str(ROOT / "design.yaml"), "--out", str(tmp_path))
@@ -65,15 +72,28 @@ def test_generated_ui_typechecks(tmp_path):
     shim.write_text(
         'declare module "react" {\n'
         "  export type ReactNode = unknown;\n"
-        "  const React: { createElement: (...args: unknown[]) => unknown };\n"
+        "  export type Context<T> = { Provider: (props: { value: T; children?: unknown }) => unknown };\n"
+        "  const React: {\n"
+        "    createElement: (...args: unknown[]) => unknown;\n"
+        "    createContext: <T>(v: T) => Context<T>;\n"
+        "    useContext: <T>(c: Context<T>) => T;\n"
+        "    useState: <T>(v: T) => [T, (f: (prev: T) => T) => void];\n"
+        "  };\n"
         "  export default React;\n"
         "}\n"
-        "declare namespace React { type ReactNode = unknown; }\n"
+        'declare module "react-router-dom" {\n'
+        "  export const NavLink: (props: { to: string; children?: unknown }) => unknown;\n"
+        "}\n"
+        "declare namespace React {\n"
+        "  type ReactNode = unknown;\n"
+        "  type Context<T> = { Provider: (props: { value: T; children?: unknown }) => unknown };\n"
+        "}\n"
         "declare namespace JSX {\n"
         "  interface IntrinsicElements { [element: string]: Record<string, unknown>; }\n"
         "  type Element = unknown;\n"
         "}\n")
-    files = [str(shim)] + [str(p) for p in tmp_path.rglob("*.tsx")]
+    files = [str(shim)] + [str(p) for p in tmp_path.rglob("*.tsx")] \
+        + [str(p) for p in tmp_path.rglob("*.ts") if not p.name.endswith(".d.ts")]
     proc = subprocess.run(
         ["npx", "-y", "-p", "typescript", "tsc", "--noEmit", "--jsx", "react",
          "--esModuleInterop", "--strict", "--skipLibCheck", *files],

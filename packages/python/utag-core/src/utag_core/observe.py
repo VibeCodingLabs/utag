@@ -19,7 +19,8 @@ from utag_core.schemas import SCHEMAS
 from utag_core.schemas.observability import MetricPoint, RunEvent, RunSpan, RunTrace
 
 _OBSERVE_KINDS = ("run-trace", "run-span", "run-event", "metric-point", "log-record",
-                  "cost-metric", "model-call-trace", "worker-job-trace", "validation-trace")
+                  "cost-metric", "model-call-trace", "worker-job-trace", "validation-trace",
+                  "prompt-run")
 
 
 def store_dir() -> Path:
@@ -34,6 +35,7 @@ class Recorder:
         self.spans: list[RunSpan] = []
         self.events: list[RunEvent] = []
         self.metrics: list[MetricPoint] = []
+        self.records: list[tuple[str, object]] = []  # (kind, schema instance)
         self._stack: list[str] = []
 
     def _now_ms(self) -> float:
@@ -62,6 +64,13 @@ class Recorder:
         self.metrics.append(MetricPoint(name=name, value=value,
                                         labels={k: str(v) for k, v in labels.items()}))
 
+    def record(self, kind: str, instance) -> None:
+        """Attach a typed evidence record (e.g. model-call-trace, prompt-run)."""
+        if kind not in _OBSERVE_KINDS:
+            raise ValueError(f"{kind!r} is not an observability evidence kind; known: {_OBSERVE_KINDS}")
+        SCHEMAS[kind].model_validate(instance.model_dump())
+        self.records.append((kind, instance))
+
     def trace(self) -> RunTrace:
         return RunTrace(run_id=self.run_id, spans=self.spans)
 
@@ -72,6 +81,8 @@ class Recorder:
                              sort_keys=True) for e in self.events]
         lines += [json.dumps({"kind": "metric-point", "record": m.model_dump(exclude_none=True)},
                              sort_keys=True) for m in self.metrics]
+        lines += [json.dumps({"kind": kind, "record": r.model_dump(exclude_none=True, mode="json")},
+                             sort_keys=True) for kind, r in self.records]
         return "\n".join(lines) + "\n"
 
     def flush(self, directory: Path | None = None) -> Path:
