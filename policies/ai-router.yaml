@@ -1,0 +1,10 @@
+# Router policies (validated against model-router-policy schema).
+policies:
+  - task_kind: generate-openapi
+    require_structured_output: true
+    max_cost_usd: 0.10
+    allow_fallback: false
+  - task_kind: offline-smoke
+    local_only: true
+    no_network: true
+    allow_fallback: true

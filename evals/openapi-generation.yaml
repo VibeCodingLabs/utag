@@ -1,0 +1,9 @@
+# Eval suite (cases validate against eval-case schema). Runs offline against
+# the FakeProviderAdapter; live-provider evals are an explicit adapter slot.
+cases:
+  - id: echo-roundtrip
+    input: generate a pet-store client
+    expected: generate a pet-store client
+  - id: echo-marker
+    input: emit openapi 3.1 for the runs API
+    expected: fake-completion

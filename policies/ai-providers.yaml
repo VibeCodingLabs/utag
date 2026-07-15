@@ -1,0 +1,24 @@
+# Checked-in provider manifests (validated against ai-provider-manifest schema).
+# Live catalog browsing stays in `utag models`; this file is what the router
+# is allowed to route to, offline and deterministic.
+providers:
+  - id: anthropic
+    name: Anthropic
+    env_credentials: [ANTHROPIC_API_KEY]
+    models:
+      - id: claude-sonnet-4-6
+        context_tokens: 200000
+        output_tokens: 64000
+        structured_output: true
+        tool_call: true
+        reasoning: true
+  - id: fake-local
+    name: Fake local adapter (deterministic, offline)
+    extensions:
+      local: true
+    models:
+      - id: fake-echo
+        context_tokens: 100000
+        output_tokens: 100000
+        structured_output: false
+        tool_call: false

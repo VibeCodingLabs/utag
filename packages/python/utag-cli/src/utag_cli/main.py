@@ -250,6 +250,62 @@ def cmd_design(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ai(a: argparse.Namespace) -> int:
+    from utag_core.ai import ModelRouter, RoutingError, load_policies, load_providers, router
+
+    providers_path = Path(getattr(a, "providers", "") or "policies/ai-providers.yaml")
+    providers = load_providers(providers_path)
+    if a.ai_cmd == "providers":
+        for p in providers:
+            local = " (local)" if (p.extensions or {}).get("local") else ""
+            print(f"{p.id:<12} {p.name}{local}  models={len(p.models)}")
+        return 0
+    if a.ai_cmd == "models":
+        for p in providers:
+            for m in p.models:
+                flags = "".join(c for c, on in (("S", m.structured_output), ("T", m.tool_call),
+                                                ("R", m.reasoning)) if on)
+                print(f"{p.id}/{m.id:<20} ctx {m.context_tokens // 1000}k  {flags}")
+        return 0
+    if a.ai_cmd == "route":
+        policies = load_policies(Path(a.policy))
+        matches = [p for p in policies if p.task_kind == a.task]
+        if not matches:
+            print(f"no policy for task {a.task!r} in {a.policy}", file=sys.stderr)
+            return 1
+        try:
+            decision = ModelRouter(providers).route(matches[0])
+        except RoutingError as e:
+            print(f"routing denied: {e}", file=sys.stderr)
+            return 1
+        print(decision.to_json())
+        return 0
+    if a.ai_cmd == "eval":
+        results = router.run_eval_suite(Path(a.suite))
+        for r in results:
+            print(f"{'PASS' if r.passed else 'FAIL'} {r.case_id} score={r.score}")
+        failed = sum(1 for r in results if not r.passed)
+        print(f"eval: {len(results)} case(s), {failed} failed (adapter: fake-local, offline)")
+        return 1 if failed else 0
+    if a.ai_cmd == "doctor":
+        problems = []
+        for pol_path in (Path("policies/ai-router.yaml"),):
+            try:
+                for pol in load_policies(pol_path):
+                    try:
+                        ModelRouter(providers).route(pol)
+                    except RoutingError as e:
+                        problems.append(f"{pol.task_kind}: unroutable: {e}")
+            except Exception as e:  # noqa: BLE001
+                problems.append(f"{pol_path}: {e}")
+        for p in problems:
+            print(f"FAIL {p}", file=sys.stderr)
+        print(f"ai doctor: {len(providers)} provider(s), {len(problems)} problem(s)")
+        return 1 if problems else 0
+    print("unknown ai command", file=sys.stderr)
+    return 1
+
+
 def cmd_observe(a: argparse.Namespace) -> int:
     from utag_core import observe
 
@@ -406,6 +462,20 @@ def main(argv: list[str] | None = None) -> int:
         if default_out:
             dp.add_argument("--out", default=default_out)
     d.set_defaults(fn=cmd_design)
+
+    ai = sub.add_parser("ai", help="governed AI layer: providers/models/route/eval/doctor (offline)")
+    aisub = ai.add_subparsers(dest="ai_cmd", required=True)
+    for name in ("providers", "models", "doctor"):
+        ap_ = aisub.add_parser(name)
+        ap_.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai_route = aisub.add_parser("route")
+    ai_route.add_argument("--task", required=True)
+    ai_route.add_argument("--policy", default="policies/ai-router.yaml")
+    ai_route.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai_eval = aisub.add_parser("eval")
+    ai_eval.add_argument("--suite", required=True)
+    ai_eval.add_argument("--providers", default="policies/ai-providers.yaml")
+    ai.set_defaults(fn=cmd_ai)
 
     ob = sub.add_parser("observe", help="run evidence: traces/events/metrics (JSONL store)")
     obsub = ob.add_subparsers(dest="observe_cmd", required=True)
