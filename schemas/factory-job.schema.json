@@ -1,0 +1,243 @@
+{
+  "$defs": {
+    "FailureClass": {
+      "enum": [
+        "provider_rate_limit",
+        "provider_timeout",
+        "worker_lost",
+        "transient_network",
+        "resource_temporarily_unavailable",
+        "schema_invalid",
+        "permission_denied",
+        "unsupported_capability",
+        "deterministic_failure_repeated"
+      ],
+      "title": "FailureClass",
+      "type": "string"
+    },
+    "Isolation": {
+      "enum": [
+        "process",
+        "bwrap",
+        "firecracker",
+        "remote-flash"
+      ],
+      "title": "Isolation",
+      "type": "string"
+    },
+    "JobKind": {
+      "enum": [
+        "run-python",
+        "generate-artifact",
+        "agent-task",
+        "embed"
+      ],
+      "title": "JobKind",
+      "type": "string"
+    },
+    "JobStatus": {
+      "enum": [
+        "queued",
+        "claimed",
+        "running",
+        "succeeded",
+        "failed",
+        "dead-letter",
+        "cancelled"
+      ],
+      "title": "JobStatus",
+      "type": "string"
+    },
+    "ResourceContract": {
+      "additionalProperties": false,
+      "description": "Per-job resource limits (wolfram-kb principle: every expensive job carries one).",
+      "properties": {
+        "allow_remote": {
+          "default": false,
+          "title": "Allow Remote",
+          "type": "boolean"
+        },
+        "concurrency_class": {
+          "default": "default",
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Concurrency Class",
+          "type": "string"
+        },
+        "degradation_policy": {
+          "default": "fail",
+          "pattern": "^(fail|queue|degrade)$",
+          "title": "Degradation Policy",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "max_memory_bytes": {
+          "minimum": 1,
+          "title": "Max Memory Bytes",
+          "type": "integer"
+        },
+        "max_output_bytes": {
+          "minimum": 1,
+          "title": "Max Output Bytes",
+          "type": "integer"
+        },
+        "max_vram_bytes": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Max Vram Bytes",
+          "type": "integer"
+        },
+        "max_wall_time_s": {
+          "minimum": 1,
+          "title": "Max Wall Time S",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_memory_bytes",
+        "max_wall_time_s",
+        "max_output_bytes"
+      ],
+      "title": "ResourceContract",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/factory-job.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attempts": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Attempts",
+      "type": "integer"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}",
+      "title": "Created At",
+      "type": "string"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "failure_class": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FailureClass"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "failure_fingerprint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Fingerprint"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "isolation": {
+      "$ref": "#/$defs/Isolation"
+    },
+    "kind": {
+      "$ref": "#/$defs/JobKind"
+    },
+    "max_attempts": {
+      "default": 3,
+      "minimum": 1,
+      "title": "Max Attempts",
+      "type": "integer"
+    },
+    "payload_ref": {
+      "minLength": 1,
+      "title": "Payload Ref",
+      "type": "string"
+    },
+    "payload_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Payload Sha256",
+      "type": "string"
+    },
+    "resources": {
+      "$ref": "#/$defs/ResourceContract"
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Run Id"
+    },
+    "status": {
+      "$ref": "#/$defs/JobStatus"
+    },
+    "updated_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "worker": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Worker"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "status",
+    "payload_ref",
+    "payload_sha256",
+    "resources",
+    "isolation",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "FactoryJob",
+  "type": "object"
+}

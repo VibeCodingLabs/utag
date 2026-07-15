@@ -1,0 +1,1265 @@
+{
+  "$defs": {
+    "AdapterTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "generate_from_policy": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generate From Policy"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "title": "AdapterTarget",
+      "type": "object"
+    },
+    "Backoff": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "initial": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Initial",
+          "type": "string"
+        },
+        "maximum": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Maximum",
+          "type": "string"
+        },
+        "strategy": {
+          "pattern": "^exponential_jitter$",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "strategy",
+        "initial",
+        "maximum"
+      ],
+      "title": "Backoff",
+      "type": "object"
+    },
+    "CacheConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "exact": {
+          "$ref": "#/$defs/ExactCache"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "semantic": {
+          "$ref": "#/$defs/SemanticCache"
+        }
+      },
+      "required": [
+        "exact",
+        "semantic"
+      ],
+      "title": "CacheConfig",
+      "type": "object"
+    },
+    "DlqPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "evaluator_requeue_requires": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evaluator Requeue Requires",
+          "type": "array"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "include": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Include",
+          "type": "array"
+        },
+        "stream_ref": {
+          "title": "Stream Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "stream_ref",
+        "include",
+        "evaluator_requeue_requires"
+      ],
+      "title": "DlqPolicy",
+      "type": "object"
+    },
+    "ExactCache": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "provider": {
+          "pattern": "^redis$",
+          "title": "Provider",
+          "type": "string"
+        },
+        "ttl": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Ttl",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "ttl"
+      ],
+      "title": "ExactCache",
+      "type": "object"
+    },
+    "ExecutionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_isolation": {
+          "items": {
+            "$ref": "#/$defs/Isolation"
+          },
+          "title": "Allowed Isolation",
+          "type": "array"
+        },
+        "default_isolation": {
+          "$ref": "#/$defs/Isolation"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "hard_kill_after": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Hard Kill After",
+          "type": "string"
+        },
+        "job_timeout": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Job Timeout",
+          "type": "string"
+        },
+        "resource_contract_required": {
+          "title": "Resource Contract Required",
+          "type": "boolean"
+        },
+        "supervisor": {
+          "pattern": "^(python|go)$",
+          "title": "Supervisor",
+          "type": "string"
+        },
+        "worker_shutdown_grace": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Worker Shutdown Grace",
+          "type": "string"
+        }
+      },
+      "required": [
+        "supervisor",
+        "default_isolation",
+        "allowed_isolation",
+        "worker_shutdown_grace",
+        "hard_kill_after",
+        "job_timeout",
+        "resource_contract_required"
+      ],
+      "title": "ExecutionConfig",
+      "type": "object"
+    },
+    "FailureClass": {
+      "enum": [
+        "provider_rate_limit",
+        "provider_timeout",
+        "worker_lost",
+        "transient_network",
+        "resource_temporarily_unavailable",
+        "schema_invalid",
+        "permission_denied",
+        "unsupported_capability",
+        "deterministic_failure_repeated"
+      ],
+      "title": "FailureClass",
+      "type": "string"
+    },
+    "Isolation": {
+      "enum": [
+        "process",
+        "bwrap",
+        "firecracker",
+        "remote-flash"
+      ],
+      "title": "Isolation",
+      "type": "string"
+    },
+    "ObservabilityConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "event_stream_ref": {
+          "title": "Event Stream Ref",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "metrics": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Metrics",
+          "type": "array"
+        },
+        "structured_logs": {
+          "title": "Structured Logs",
+          "type": "boolean"
+        },
+        "trace_propagation": {
+          "title": "Trace Propagation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "metrics",
+        "structured_logs",
+        "trace_propagation",
+        "event_stream_ref"
+      ],
+      "title": "ObservabilityConfig",
+      "type": "object"
+    },
+    "QueueConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "connection_env": {
+          "pattern": "^[A-Z][A-Z0-9_]+$",
+          "title": "Connection Env",
+          "type": "string"
+        },
+        "consumer_group": {
+          "title": "Consumer Group",
+          "type": "string"
+        },
+        "consumer_name_template": {
+          "title": "Consumer Name Template",
+          "type": "string"
+        },
+        "delivery": {
+          "pattern": "^at_least_once$",
+          "title": "Delivery",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "pointers_only": {
+          "title": "Pointers Only",
+          "type": "boolean"
+        },
+        "provider": {
+          "pattern": "^redis_streams$",
+          "title": "Provider",
+          "type": "string"
+        },
+        "read": {
+          "$ref": "#/$defs/QueueRead"
+        },
+        "recovery": {
+          "$ref": "#/$defs/QueueRecovery"
+        },
+        "retention": {
+          "$ref": "#/$defs/QueueRetention"
+        },
+        "streams": {
+          "$ref": "#/$defs/QueueStreams"
+        }
+      },
+      "required": [
+        "provider",
+        "connection_env",
+        "streams",
+        "consumer_group",
+        "consumer_name_template",
+        "delivery",
+        "pointers_only",
+        "read",
+        "recovery",
+        "retention"
+      ],
+      "title": "QueueConfig",
+      "type": "object"
+    },
+    "QueueRead": {
+      "additionalProperties": false,
+      "properties": {
+        "batch_size": {
+          "minimum": 1,
+          "title": "Batch Size",
+          "type": "integer"
+        },
+        "block_timeout": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Block Timeout",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        }
+      },
+      "required": [
+        "batch_size",
+        "block_timeout"
+      ],
+      "title": "QueueRead",
+      "type": "object"
+    },
+    "QueueRecovery": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_command": {
+          "pattern": "^XAUTOCLAIM$",
+          "title": "Claim Command",
+          "type": "string"
+        },
+        "claim_idle_after": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Claim Idle After",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "reclaim_interval": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Reclaim Interval",
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim_command",
+        "claim_idle_after",
+        "reclaim_interval"
+      ],
+      "title": "QueueRecovery",
+      "type": "object"
+    },
+    "QueueRetention": {
+      "additionalProperties": false,
+      "properties": {
+        "approximate_max_entries": {
+          "minimum": 1,
+          "title": "Approximate Max Entries",
+          "type": "integer"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        }
+      },
+      "required": [
+        "approximate_max_entries"
+      ],
+      "title": "QueueRetention",
+      "type": "object"
+    },
+    "QueueStreams": {
+      "additionalProperties": false,
+      "properties": {
+        "dead_letters": {
+          "title": "Dead Letters",
+          "type": "string"
+        },
+        "evals": {
+          "title": "Evals",
+          "type": "string"
+        },
+        "events": {
+          "title": "Events",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "ingest": {
+          "title": "Ingest",
+          "type": "string"
+        },
+        "jobs": {
+          "title": "Jobs",
+          "type": "string"
+        },
+        "validate": {
+          "title": "Validate",
+          "type": "string"
+        }
+      },
+      "required": [
+        "jobs",
+        "ingest",
+        "validate",
+        "evals",
+        "events",
+        "dead_letters"
+      ],
+      "title": "QueueStreams",
+      "type": "object"
+    },
+    "RetryPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "backoff": {
+          "$ref": "#/$defs/Backoff"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "maximum_attempts": {
+          "minimum": 1,
+          "title": "Maximum Attempts",
+          "type": "integer"
+        },
+        "retryable": {
+          "items": {
+            "$ref": "#/$defs/FailureClass"
+          },
+          "minItems": 1,
+          "title": "Retryable",
+          "type": "array"
+        },
+        "terminal": {
+          "items": {
+            "$ref": "#/$defs/FailureClass"
+          },
+          "minItems": 1,
+          "title": "Terminal",
+          "type": "array"
+        }
+      },
+      "required": [
+        "maximum_attempts",
+        "backoff",
+        "retryable",
+        "terminal"
+      ],
+      "title": "RetryPolicy",
+      "type": "object"
+    },
+    "ScalingConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "desired_workers": {
+          "minLength": 1,
+          "title": "Desired Workers",
+          "type": "string"
+        },
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "guardrails": {
+          "$ref": "#/$defs/ScalingGuardrails"
+        },
+        "poll_interval": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Poll Interval",
+          "type": "string"
+        },
+        "scale_to_zero": {
+          "title": "Scale To Zero",
+          "type": "boolean"
+        },
+        "signals": {
+          "items": {
+            "$ref": "#/$defs/ScalingSignal"
+          },
+          "title": "Signals",
+          "type": "array"
+        },
+        "stabilization": {
+          "$ref": "#/$defs/Stabilization"
+        },
+        "step_limits": {
+          "$ref": "#/$defs/StepLimits"
+        },
+        "target_jobs_per_worker": {
+          "minimum": 1,
+          "title": "Target Jobs Per Worker",
+          "type": "integer"
+        },
+        "target_oldest_job_age": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Target Oldest Job Age",
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "scale_to_zero",
+        "poll_interval",
+        "target_jobs_per_worker",
+        "target_oldest_job_age",
+        "stabilization",
+        "step_limits",
+        "signals",
+        "desired_workers",
+        "guardrails"
+      ],
+      "title": "ScalingConfig",
+      "type": "object"
+    },
+    "ScalingGuardrails": {
+      "additionalProperties": false,
+      "properties": {
+        "drain_before_scale_down": {
+          "title": "Drain Before Scale Down",
+          "type": "boolean"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "maximum_failure_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Maximum Failure Rate",
+          "type": "number"
+        },
+        "preserve_inflight_checkpoints": {
+          "title": "Preserve Inflight Checkpoints",
+          "type": "boolean"
+        },
+        "refuse_scale_up_when_memory_below_reserve": {
+          "title": "Refuse Scale Up When Memory Below Reserve",
+          "type": "boolean"
+        },
+        "refuse_scale_up_when_vram_below_reserve": {
+          "title": "Refuse Scale Up When Vram Below Reserve",
+          "type": "boolean"
+        },
+        "stop_claiming_before_oom": {
+          "title": "Stop Claiming Before Oom",
+          "type": "boolean"
+        },
+        "terminate_only_idle_workers": {
+          "title": "Terminate Only Idle Workers",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "refuse_scale_up_when_memory_below_reserve",
+        "refuse_scale_up_when_vram_below_reserve",
+        "stop_claiming_before_oom",
+        "drain_before_scale_down",
+        "terminate_only_idle_workers",
+        "preserve_inflight_checkpoints",
+        "maximum_failure_rate"
+      ],
+      "title": "ScalingGuardrails",
+      "type": "object"
+    },
+    "ScalingSignal": {
+      "enum": [
+        "queue_depth",
+        "pending_entries",
+        "oldest_job_age",
+        "worker_utilization",
+        "available_memory",
+        "available_vram",
+        "recent_failure_rate"
+      ],
+      "title": "ScalingSignal",
+      "type": "string"
+    },
+    "SelectionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "active_profile_env": {
+          "pattern": "^[A-Z][A-Z0-9_]+$",
+          "title": "Active Profile Env",
+          "type": "string"
+        },
+        "default_profile": {
+          "pattern": "^[a-z0-9_]+$",
+          "title": "Default Profile",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        }
+      },
+      "required": [
+        "active_profile_env",
+        "default_profile"
+      ],
+      "title": "SelectionConfig",
+      "type": "object"
+    },
+    "SemanticCache": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "key_material": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Key Material",
+          "type": "array"
+        },
+        "provider_ref": {
+          "title": "Provider Ref",
+          "type": "string"
+        },
+        "similarity_threshold": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Similarity Threshold",
+          "type": "number"
+        },
+        "ttl": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Ttl",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_ref",
+        "similarity_threshold",
+        "ttl",
+        "key_material"
+      ],
+      "title": "SemanticCache",
+      "type": "object"
+    },
+    "Stabilization": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "scale_down": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Scale Down",
+          "type": "string"
+        },
+        "scale_up": {
+          "pattern": "^\\d+(ms|s|m|h)$",
+          "title": "Scale Up",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scale_up",
+        "scale_down"
+      ],
+      "title": "Stabilization",
+      "type": "object"
+    },
+    "StateConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_store": {
+          "$ref": "#/$defs/StatePort"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "job_store": {
+          "$ref": "#/$defs/StatePort"
+        },
+        "vector_store": {
+          "$ref": "#/$defs/StatePort"
+        }
+      },
+      "required": [
+        "job_store",
+        "vector_store",
+        "artifact_store"
+      ],
+      "title": "StateConfig",
+      "type": "object"
+    },
+    "StatePort": {
+      "additionalProperties": false,
+      "properties": {
+        "default_provider": {
+          "title": "Default Provider",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "port": {
+          "pattern": "^[A-Za-z]+Port$",
+          "title": "Port",
+          "type": "string"
+        },
+        "provider_env": {
+          "pattern": "^[A-Z][A-Z0-9_]+$",
+          "title": "Provider Env",
+          "type": "string"
+        },
+        "supported_providers": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Supported Providers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "port",
+        "provider_env",
+        "default_provider",
+        "supported_providers"
+      ],
+      "title": "StatePort",
+      "type": "object"
+    },
+    "StepLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "maximum_add_per_interval": {
+          "minimum": 1,
+          "title": "Maximum Add Per Interval",
+          "type": "integer"
+        },
+        "maximum_remove_per_interval": {
+          "minimum": 1,
+          "title": "Maximum Remove Per Interval",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "maximum_add_per_interval",
+        "maximum_remove_per_interval"
+      ],
+      "title": "StepLimits",
+      "type": "object"
+    },
+    "TemplateMeta": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9._/-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "status": {
+          "pattern": "^(draft|canonical)$",
+          "title": "Status",
+          "type": "string"
+        },
+        "strict": {
+          "title": "Strict",
+          "type": "boolean"
+        },
+        "unknown_fields": {
+          "pattern": "^reject$",
+          "title": "Unknown Fields",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "status",
+        "strict",
+        "unknown_fields"
+      ],
+      "title": "TemplateMeta",
+      "type": "object"
+    },
+    "ValidationRequirements": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "require_determinism_test": {
+          "title": "Require Determinism Test",
+          "type": "boolean"
+        },
+        "require_dlq_for_at_least_once_delivery": {
+          "title": "Require Dlq For At Least Once Delivery",
+          "type": "boolean"
+        },
+        "require_profile_resource_limits": {
+          "title": "Require Profile Resource Limits",
+          "type": "boolean"
+        },
+        "require_scale_down_drain": {
+          "title": "Require Scale Down Drain",
+          "type": "boolean"
+        },
+        "require_schema_validation": {
+          "title": "Require Schema Validation",
+          "type": "boolean"
+        },
+        "require_unknown_field_rejection": {
+          "title": "Require Unknown Field Rejection",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "require_schema_validation",
+        "require_unknown_field_rejection",
+        "require_profile_resource_limits",
+        "require_dlq_for_at_least_once_delivery",
+        "require_scale_down_drain",
+        "require_determinism_test"
+      ],
+      "title": "ValidationRequirements",
+      "type": "object"
+    },
+    "WorkerProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extensions"
+        },
+        "max_embedding_workers": {
+          "minimum": 0,
+          "title": "Max Embedding Workers",
+          "type": "integer"
+        },
+        "max_firecracker_vms": {
+          "minimum": 0,
+          "title": "Max Firecracker Vms",
+          "type": "integer"
+        },
+        "max_llm_workers": {
+          "minimum": 0,
+          "title": "Max Llm Workers",
+          "type": "integer"
+        },
+        "max_wolfram_kernels": {
+          "minimum": 0,
+          "title": "Max Wolfram Kernels",
+          "type": "integer"
+        },
+        "max_workers": {
+          "minimum": 1,
+          "title": "Max Workers",
+          "type": "integer"
+        },
+        "memory_reserve": {
+          "pattern": "^\\d+(B|KiB|MiB|GiB)$",
+          "title": "Memory Reserve",
+          "type": "string"
+        },
+        "min_workers": {
+          "minimum": 0,
+          "title": "Min Workers",
+          "type": "integer"
+        },
+        "prefer_remote_over_local_when_oom_risk": {
+          "title": "Prefer Remote Over Local When Oom Risk",
+          "type": "boolean"
+        },
+        "vram_reserve": {
+          "pattern": "^\\d+(B|KiB|MiB|GiB)$",
+          "title": "Vram Reserve",
+          "type": "string"
+        },
+        "worker_cpu_limit": {
+          "minimum": 1,
+          "title": "Worker Cpu Limit",
+          "type": "integer"
+        },
+        "worker_memory_limit": {
+          "pattern": "^\\d+(B|KiB|MiB|GiB)$",
+          "title": "Worker Memory Limit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "min_workers",
+        "max_workers",
+        "max_llm_workers",
+        "max_embedding_workers",
+        "max_wolfram_kernels",
+        "max_firecracker_vms",
+        "memory_reserve",
+        "vram_reserve",
+        "worker_memory_limit",
+        "worker_cpu_limit",
+        "prefer_remote_over_local_when_oom_risk"
+      ],
+      "title": "WorkerProfile",
+      "type": "object"
+    }
+  },
+  "$id": "https://utag.dev/schemas/autoscaling-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapter_targets": {
+      "additionalProperties": {
+        "$ref": "#/$defs/AdapterTarget"
+      },
+      "title": "Adapter Targets",
+      "type": "object"
+    },
+    "cache": {
+      "$ref": "#/$defs/CacheConfig"
+    },
+    "dead_letter_queue": {
+      "$ref": "#/$defs/DlqPolicy"
+    },
+    "execution": {
+      "$ref": "#/$defs/ExecutionConfig"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "observability": {
+      "$ref": "#/$defs/ObservabilityConfig"
+    },
+    "profiles": {
+      "additionalProperties": {
+        "$ref": "#/$defs/WorkerProfile"
+      },
+      "minProperties": 1,
+      "title": "Profiles",
+      "type": "object"
+    },
+    "queue": {
+      "$ref": "#/$defs/QueueConfig"
+    },
+    "retries": {
+      "$ref": "#/$defs/RetryPolicy"
+    },
+    "scaling": {
+      "$ref": "#/$defs/ScalingConfig"
+    },
+    "selection": {
+      "$ref": "#/$defs/SelectionConfig"
+    },
+    "state": {
+      "$ref": "#/$defs/StateConfig"
+    },
+    "template": {
+      "$ref": "#/$defs/TemplateMeta"
+    },
+    "validation": {
+      "$ref": "#/$defs/ValidationRequirements"
+    }
+  },
+  "required": [
+    "template",
+    "selection",
+    "queue",
+    "scaling",
+    "execution",
+    "profiles",
+    "state",
+    "cache",
+    "retries",
+    "dead_letter_queue",
+    "observability",
+    "adapter_targets",
+    "validation"
+  ],
+  "title": "AutoscalingProfile",
+  "type": "object"
+}

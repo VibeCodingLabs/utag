@@ -1,0 +1,13 @@
+{
+  "__unknown_property__": true,
+  "attempts": 3,
+  "failure_class": "provider_timeout",
+  "failure_fingerprint": "timeout:run-python:step-2",
+  "original_job_pointer": "jobs/job-0001.json",
+  "provider_history": [
+    "fake-local"
+  ],
+  "resource_usage": {
+    "memory_bytes": 1024.0
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "adapter_targets": {
+    "keda_scaled_object": {
+      "enabled": false,
+      "generate_from_policy": true
+    },
+    "local_python_supervisor": {
+      "enabled": true
+    },
+    "systemd_transient_units": {
+      "enabled": true
+    }
+  },
+  "cache": {
+    "exact": {
+      "provider": "redis",
+      "ttl": "15m"
+    },
+    "semantic": {
+      "key_material": [
+        "normalized_input_digest",
+        "model_id"
+      ],
+      "provider_ref": "state.vector_store",
+      "similarity_threshold": 0.94,
+      "ttl": "24h"
+    }
+  },
+  "dead_letter_queue": {
+    "enabled": true,
+    "evaluator_requeue_requires": [
+      "validated_overlay",
+      "new_attempt_budget"
+    ],
+    "include": [
+      "original_job_pointer",
+      "attempts",
+      "failure_fingerprint"
+    ],
+    "stream_ref": "queue.streams.dead_letters"
+  },
+  "execution": {
+    "allowed_isolation": [
+      "process",
+      "bwrap"
+    ],
+    "default_isolation": "bwrap",
+    "hard_kill_after": "45s",
+    "job_timeout": "15m",
+    "resource_contract_required": true,
+    "supervisor": "python",
+    "worker_shutdown_grace": "30s"
+  },
+  "observability": {
+    "event_stream_ref": "queue.streams.events",
+    "metrics": [
+      "stream_queue_depth",
+      "active_workers"
+    ],
+    "structured_logs": true,
+    "trace_propagation": true
+  },
+  "profiles": {
+    "local_small": {
+      "max_embedding_workers": 1,
+      "max_firecracker_vms": 0,
+      "max_llm_workers": 1,
+      "max_wolfram_kernels": 0,
+      "max_workers": 2,
+      "memory_reserve": "2GiB",
+      "min_workers": 0,
+      "prefer_remote_over_local_when_oom_risk": true,
+      "vram_reserve": "0GiB",
+      "worker_cpu_limit": 2,
+      "worker_memory_limit": "2GiB"
+    }
+  },
+  "queue": {
+    "connection_env": "UTAG_REDIS_URL",
+    "consumer_group": "utag-workers",
+    "consumer_name_template": "{hostname}-{pid}-{worker_index}",
+    "delivery": "at_least_once",
+    "pointers_only": true,
+    "provider": "redis_streams",
+    "read": {
+      "batch_size": 1,
+      "block_timeout": "5s"
+    },
+    "recovery": {
+      "claim_command": "XAUTOCLAIM",
+      "claim_idle_after": "60s",
+      "reclaim_interval": "30s"
+    },
+    "retention": {
+      "approximate_max_entries": 100000
+    },
+    "streams": {
+      "dead_letters": "utag:dlq",
+      "evals": "utag:evals",
+      "events": "utag:events",
+      "ingest": "utag:ingest",
+      "jobs": "utag:jobs",
+      "validate": "utag:validate"
+    }
+  },
+  "retries": {
+    "backoff": {
+      "initial": "2s",
+      "maximum": "2m",
+      "strategy": "exponential_jitter"
+    },
+    "maximum_attempts": 3,
+    "retryable": [
+      "provider_timeout",
+      "worker_lost"
+    ],
+    "terminal": [
+      "schema_invalid",
+      "permission_denied"
+    ]
+  },
+  "scaling": {
+    "desired_workers": "clamp(min_workers, max_workers, ceil(queue_depth / target_jobs_per_worker))",
+    "enabled": true,
+    "guardrails": {
+      "drain_before_scale_down": true,
+      "maximum_failure_rate": 0.25,
+      "preserve_inflight_checkpoints": true,
+      "refuse_scale_up_when_memory_below_reserve": true,
+      "refuse_scale_up_when_vram_below_reserve": true,
+      "stop_claiming_before_oom": true,
+      "terminate_only_idle_workers": true
+    },
+    "poll_interval": "5s",
+    "scale_to_zero": true,
+    "signals": [
+      "queue_depth",
+      "oldest_job_age"
+    ],
+    "stabilization": {
+      "scale_down": "120s",
+      "scale_up": "15s"
+    },
+    "step_limits": {
+      "maximum_add_per_interval": 2,
+      "maximum_remove_per_interval": 1
+    },
+    "target_jobs_per_worker": 5,
+    "target_oldest_job_age": "30s"
+  },
+  "selection": {
+    "active_profile_env": "UTAG_AUTOSCALING_PROFILE",
+    "default_profile": "local_small"
+  },
+  "state": {
+    "artifact_store": {
+      "default_provider": "filesystem",
+      "port": "ArtifactStorePort",
+      "provider_env": "UTAG_ARTIFACT_STORE_PROVIDER",
+      "supported_providers": [
+        "filesystem"
+      ]
+    },
+    "job_store": {
+      "default_provider": "sqlite",
+      "port": "JobStorePort",
+      "provider_env": "UTAG_JOB_STORE_PROVIDER",
+      "supported_providers": [
+        "sqlite"
+      ]
+    },
+    "vector_store": {
+      "default_provider": "sqlite_vec",
+      "port": "VectorStorePort",
+      "provider_env": "UTAG_VECTOR_STORE_PROVIDER",
+      "supported_providers": [
+        "sqlite_vec"
+      ]
+    }
+  },
+  "template": {
+    "description": "example",
+    "id": "autoscaling/default",
+    "status": "canonical",
+    "strict": true,
+    "unknown_fields": "reject",
+    "version": "1.0.0"
+  },
+  "validation": {
+    "require_determinism_test": true,
+    "require_dlq_for_at_least_once_delivery": true,
+    "require_profile_resource_limits": true,
+    "require_scale_down_drain": true,
+    "require_schema_validation": true,
+    "require_unknown_field_rejection": true
+  }
+}

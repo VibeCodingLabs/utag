@@ -1,0 +1,28 @@
+[project]
+name = "utag-factory"
+version = "0.1.0"
+description = "utag internal automation factory: Redis Streams queue, sqlite-vec state, sandboxed autoscaling workers, Typer/FastAPI/FastMCP surfaces"
+requires-python = ">=3.12"
+dependencies = [
+    "utag-core",
+    "redis>=5,<7",
+    "sqlite-vec>=0.1.6",
+    "typer>=0.15,<1",
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+    "fastmcp>=2,<3",
+    "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+flash = ["runpod-flash>=1.16"]
+
+[project.scripts]
+utag-factory = "utag_factory.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/utag_factory"]

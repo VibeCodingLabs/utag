@@ -82,6 +82,10 @@ def validate_all(root: Path) -> list[str]:
         problems += [f"design-yaml: {e}" for e in validate_file("design-yaml", design)]
     else:
         problems.append("design.yaml missing at repo root")
+    autoscaling = root / "policies" / "autoscaling.yaml"
+    if autoscaling.is_file():
+        problems += [f"autoscaling-profile: {e}"
+                     for e in validate_file("autoscaling-profile", autoscaling)]
     return problems
 
 
