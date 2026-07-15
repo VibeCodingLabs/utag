@@ -250,6 +250,41 @@ def cmd_design(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_automation(a: argparse.Namespace) -> int:
+    from utag_core import automations as au
+
+    root = Path.cwd()
+    if a.automation_cmd == "list":
+        for aid, m in au.load_automations(root).items():
+            print(f"{aid:<24} {m.name}  ({len(m.entrypoints)} step(s))")
+        return 0
+    if a.automation_cmd == "validate":
+        try:
+            found = au.load_automations(root)
+        except Exception as e:  # noqa: BLE001
+            print(f"FAIL {e}", file=sys.stderr)
+            return 1
+        print(f"automation validate: {len(found)} manifest(s) valid")
+        return 0
+    if a.automation_cmd == "run":
+        manifests = au.load_automations(root)
+        if a.id not in manifests:
+            print(f"no automation {a.id!r}; known: {sorted(manifests)}", file=sys.stderr)
+            return 1
+        rc, rec = au.run_automation(manifests[a.id], root)
+        print(f"automation {a.id}: {'ok' if rc == 0 else f'failed (exit {rc})'}  "
+              f"run evidence: {rec.run_id}")
+        return rc
+    if a.automation_cmd == "doctor":
+        problems = au.automation_problems(root)
+        for p in problems:
+            print(f"FAIL {p}", file=sys.stderr)
+        print(f"automation doctor: {len(problems)} problem(s)")
+        return 1 if problems else 0
+    print("unknown automation command", file=sys.stderr)
+    return 1
+
+
 def cmd_autoresearch(a: argparse.Namespace) -> int:
     import yaml
 
@@ -513,6 +548,15 @@ def main(argv: list[str] | None = None) -> int:
         if default_out:
             dp.add_argument("--out", default=default_out)
     d.set_defaults(fn=cmd_design)
+
+    au_ = sub.add_parser("automation", help="schema-defined automations mapped 1:1 to workflows")
+    ausub = au_.add_subparsers(dest="automation_cmd", required=True)
+    ausub.add_parser("list")
+    ausub.add_parser("validate")
+    ausub.add_parser("doctor")
+    au_run = ausub.add_parser("run")
+    au_run.add_argument("id")
+    au_.set_defaults(fn=cmd_automation)
 
     ar_ = sub.add_parser("autoresearch", help="task engine: init/plan/execute/validate/report/receipt")
     arsub = ar_.add_subparsers(dest="ar_cmd", required=True)

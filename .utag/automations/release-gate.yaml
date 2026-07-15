@@ -1,0 +1,11 @@
+id: release-gate
+name: Full release quality gate
+version: 1.0.0
+kind: automation
+entrypoints:
+  - "uv run python scripts/run_quality_gate.py --release ci"
+test_files:
+  - tests/unit/test_automation_manifest.py
+  - tests/integration/test_automation_cli.py
+validation_gates:
+  - automation-doctor
