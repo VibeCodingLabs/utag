@@ -1,9 +1,9 @@
 [project]
 name = "utag"
-version = "2.15.0"
+version = "2.16.0"
 description = "Universal Typed Artifact Generator — provider-agnostic agent harness"
 requires-python = ">=3.12"
-dependencies = ["utag-core", "utag-generators", "utag-cli", "utag-worker", "utag-adapters", "utag-tui", "utag-veriforge"]
+dependencies = ["utag-core", "utag-generators", "utag-cli", "utag-worker", "utag-adapters", "utag-tui", "utag-veriforge", "utag-factory"]
 
 [tool.uv.workspace]
 members = ["packages/python/*"]
@@ -16,9 +16,10 @@ utag-worker = { workspace = true }
 utag-adapters = { workspace = true }
 utag-tui = { workspace = true }
 utag-veriforge = { workspace = true }
+utag-factory = { workspace = true }
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2"]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "fakeredis>=2.26,<3", "httpx>=0.27,<1"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

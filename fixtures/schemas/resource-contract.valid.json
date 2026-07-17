@@ -1,0 +1,6 @@
+{
+  "allow_remote": true,
+  "max_memory_bytes": 1073741824,
+  "max_output_bytes": 1048576,
+  "max_wall_time_s": 900
+}

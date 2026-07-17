@@ -1,0 +1,19 @@
+{
+  "__unknown_property__": true,
+  "attempts": 0,
+  "created_at": "2026-07-15T00:00:00Z",
+  "id": "job-0001",
+  "isolation": "bwrap",
+  "kind": "run-python",
+  "max_attempts": 3,
+  "payload_ref": "jobs/job-0001.json",
+  "payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "resources": {
+    "allow_remote": true,
+    "max_memory_bytes": 1073741824,
+    "max_output_bytes": 1048576,
+    "max_wall_time_s": 900
+  },
+  "status": "queued",
+  "updated_at": "2026-07-15T00:00:00Z"
+}

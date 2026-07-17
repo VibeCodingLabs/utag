@@ -1,0 +1,124 @@
+{
+  "$defs": {
+    "FailureClass": {
+      "enum": [
+        "provider_rate_limit",
+        "provider_timeout",
+        "worker_lost",
+        "transient_network",
+        "resource_temporarily_unavailable",
+        "schema_invalid",
+        "permission_denied",
+        "unsupported_capability",
+        "deterministic_failure_repeated"
+      ],
+      "title": "FailureClass",
+      "type": "string"
+    }
+  },
+  "$id": "https://utag.dev/schemas/dead-letter-entry.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attempts": {
+      "minimum": 1,
+      "title": "Attempts",
+      "type": "integer"
+    },
+    "execution_trace_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Execution Trace Ref"
+    },
+    "extensions": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extensions"
+    },
+    "failure_class": {
+      "$ref": "#/$defs/FailureClass"
+    },
+    "failure_fingerprint": {
+      "minLength": 1,
+      "title": "Failure Fingerprint",
+      "type": "string"
+    },
+    "original_job_pointer": {
+      "minLength": 1,
+      "title": "Original Job Pointer",
+      "type": "string"
+    },
+    "provider_history": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Provider History",
+      "type": "array"
+    },
+    "resource_usage": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "default": {},
+      "title": "Resource Usage",
+      "type": "object"
+    },
+    "schema_digest": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Schema Digest"
+    },
+    "validation_reports": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Validation Reports",
+      "type": "array"
+    },
+    "workflow_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Workflow Ref"
+    }
+  },
+  "required": [
+    "original_job_pointer",
+    "attempts",
+    "failure_class",
+    "failure_fingerprint"
+  ],
+  "title": "DeadLetterEntry",
+  "type": "object"
+}
