@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Improved all `.github/svg-banners/` SVGs with 10 strict Micro-UX and accessibility updates each. Enhancements include: `aria-labelledby`, `<title>` and `<desc>` tags, semantic `<g aria-hidden="true">` for decorative elements, `shape-rendering="geometricPrecision"`, `color-interpolation-filters="sRGB"`, structural bounding borders, deeply tested font-family fallback stacks, higher contrast base gradients, layered text-shadows for legibility against complex backgrounds, and drastically slowed animation timelines combined with strict `prefers-reduced-motion: reduce` overrides.
+
 ### Added
 - Added `.github/svg-banners/SKILL.md` strictly following the `agentskills.io` specification. It includes NL invocation triggers, lazy-loading patterns via progressive disclosure, and explicit instructions for generating Go CLI tools using `cobra-cli` and isolated `viper` instances to build customizable SVG spinners with dynamic flag bindings (`--size`, `--palette`, `--speed`, `--rotate`).
 
