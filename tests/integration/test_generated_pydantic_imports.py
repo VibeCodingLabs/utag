@@ -1,7 +1,6 @@
 """Generated Pydantic source must import and enforce constraints at runtime."""
 import importlib.util
 import sys
-from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
