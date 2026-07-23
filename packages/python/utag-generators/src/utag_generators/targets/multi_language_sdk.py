@@ -109,7 +109,7 @@ class GoSdkGenerator:
             path = op.path
             for p in op.request.path_params:
                 # very simplified replace
-                path = path.replace(f"{{{p.name}}}", f"%s")
+                path = path.replace(f"{{{p.name}}}", "%s")
                 
             path_args = ", ".join(p.name for p in op.request.path_params)
             if path_args:

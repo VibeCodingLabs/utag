@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 import utag_generators  # noqa: F401
-from utag_core.registry import GENERATORS, get_generator, get_validator
+from utag_core.registry import get_generator, get_validator
 from utag_generators.ingest import ingest_prompt_yaml
 from utag_generators.targets.prompt_yaml import PromptFile
 
